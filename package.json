@@ -1,0 +1,29 @@
+{
+  "name": "brownbag",
+  "version": "0.0.1",
+  "scripts": {
+    "serve": "npx live-server",
+    "build": "copy /Y * dist",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/homata/brownbag.git"
+  },
+  "author": "@homata",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.12.1",
+    "onsenui": "^2.10.10",
+    "kind-of": ">=6.0.3"
+  },
+  "devDependencies": {
+    "csv2json": "^2.0.2",
+    "gh-pages": "^2.2.0",
+    "live-server": "^1.2.1",
+    "push-dir": "^0.4.1",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}

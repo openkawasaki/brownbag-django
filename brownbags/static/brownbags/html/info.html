@@ -1,0 +1,233 @@
+<ons-page id="info-page">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>お店を探す</ons-back-button>
+        </div>
+        <div class="center"></div>
+    </ons-toolbar>
+
+    <ons-card>
+        <div class="camera">
+            <div class="focus"></div>
+        </div>
+    </ons-card>
+
+    <!--
+    <ons-card>
+        <div id="shop_image" class="image_center">
+        </div>
+    </ons-card>
+    -->
+    <ons-list-title id="shop_name"></ons-list-title>
+    <ons-list>
+        <ons-list-header>店舗概要</ons-list-header>
+        <ons-list-item id="shop_description"></ons-list-item>
+
+        <ons-list-header>お弁当・メニュー情報</ons-list-header>
+        <ons-list-item id="shop_menu"></ons-list-item>
+
+        <ons-list-header>ジャンル</ons-list-header>
+        <ons-list-item id="shop_genre"></ons-list-item>
+
+        <ons-list-header>電話番号</ons-list-header>
+        <ons-list-item id="shop_phone"></ons-list-item>
+
+        <ons-list-header>テイクアウト（持ち帰り）</ons-list-header>
+        <ons-list-item id="shop_takeaway"></ons-list-item>
+
+        <ons-list-header>デリバリーサービス（出前・配達）</ons-list-header>
+        <ons-list-item id="shop_delivery"></ons-list-item>
+
+        <ons-list-header>定休日</ons-list-header>
+        <ons-list-item id="shop_close_day"></ons-list-item>
+
+        <ons-list-header>営業時間</ons-list-header>
+        <ons-list-item id="shop_opening_hours"></ons-list-item>
+
+        <ons-list-header>Webサイト</ons-list-header>
+        <ons-list-item id="shop_website"></ons-list-item>
+
+        <ons-list-header>メモ</ons-list-header>
+        <ons-list-item id="shop_note"></ons-list-item>
+    </ons-list>
+
+    <ons-card>
+        <div id="info_map"></div>
+    </ons-card>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            var index = parseInt(this.data.index);
+            var item = getShopItem(index);
+
+            var lon = 0.0;
+            var lat = 0.0;
+            var name = "";
+            var addr = "";
+            var phone = "";
+            var category = "";
+            var genre = "";
+            var description = "";
+            var opening_hours = "";
+            var close_day = "";
+            var website   = "";
+            var note = "";
+            var menu = "";
+            var takeaway = "";
+            var delivery = "";
+
+            // item
+            if ("lon" in item)
+                lon =　item["lon"];
+            if ("lat" in item)
+                lat =　item["lat"];
+            if ("name" in item)
+                name = item["name"];
+            if ("addr" in item)
+                addr = item["addr"];
+            if ("phone" in item)
+                phone = item["phone"];
+            if ("category" in item)
+                category = item["category"];
+            if ("genre" in item)
+                genre = item["genre"];
+            if ("description" in item)
+                description = item["description"];
+            if ("opening_hours" in item)
+                opening_hours = item["opening_hours"];
+            if ("close_day" in item)
+                close_day = item["close_day"];
+            if ("website" in item)
+                website = item["website"];
+            if ("note" in item)
+                note = item["note"];
+            if ("menu" in item)
+                menu = item["menu"];
+            if ("takeaway" in item)
+                takeaway = item["takeaway"];
+            if ("delivery" in item)
+                delivery = item["delivery"];
+
+            // 店舗画像
+            //this.querySelector('#shop_image').innerHTML = '<img src="/static/brownbags/images/cook.png" width="50%">';
+
+            // 店名設定
+            this.querySelector('ons-toolbar .center').innerHTML = name;
+            this.querySelector('#shop_name').textContent = "店名： " + name;
+
+            // 店舗概要
+            this.querySelector('#shop_description').textContent = description;
+
+            // お弁当・メニュー情報
+            this.querySelector('#shop_menu').textContent = menu;
+
+            // カテゴリー
+            //this.querySelector('#shop_category').textContent = category;
+
+            // ジャンル
+            this.querySelector('#shop_genre').textContent = genre;
+
+            // 電話番号
+            this.querySelector('#shop_phone').innerHTML = '<address><a href="tel:' + phone + '">' + phone + '</a></address>';
+
+            // テイクアウト（持ち帰り）
+            this.querySelector('#shop_takeaway').textContent = takeaway;
+
+            // デリバリーサービス（出前・配達）
+            this.querySelector('#shop_delivery').textContent = delivery;
+
+            // 定休日
+            this.querySelector('#shop_close_day').textContent = close_day;
+            // 営業時間
+            this.querySelector('#shop_opening_hours').textContent = opening_hours;
+
+            // Webサイト>
+            if (website != null && website.length > 0) {
+                this.querySelector('#shop_website').innerHTML = '<a href="' + website + '">' + website + '</a>';
+            }
+
+            // メモ
+            this.querySelector('#shop_note').textContent = note;
+
+            // マップ
+            var map = L.map('info_map').setView([lat, lon], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            $.getJSON("/static/brownbags/data/kawasaki.geojson", function (data) {
+                var style = {
+                    "color": "#0000ff",
+                    "weight": 1.0,
+                    "fillOpacity": 0.0
+                };
+                L.geoJson(data, {
+                    style: style
+                }).addTo(map);
+            });
+
+            $.getJSON("/static/brownbags/data/yokohama.geojson", function (data) {
+                var style = {
+                    "color": "#ff00ff",
+                    "weight": 1.0,
+                    "fillOpacity": 0.0
+                };
+                L.geoJson(data, {
+                    style: style
+                }).addTo(map);
+            });
+
+            L.marker([lat, lon]).addTo(map)
+                    .bindPopup(name)
+                    .openPopup();
+
+            // Locate
+            var option = {
+                position: 'topright',
+                strings: {
+                    title: "現在地を表示",
+                    popup: "いまここ"
+                },
+                locateOptions: {
+                    maxZoom: 16
+                }
+            };
+            var lc = L.control.locate(option).addTo(map);
+        }
+    </script>
+
+    <style>
+        .image_center {
+            max-width: 50%;
+            margin: 0 auto;
+            text-align:center;
+            border: 1px;
+        }
+
+        #info_map {
+            z-index: 0;
+            width: 100%;
+            height: 400px;
+        }
+
+        .camera {
+             width: 100%;
+             height: 100%;
+             background-color: lightgrey;
+             vertical-align: middle;
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             align-items: center;
+        }
+
+        .focus {
+            width: 100px;
+            height: 100px;
+            border: 12px solid whitesmoke;
+            border-radius: 100%;
+        }
+
+    </style>
+
+</ons-page>

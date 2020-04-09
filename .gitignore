@@ -127,3 +127,21 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+node_modules
+
+### Private setting
+db.sqlite3
+
+__pycache__/
+*.orig
+*.00?
+~$*
+.metadata/
+*.SAVE/
+logs/
+tmp/
+
+.brownbag/
+.idea/
+.vscode/
+dist/

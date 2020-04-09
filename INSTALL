@@ -1,0 +1,49 @@
+Install
+===============
+
+### Setup
+
+```
+$ python -m venv .brownbag
+$ .brownbag\Scripts\activate
+$ python -m pip install --upgrade pip
+```
+
+```
+$ pip install -r requirements.txt
+
+$ pip install Django
+$ pip install djangorestframework
+$ pip install django-filter
+$ pip install django-bootstrap-form
+$ pip install dj-database-url
+$ pip install django-extensions
+$ pip install django-environ
+$ pip install gunicorn
+
+$ pip freeze > requirements.txt
+
+$ django-admin.exe startproject config  .
+
+$ python manage.py migrate
+
+$ python manage.py startapp brownbags
+
+$ python manage.py makemigrations brownbags
+$ python manage.py migrate brownbags
+
+$ python manage.py createsuperuser
+
+```
+
+### AUTH_USER_MODEL
+カスタムユーザモデルの定義は絶対にしよう！(AUTH_USER_MODEL)
+* [DjangoでUserモデルのカスタマイズ ](https://narito.ninja/blog/detail/39/)
+* [Django Userモデルへの参照方法（AUTH_USER_MODEL, get_user_modelの使い方）](https://djangobrothers.com/blogs/referencing_the_user_model/)
+
+1.直接Userを参照する
+2.AUTH_USER_MODELを参照する
+3.get_user_model( )で呼び出す
+
+
+$ python manage.py startapp accounts

@@ -1,0 +1,271 @@
+<ons-page id="list-page">
+    <!--
+    <p style="text-align: center; margin-top: 10px;">
+        <ons-search-input
+                placeholder="検索"
+                onchange="search(this.value)"
+        ></ons-search-input>
+    </p>
+    -->
+    <ons-list>
+        <ons-list-header>地域</ons-list-header>
+        <ons-list-item>
+            <div class="center">
+                <ons-select id="type-input" style="width:100%" onchange="selectArea(event)">
+                    <option value="">地域の指定なし</option>
+                    <option value="武蔵小杉・新丸子・元住吉">武蔵小杉・新丸子・元住吉</option>
+                    <option value="武蔵新城・武蔵中原">武蔵新城・武蔵中原</option>
+                    <option value="溝の口・梶ヶ谷・鷺沼">溝の口・梶ヶ谷・鷺沼</option>
+                    <option value="登戸・稲田堤">登戸・稲田堤</option>
+                    <option value="川崎・平間">川崎・平間</option>
+                    <option value="百合ヶ丘・新百合ヶ丘">百合ヶ丘・新百合ヶ丘</option>
+                    <option value="川崎市川崎区">川崎市川崎区</option>
+                    <option value="川崎市幸区">川崎市幸区</option>
+                    <option value="川崎市中原区">川崎市中原区</option>
+                    <option value="川崎市高津区">川崎市高津区</option>
+                    <option value="川崎市宮前区">川崎市宮前区</option>
+                    <option value="川崎市多摩区">川崎市多摩区</option>
+                    <option value="川崎市麻生区">川崎市麻生区</option>
+
+                    <option value="横浜市青葉区">横浜市青葉区</option>
+                    <option value="横浜市都筑区">横浜市都筑区</option>
+                    <option value="横浜市港北区">横浜市港北区</option>
+                    <option value="横浜市鶴見区">横浜市鶴見区</option>
+                    <option value="横浜市緑区">横浜市緑区</option>
+                    <option value="横浜市神奈川区">横浜市神奈川区</option>
+                    <option value="横浜市瀬谷区">横浜市瀬谷区</option>
+                    <option value="横浜市旭区">横浜市旭区</option>
+                    <option value="横浜市保土ケ谷区">横浜市保土ケ谷区</option>
+                    <option value="横浜市南区">横浜市南区</option>
+                    <option value="横浜市西区">横浜市西区</option>
+                    <option value="横浜市中区">横浜市中区</option>
+                    <option value="横浜市泉区">横浜市泉区</option>
+                    <option value="横浜市戸塚区">横浜市戸塚区</option>
+                    <option value="横浜市港南区">横浜市港南区</option>
+                    <option value="横浜市磯子区">横浜市磯子区</option>
+                    <option value="横浜市栄区">横浜市栄区</option>
+                    <option value="横浜市金沢区">横浜市金沢区</option>
+
+                    <option value="">その他</option>
+                </ons-select>
+            </div>
+        </ons-list-item>
+
+        <ons-list-header>カテゴリー</ons-list-header>
+        <ons-list-item>
+            <div class="center">
+                <ons-select id="type-input" style="width:100%" onchange="selectType(event)">
+                    <option value="none">
+                        なし
+                    </option>
+                    <option value="takeaway">
+                        テイクアウト（持ち帰り）
+                    </option>
+                    <option value="delivery">
+                        デリバリーサービス（出前・配達）
+                    </option>
+                    <option value="other">
+                        その他
+                    </option>
+                </ons-select>
+            </div>
+        </ons-list-item>
+
+        <ons-list-header>ジャンル</ons-list-header>
+        <ons-list-item>
+            <div class="center">
+                <ons-select id="menu-input" style="width:100%" onchange="selectMenu(event)" >
+                    <option value="lunchbox">
+                        お弁当・お惣菜
+                    </option>
+                    <option value="chinese">
+                        中華料理
+                    </option>
+                    <option value="japanese">
+                        和食・日本料理・お寿司
+                    </option>
+                    <option value="pizza">
+                        ピザ・パスタ
+                    </option>
+                    <option value="western">
+                        洋食・西洋料理・とんかつ
+                    </option>
+                    <option value="izakaya">
+                        居酒屋・ダイニングバー・焼鳥
+                    </option>
+                    <option value="ethnic">
+                        アジア・エスニック・カレー
+                    </option>
+                    <option value="steak">
+                        ステーキ・ハンバーグ・焼肉・ホルモン
+                    </option>
+                    <option value="fusion">
+                        創作料理・無国籍料理
+                    </option>
+                    <option value="ramen">
+                        ラーメン
+                    </option>
+                    <option value="cafe">
+                        カフェ・喫茶店
+                    </option>
+                    <option value="bar">
+                        バー・パブ・ラウンジ
+                    </option>
+                    <option value="sandwich">
+                        パン・サンドイッチ
+                    </option>
+                    <option value="sweets">
+                        スイーツ
+                    </option>
+                    <option value="supermarket">
+                        スーパーマーケット・コンビニエンスストア
+                    </option>
+                    <option value="other">
+                        その他
+                    </option>
+                </ons-select>
+            </div>
+        </ons-list-item>
+
+            <ons-list-header>店舗</ons-list-header>
+            <ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
+        </ons-list>
+
+        <script>
+            function search(value) {
+                var text = '検索文字: ' + value;
+                //ons.notification.alert(text);
+                ons.notification.toast(text, { timeout: 1000, animation: 'fall' });
+            }
+            function selectArea(event) {
+                var value = event.target.value;
+                var message = value;
+
+                ons.notification.toast("現在開発中です。少しお待ちください", {timeout: 1000, animation: 'fall'});
+            }
+
+            function selectType(event) {
+                var value = event.target.value;
+                var message = "";
+                if (value === "none") {
+                    message = "なし";
+                } else if (value === "delivery") {
+                    message = "デリバリーサービス（出前・配達）";
+                } else if (value === "takeaway") {
+                    message = "テイクアウト（持ち帰り）";
+                }
+                ons.notification.toast("現在開発中です。少しお待ちください", { timeout: 1000, animation: 'fall' });
+            }
+
+            function selectMenu(event) {
+                var value = event.target.value;
+                var message = "";
+                if (value === "lunchbox") {
+                    message = "お弁当・お惣菜";
+                } else if (value === "chinese") {
+                    message = "中華料理";
+                } else if (value === "japanese") {
+                    message = "和食・日本料理・お寿司";
+                } else if (value === "pizza") {
+                    message = "ピザ・パスタ";
+                } else if (value === "western") {
+                    message = "洋食・西洋料理・とんかつ";
+                } else if (value === "izakaya") {
+                    message = "居酒屋・ダイニングバー・焼鳥";
+                } else if (value === "ethnic") {
+                    message = "アジア・エスニック・カレー";
+                } else if (value === "steak") {
+                    message = "ステーキ・ハンバーグ・焼肉・ホルモン";
+                } else if (value === "fusion") {
+                    message = "創作料理・無国籍料理";
+                } else if (value === "ramen") {
+                    message = "ラーメン";
+                } else if (value === "cafe") {
+                    message = "カフェ・喫茶店";
+                } else if (value === "bar") {
+                    message = "バー・パブ・ラウンジ";
+                } else if (value === "sandwich") {
+                    message = "パン・サンドイッチ";
+                } else if (value === "sweets") {
+                    message = "スイーツ";
+                } else if (value === "supermarket") {
+                    message = "スーパーマーケット・コンビニエンスストア";
+                } else if (value === "other") {
+                    message = "その他";
+                }
+                ons.notification.toast("現在開発中です。少しお待ちください", { timeout: 1000, animation: 'fall' });
+            }
+
+            // アクティブなタブが変わる前に発火します。
+            document.addEventListener('prechange', function(event) {
+                var infiniteList = document.getElementById('infinite-list');
+
+                infiniteList.delegate = {
+                    createItemContent: function(index) {
+                        return this.createItem(index);
+                    },
+                    countItems: function() {
+                        return getShopItemCount();
+                    },
+                    getItem: function (index) {
+                        var item = getShopItem(index);
+                        if (!item) {
+                            return null;
+                        }
+                        var imageurl = "/static/brownbags/images/shop.png";
+                        //var imageurl = "/image/IMG_4423.jpg";
+                        //var imageurl = "/image/shop.png";
+                        /*
+                        if (item["Cover"] !==　null && item["Cover"].length > 0) {
+                            //imageurl = item["Icon"];
+                            imageurl = "cook.jpg"
+                        }
+                        */
+
+                        var name = "";
+                        if ("name" in item)
+                            name = item["name"];
+
+                        var phone = "";
+                        if ("phone" in item)
+                            phone = item["phone"];
+
+                        var genre = "";
+                        if ("genre" in item)
+                            genre = item["genre"];
+
+                        //console.log("getItem0: " + JSON.stringify(item));
+                        var data = {
+                            name: name,
+                            url: imageurl,
+                            phone: phone,
+                            genre: genre
+                        };
+                        //console.log("getItem1: " + JSON.stringify(data));
+                        return data;
+                    },
+                    createItem: function (index) {
+                        var item = this.getItem(index);
+                        if (!item) {
+                            return null;
+                        }
+                        //console.log("createItem: " + JSON.stringify(item));
+
+                        return ons.createElement(`
+                            <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${index}'})" modifier="chevron">
+                                <div class="left">
+                                    <img class="list-item__thumbnail" src="${item.url}">
+                                </div>
+                                <div class="center">
+                                    <span class="list-item__title">${item.name}</span><span class="list-item__subtitle">${item.genre}<br><a href='tel:${item.phone}'>${item.phone}</a></span>
+                                </div>
+                            </ons-list-item>
+                        `);
+                    },
+                };
+
+                infiniteList.refresh();
+            });
+        </script>
+
+    </ons-page>
