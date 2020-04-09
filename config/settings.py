@@ -40,6 +40,12 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
 ]
 
+if DEBUG:
+    INSTALLED_APPS += [
+        'django_extensions',
+        #'debug_toolbar',
+    ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -49,6 +55,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# for DEBUG
+'''
+if DEBUG:
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+'''
 
 ROOT_URLCONF = 'config.urls'
 
@@ -137,3 +151,83 @@ MEDIA_URL = '/uploads/'
 # accountsというアプリケーションです
 # see also: DjangoでUserモデルのカスタマイズ <https://narito.ninja/blog/detail/39/>
 AUTH_USER_MODEL = 'accounts.User'
+
+# LOGGING
+# ------------------------------------------------------------------------------
+
+LOGGING_PATH = os.path.join(BASE_DIR, 'logs', 'uploads')
+LOGGING_FILE = 'app.log'
+
+if os.name == 'nt':
+    LOGGING = {
+        'version': 1,   # これを設定しないと怒られる
+        'formatters': {
+            'all': {
+                'format': ':'.join([
+                    "[%(levelname)s]",
+                    "%(asctime)s",
+                    "%(process)d",
+                    "%(thread)d",
+                    "%(message)s",
+                ])
+            },
+        },
+        'handlers': {
+            'console': {  # 標準出力
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'all',
+            },
+        },
+        'loggers': {
+            'common': {  # commandという名前のloggerを定義
+                'handlers': ['console'],
+                'level': 'DEBUG',
+            },
+            'api': {  # detectionという名前のloggerを定義
+                'handlers': ['console'],
+                'level': 'DEBUG',
+            }
+        },
+    }
+else:
+    LOGGING = {
+        'version': 1,   # これを設定しないと怒られる
+        'formatters': {
+            'all': {
+                'format': ':'.join([
+                    "[%(levelname)s]",
+                    "%(asctime)s",
+                    "%(process)d",
+                    "%(thread)d",
+                    "%(message)s",
+                ])
+            },
+        },
+        'handlers': {
+            'file_time_rotation': { # 時刻ローテート
+                'level': 'DEBUG',
+                'class': 'logging.handlers.TimedRotatingFileHandler',
+                'filename': os.path.join(LOGGING_PATH, LOGGING_FILE),
+                'formatter': 'all',
+                'when': 'D',
+                'interval': 1,
+                #'backupCount': 30,
+            },
+            'console': { # 標準出力
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'all',
+            },
+        },
+        'loggers': {
+            'common': {  # commandという名前のloggerを定義
+                'handlers': ['file_time_rotation', 'console' ],
+                'level': 'DEBUG',
+            },
+            'api': {  # detectionという名前のloggerを定義
+                'handlers': ['file_time_rotation', 'console'],
+                'level': 'DEBUG',
+            },
+        },
+    }

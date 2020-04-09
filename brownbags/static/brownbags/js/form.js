@@ -1,4 +1,4 @@
-function form_read() {
+function form_read(type) {
     var agreement = $('#agreement').prop('checked');
     var mail = $('#mail').val();
 
@@ -6,11 +6,26 @@ function form_read() {
     var description = $('#description').val();
 
     var addr_sel = $('#addr-sel').val();
-    var addr = $('addr').val();
+    var addr = $('#addr').val();
 
     var area_sel = $('#area-sel').val();
 
-    var takeaway      = $('input[name="takeaway"]:checked').val();
+    // 要素を取得
+    //var takeaway      = $('input[name="takeaway"]:checked').val();
+    var elements = document.getElementsByName("takeaway");
+    for ( var a="", i=elements.length; i--; ) {
+        if ( elements[i].checked ) {
+            var a = elements[i].value;
+            break ;
+        }
+    }
+    var takeaway = "";
+    if ( a === "" ) {
+        takeaway = "";
+    } else {
+        takeaway = a;
+    }
+
     var takeaway_menu = $('#takeaway_menu').val();
     var takeaway_note = $('#takeaway_note').val();
 
@@ -79,7 +94,19 @@ function form_read() {
     }
     var images = { name:name_image_list, takeaway:takeaway_image_list, delivery:delivery_image_list };
 
+    if (!agreement) {
+        ons.notification.toast("投稿の注意点に同意をしてください。", { timeout: 1000, animation: 'fall' });
+        return;
+    } else if (mail === null || mail.length <= 0) {
+        ons.notification.toast("投稿者の連絡先メールアドレスがありません。", { timeout: 1000, animation: 'fall' });
+        return;
+    } else if (name === null || name.length <= 0) {
+        ons.notification.toast("店名がありません。", { timeout: 1000, animation: 'fall' });
+        return;
+    }
+
     var jsondata = {
+        type: type,
         agreement: agreement,
         mail: mail,
         name: name,
@@ -128,6 +155,10 @@ function form_read() {
         images: images
     };
 
+    post("/api/v1.0/shop/ ", jsondata, form_read_done);
     console.log("form_read(): " + JSON.stringify(jsondata));
-    return jsondata;
+}
+
+function form_read_done(data) {
+    ons.notification.toast("登録完了", { timeout: 1000, animation: 'fall' });
 }

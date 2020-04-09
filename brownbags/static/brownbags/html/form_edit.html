@@ -145,14 +145,14 @@
 
         <ons-list-item>
             <label class="radio-button radio-button--material">
-                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="対応している"　checked="checked">
+                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="対応している" checked="checked">
                 <div class="radio-button__checkmark radio-button--material__checkmark"></div>
                 対応している
             </label>
         </ons-list-item>
         <ons-list-item>
             <label class="radio-button radio-button--material">
-                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway"　value="対応してない"　id="takeaway_ng">
+                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="対応してない" id="takeaway_ng">
                 <div class="radio-button__checkmark radio-button--material__checkmark"></div>
                 対応してない
             </label>
@@ -388,12 +388,13 @@
     </div>
 
     <script>
+        var send_type = 0;
         ons.getScriptPage().onInit = function () {
             var title = this.data.title;
             this.querySelector('ons-toolbar .center').innerHTML = title;
 
-            var index = parseInt(this.data.index);
-            if (index == 0) {
+            send_type = parseInt(this.data.index);
+            if (send_type == 0) {
                 this.querySelector('#agreement_text').textContent = "掲載に際して、ホームページやSNSなどの情報や画像を転用することを許可いただけますか？";
             } else { // index == 1
                 this.querySelector('#agreement_text').textContent = "お店のオーナー様やお店の関係者様に掲載の件でお声がけと許可をいただいていますか？";
@@ -403,8 +404,7 @@
         };
 
         function send() {
-            form_read();
-            ons.notification.toast("送信", { timeout: 1000, animation: 'lift' });
+            form_read(send_type);
         }
 
         // アップロード用ファイルの登録：店の画像
