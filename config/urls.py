@@ -25,6 +25,8 @@ from django.views.generic.base import RedirectView
 
 from django.utils.translation   import ugettext as _, ugettext_lazy
 
+import config.settings as settings
+
 #----------------------
 # Change admin site title
 #----------------------
@@ -52,3 +54,9 @@ if settings.DEBUG:
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 """
+
+## https://stackoverflow.com/questions/28007770/how-to-to-make-a-file-private-by-securing-the-url-that-only-authenticated-users/28008035
+if settings.DEBUG:
+    #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

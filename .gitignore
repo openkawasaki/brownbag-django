@@ -145,3 +145,5 @@ tmp/
 .idea/
 .vscode/
 dist/
+media/
+

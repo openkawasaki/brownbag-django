@@ -4,7 +4,35 @@ from django.utils import timezone
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext as _
 
-# Create your models here.
+import config.settings as settings
+import logging
+logger = logging.getLogger('api')
+import traceback
+
+from django.utils import timezone
+#from django.contrib.auth.models import Group
+from datetime import datetime,timedelta
+
+from django.core.files.base import ContentFile
+import os
+import base64
+import six
+#import uuid
+
+from io import BytesIO
+from PIL import Image
+
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
+
+# 区分
+IMAGE_DATA_CLASS = (
+    (0, 'その他'),
+    (1, '店舗'),
+    (2, 'テイクアウト'),
+    (3, 'デリバリー'),
+    (-1, '---'),
+)
 
 #-------------------------------------------------------
 class Shop(models.Model):
@@ -67,11 +95,16 @@ class Shop(models.Model):
 
     note = models.TextField('note', max_length=512, blank=True, null=False, default="")
 
-    image_name     = models.CharField('image_name',     max_length=102400, blank=False, null=True, default=None)
-    image_takeaway = models.CharField('image_takeaway', max_length=102400, blank=False, null=True, default=None)
-    image_delivery = models.CharField('image_delivery', max_length=102400, blank=False, null=True, default=None)
+    #image_name     = models.CharField('image_name',     max_length=102400, blank=False, null=True, default=None)
+    #image_takeaway = models.CharField('image_takeaway', max_length=102400, blank=False, null=True, default=None)
+    #image_delivery = models.CharField('image_delivery', max_length=102400, blank=False, null=True, default=None)
 
-    # 作成・修正
+    ## 各種ステータス情報
+    expired_shop_date = models.DateTimeField(blank=False, null=True) # お店無効
+    closes_shop_date = models.DateTimeField(blank=False, null=True) # お店休止・閉店
+    soldout_takeaway_date = models.DateTimeField(blank=False, null=True) # テイクアウト売り切れ
+    soldout_delivery_date = models.DateTimeField(blank=False, null=True) # デリバリー売り切れ
+
     created_date = models.DateTimeField('作成日', default=timezone.now)
     update_date  = models.DateTimeField('修正日', blank=True, null=True)
 
@@ -84,3 +117,169 @@ class Shop(models.Model):
 
     def __str__(self):
         return self.name
+
+# ----------------------------------
+def image_get_default_data(width=None, height=None):
+    '''
+    デフォルトイメージ取得
+    :param width:
+    :param height:
+    :return:
+    '''
+    try:
+        pathname = os.path.join(settings.BASE_DIR, 'static', 'brownbags', 'images', 'none.png')
+
+        if width is not None and height is not None:
+            image_data_str = image_as_base64(pathname, width, height)
+        else:
+            image_data_str = image_as_base64(pathname)
+
+        if image_data_str is None:
+            image_data_str = ""
+
+        return image_data_str
+
+    except Exception as e:
+        logger.error('system error: %s' % e)
+        traceback.print_exc()
+        return ""
+
+#------------------------------------------------------
+def image_as_base64(image_file, width=None, height=None):
+    """
+    :param image_file: `image_file` for the complete path of image.
+    :param width:
+    :param height:
+    :return: base64 string data
+    """
+
+    try:
+        if not os.path.isfile(image_file):
+            return None
+
+        if width is not None and height is not None:
+            img = Image.open(image_file)
+
+            format = img.format
+
+            img_resize = img.resize((width, height))
+
+            buffered = BytesIO()
+            img_resize.save(buffered, format=format)
+            img_str = base64.b64encode(buffered.getvalue())
+            image_string = img_str.decode('utf-8')
+
+            return 'data:image/%s;base64,%s' % (format, image_string)
+
+        else:
+            with open(image_file, 'rb') as img_f:
+                decoded_file = img_f.read()
+                extension = get_file_extension(image_file, decoded_file)
+                encoded_string = base64.b64encode(decoded_file)
+                image_string   = encoded_string.decode('utf-8')
+
+            return 'data:image/%s;base64,%s' % (extension, image_string)
+
+    except Exception as e:
+        logger.error('system error: %s' % e)
+        traceback.print_exc()
+        raise Exception("image_as_base64() error: " + image_file)
+
+#------------------------------------------------------
+def get_file_extension(file_name, decoded_file):
+    """
+    :param `file_name` for the complete path of image.
+    :param `decoded_file` is image data
+    """
+    import imghdr
+
+    extension = imghdr.what(file_name, decoded_file)
+    extension = "jpg" if extension == "jpeg" else extension
+
+    return extension
+
+#------------------------------------------------------
+class ImageData(models.Model):
+    '''
+    画像データ
+    '''
+    class Meta:
+        verbose_name = _('画像')
+        verbose_name_plural = _('画像')
+
+    shop = models.ForeignKey(Shop, verbose_name='Shop', related_name='image', on_delete=models.CASCADE)
+
+    # https://qiita.com/kojionilk/items/da20c732642ee7377a78
+    image_data = models.ImageField(_('画像'), upload_to='images/',  default="/static/brownbags/images/none.png", blank=True, null=True)  # 画像
+    image_data_thumbnail = ImageSpecField(source='image_data', processors=[ResizeToFill(80, 80)], format='JPEG', options={'quality': 60})
+
+    image_data_class = models.IntegerField("区分", choices=IMAGE_DATA_CLASS, default=-1)
+
+    expired_date = models.DateTimeField(blank=False, null=True)
+
+    created_date = models.DateTimeField(default=timezone.now)
+    update_date  = models.DateTimeField(blank=True, null=True)
+
+    def get_pathname(self):
+        """
+        get file path name
+        """
+        return self.image_data.path
+
+    def get_cover_base64(self, width=None, height=None):
+        """
+        convert to base64
+        """
+        return image_as_base64(self.image_data.path, width, height)
+
+    def decode_base64_file(self, image_id, data):
+        """
+        Save Base64 String into Django ImageField
+        https://stackoverflow.com/questions/36993615/save-base64-string-into-django-imagefield
+        """
+
+        # Check if this is a base64 string
+        if isinstance(data, six.string_types):
+            # Check if the base64 string is in the "data:" format
+            if 'data:' in data and ';base64,' in data:
+                # Break out the header from the base64 content
+                header, data = data.split(';base64,')
+
+            # Try to decode the file. Return validation error if it fails.
+            decoded_file = None
+            try:
+                decoded_file = base64.b64decode(data)
+            except TypeError:
+                TypeError('invalid_image')
+
+            # Generate file name:
+            #file_name = str(uuid.uuid4())[:12]  # 12 characters are more than enough.
+            file_name = datetime.now().strftime("%Y%m%d%H%M%S%f")  # マイクロ秒まで
+            # Get the file name extension:
+            file_extension = get_file_extension(file_name, decoded_file)
+
+            complete_file_name = "%s.%s" % (file_name, file_extension,)
+
+            #timestamp = datetime.now()
+            #year = timestamp.strftime("%Y")
+            #month = timestamp.strftime("%m")
+            #day = timestamp.strftime("%d")
+            complete_file_path = os.path.join(str(image_id), complete_file_name)
+
+            return ContentFile(decoded_file, name=complete_file_path)
+
+    def get_name(self):
+        return self.shop.name
+
+    get_name.short_description = 'name'
+
+    def to_dict(self):
+        return model_to_dict(self)
+
+    def update(self):
+        self.update_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.shop.name
+
