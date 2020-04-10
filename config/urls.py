@@ -47,15 +47,12 @@ urlpatterns = [
     path('', include('brownbags.urls'), name='brownbags'),
 ]
 
-"""
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
-"""
 
-## https://stackoverflow.com/questions/28007770/how-to-to-make-a-file-private-by-securing-the-url-that-only-authenticated-users/28008035
 if settings.DEBUG:
     #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

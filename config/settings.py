@@ -40,12 +40,6 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
 ]
 
-if DEBUG:
-    INSTALLED_APPS += [
-        'django_extensions',
-        #'debug_toolbar',
-    ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,12 +51,25 @@ MIDDLEWARE = [
 ]
 
 # for DEBUG
-'''
 if DEBUG:
+    def show_toolbar(request):
+        return True
+
+    INSTALLED_APPS += [
+        'django_extensions',
+        'debug_toolbar',
+    ]
+
     MIDDLEWARE += [
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     ]
-'''
+
+    def show_toolbar(request):
+            return True
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+    }
 
 ROOT_URLCONF = 'config.urls'
 
@@ -134,7 +141,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'contrib'),
+    #os.path.join(BASE_DIR, 'contrib'),
 )
 
 STATICFILES_FINDERS = (
