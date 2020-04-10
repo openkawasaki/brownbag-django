@@ -25,13 +25,69 @@ from PIL import Image
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
+# データタイプ
+DATA_TYPE_CLASS = (
+    (0, 'オーナー'),
+    (1, 'ユーザー'),
+    (-1, '---'),
+)
+
 # 区分
 IMAGE_DATA_CLASS = (
     (0, 'その他'),
     (1, '店舗'),
     (2, 'テイクアウト'),
-    (3, 'デリバリー'),
     (-1, '---'),
+)
+
+# ジャンル
+GENRE_CLASS = (
+    (0, 'その他'),
+    (1, 'お弁当・お惣菜'),
+    (2, '中華料理'),
+    (3, '和食・日本料理・お寿司'),
+    (4, 'ピザ・パスタ'),
+    (5, '洋食・西洋料理・とんかつ'),
+    (6, '居酒屋・ダイニングバー・焼鳥'),
+    (7, 'アジア・エスニック・カレー'),
+    (8, 'ステーキ・ハンバーグ・焼肉・ホルモン'),
+    (9, '創作料理・無国籍料理'),
+    (10, 'ラーメン'),
+    (11, 'カフェ・喫茶店'),
+    (12, 'バー・パブ・ラウンジ'),
+    (13, 'パン・サンドイッチ'),
+    (14, 'スイーツ'),
+    (15, 'スーパーマーケット・コンビニエンスストア'),
+    (-1, 'ジャンルなし'),
+)
+
+# 地域
+AREA_CLASS = (
+    (0, 'その他'),
+    (1, '武蔵小杉・新丸子・元住吉'),
+    (2, '武蔵新城・武蔵中原'),
+    (3, '溝の口・梶ヶ谷・鷺沼'),
+    (4, '登戸・稲田堤'),
+    (5, '川崎・平間'),
+    (6, '百合ヶ丘・新百合ヶ丘'),
+    (-1,'地域の指定なし'),
+)
+
+# カテゴリー
+CATEGORY_CLASS = (
+    (0, 'その他'),
+    (1, 'テイクアウト（持ち帰り）'),
+    (2, 'デリバリーサービス（出前・配達）'),
+    (-1,'指定なし'),
+)
+
+# テイクアウト（持ち帰り）
+TAKEAWAY_CLASS= (
+    (0, 'その他'),
+    (1, '対応している'),
+    (2, '対応してない'),
+    (3, '準備中'),
+    (-1,'指定なし'),
 )
 
 #-------------------------------------------------------
@@ -43,28 +99,30 @@ class Shop(models.Model):
         verbose_name = _('店')  # オブジェクトの人間が読める名前(単数)小文字でよい
         verbose_name_plural = _('店')  # オブジェクトの複数の名前 小文字でよい
 
-    type = models.IntegerField('type', blank=False, null=False, default=0)
+    type = models.IntegerField("type", choices=DATA_TYPE_CLASS, default=-1)
 
     agreement = models.BooleanField('agreement', blank=False, null=False, default=False)
 
-    mail = models.CharField('mail', max_length=256, blank=False, null=True, default=None)
-    name = models.CharField('name', max_length=256, blank=False, null=True, default=None, unique=True)
+    mail = models.CharField('mail', max_length=512, blank=False, null=True, default=None)
+    name = models.CharField('name', max_length=512, blank=False, null=True, default=None, unique=True)
+
+    genre_sel = models.IntegerField("genre_sel", choices=GENRE_CLASS, default=-1)
 
     description = models.CharField('description', max_length=256, blank=False, null=True, default=None)
     addr_sel    = models.CharField('addr_sel', max_length=256, blank=False, null=True, default=None)
     addr        = models.CharField('addr', max_length=256, blank=False, null=True, default=None)
 
-    area_sel    = models.CharField('area_sel', max_length=256, blank=False, null=True, default=None)
-    takeaway    = models.CharField('takeaway', max_length=256, blank=False, null=True, default=None)
-    takeaway_menu = models.CharField('takeaway_menu', max_length=256, blank=False, null=True, default=None)
-    takeaway_note = models.CharField('takeaway_note', max_length=256, blank=False, null=True, default=None)
+    area_sel    = models.IntegerField("area_sel", choices=AREA_CLASS, default=-1)
+
+    takeaway_sel  = models.IntegerField("takeaway_sel", choices=TAKEAWAY_CLASS, default=-1)
+    takeaway_menu = models.TextField('takeaway_menu', max_length=1024, blank=True, null=False, default="")
+    takeaway_note = models.CharField('takeaway_note', max_length=512, blank=False, null=True, default=None)
 
     delivery_demaekan = models.BooleanField('delivery_demaekan', blank=False, null=False, default=False)
     delivery_ubereats = models.BooleanField('delivery_ubereats', blank=False, null=False, default=False)
     delivery_own      = models.BooleanField('delivery_own', blank=False, null=False, default=False)
     delivery_other    = models.BooleanField('delivery_other', blank=False, null=False, default=False)
-    delivery_menu = models.CharField('delivery_menu', max_length=256, blank=False, null=True, default=None)
-    delivery_note = models.CharField('delivery_note', max_length=256, blank=False, null=True, default=None)
+    delivery_note     = models.TextField('delivery_note', max_length=512, blank=True, null=False, default="")
 
     phone = models.CharField('phone', max_length=256, blank=False, null=True, default=None)
     opening_hours = models.CharField('opening_hours', max_length=256, blank=False, null=True, default=None)
@@ -74,9 +132,9 @@ class Shop(models.Model):
     payment_card = models.BooleanField('payment_card', blank=False, null=False, default=False)
     payment_qr   = models.BooleanField('payment_qr', blank=False, null=False, default=False)
     payment_emoney = models.BooleanField('payment_emoney', blank=False, null=False, default=False)
-    payment_note = models.CharField('payment_note', max_length=256, blank=False, null=True, default=None)
+    payment_note = models.TextField('payment_note', max_length=512, blank=True, null=False, default="")
 
-    website     = models.CharField('website', max_length=256, blank=False, null=True, default=None)
+    website     = models.CharField('website', max_length=1024, blank=False, null=True, default=None)
 
     twitter   = models.CharField('twitter', max_length=256, blank=False, null=True, default=None)
     facebook  = models.CharField('facebook', max_length=256, blank=False, null=True, default=None)
@@ -85,19 +143,14 @@ class Shop(models.Model):
     sns_other = models.CharField('sns_other', max_length=256, blank=False, null=True, default=None)
 
     transportation = models.CharField('transportation', max_length=256, blank=False, null=True, default=None)
-    diet_note    = models.CharField('diet_note', max_length=256, blank=False, null=True, default=None)
-    allergy_note = models.CharField('allergy_note', max_length=256, blank=False, null=True, default=None)
+    diet_note    = models.TextField('diet_note', max_length=512, blank=True, null=False, default="")
+    allergy_note = models.TextField('allergy_note', max_length=512, blank=True, null=False, default="")
 
     latitude  = models.FloatField('latitude', blank=False, null=False, default=0.0)
     longitude = models.FloatField('longitude', blank=False, null=False, default=0.0)
 
-    covid19 = models.CharField('covid19', max_length=256, blank=False, null=True, default=None)
-
-    note = models.TextField('note', max_length=512, blank=True, null=False, default="")
-
-    #image_name     = models.CharField('image_name',     max_length=102400, blank=False, null=True, default=None)
-    #image_takeaway = models.CharField('image_takeaway', max_length=102400, blank=False, null=True, default=None)
-    #image_delivery = models.CharField('image_delivery', max_length=102400, blank=False, null=True, default=None)
+    covid19 = models.TextField('covid19', max_length=512, blank=True, null=False, default="")
+    note    = models.TextField('note', max_length=512, blank=True, null=False, default="")
 
     ## 各種ステータス情報
     expired_shop_date = models.DateTimeField(blank=False, null=True) # お店無効
@@ -209,11 +262,10 @@ class ImageData(models.Model):
 
     shop = models.ForeignKey(Shop, verbose_name='Shop', related_name='image', on_delete=models.CASCADE)
 
-    # https://qiita.com/kojionilk/items/da20c732642ee7377a78
     image_data = models.ImageField(_('画像'), upload_to='images/',  default="/static/brownbags/images/none.png", blank=True, null=True)  # 画像
     image_data_thumbnail = ImageSpecField(source='image_data', processors=[ResizeToFill(80, 80)], format='JPEG', options={'quality': 60})
 
-    image_data_class = models.IntegerField("区分", choices=IMAGE_DATA_CLASS, default=-1)
+    image_data_class = models.IntegerField("クラス", choices=IMAGE_DATA_CLASS, default=-1)
 
     expired_date = models.DateTimeField(blank=False, null=True)
 
@@ -233,11 +285,6 @@ class ImageData(models.Model):
         return image_as_base64(self.image_data.path, width, height)
 
     def decode_base64_file(self, image_id, data):
-        """
-        Save Base64 String into Django ImageField
-        https://stackoverflow.com/questions/36993615/save-base64-string-into-django-imagefield
-        """
-
         # Check if this is a base64 string
         if isinstance(data, six.string_types):
             # Check if the base64 string is in the "data:" format
@@ -253,17 +300,11 @@ class ImageData(models.Model):
                 TypeError('invalid_image')
 
             # Generate file name:
-            #file_name = str(uuid.uuid4())[:12]  # 12 characters are more than enough.
-            file_name = datetime.now().strftime("%Y%m%d%H%M%S%f")  # マイクロ秒まで
-            # Get the file name extension:
+            file_name = datetime.now().strftime("%Y%m%d%H%M%S%f")
             file_extension = get_file_extension(file_name, decoded_file)
 
             complete_file_name = "%s.%s" % (file_name, file_extension,)
 
-            #timestamp = datetime.now()
-            #year = timestamp.strftime("%Y")
-            #month = timestamp.strftime("%m")
-            #day = timestamp.strftime("%d")
             complete_file_path = os.path.join(str(image_id), complete_file_name)
 
             return ContentFile(decoded_file, name=complete_file_path)

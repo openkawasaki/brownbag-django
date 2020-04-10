@@ -25,10 +25,10 @@ function getShopItemCount() {
     return g_shop_list.length;
 }
 function readShopList() {
-    $.getJSON("/static/brownbags/data/data.json" , function(data) {
-        g_shop_list = data;
-        console.log("readShopList(): length=" +　getShopItemCount());
-    });
+    get("/api/v1.0/shop/", {}, readShopListDone);
+}
+function readShopListDone(data) {
+    g_shop_list = data["shop"];
 }
 
 //--------------------------

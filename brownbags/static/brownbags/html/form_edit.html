@@ -12,14 +12,15 @@
             <label class="checkbox checkbox--material">
                 <input id="agreement" type="checkbox" class="checkbox__input checkbox--material__input" required>
                 <div class="checkbox__checkmark checkbox--material__checkmark"></div>
-                <span id="agreement_text">
-                    掲載に際して、ホームページやSNSなどの情報や画像を転用することを許可いただけますか？
-                    お店のオーナー様やお店の関係者様に掲載の件でお声がけと許可をいただいていますか？
-                </span>
+                <span id="agreement_text"></span>
+                <div style="margin-top:10px">
+                登録をするコンテンツ（データ、情報、画像など）は「<a href="http://creativecommons.org/licenses/by/4.0/">クリエイティブ・コモンズ 表示 4.0 国際 ライセンス(完全な条項)</a>」の
+                下でのもとで公開することに承認をお願いします
+                </div>
             </label>
         </ons-list-item>
         <div style="font-size:small">
-        <span style="color: red"><b>※入力項目が多いですが、「必須」なのは、店名、投稿者の連絡先、テイクアウト情報、の3つだけです！</b><span>
+            <span style="color: red"><b>※入力項目が多いですが、「必須」なのは、店名、投稿者の連絡先、テイクアウト情報、の3つだけです！</b></span>
         </div>
     </ons-list>
 
@@ -34,33 +35,71 @@
         </div>
     </ons-list>
 
-    <ons-list-title>お店情報を入力</ons-list-title>
+    <ons-list-title>店舗情報を入力</ons-list-title>
     <ons-list>
-        <ons-list-header style="color:red"><b>店名&nbsp&nbsp;&lt;必須&gt;</b></ons-list-header>
+        <ons-list-header style="color:red"><b>店名：&nbsp&nbsp;&lt;必須&gt;</b></ons-list-header>
         <ons-list-item>
             <ons-input id="name" placeholder="お店の名前を入力してください" style="width:100%" required></ons-input>
         </ons-list-item>
-        <ons-list-header>お店の画像ファイルアップロード：</ons-list-header>
+
+        <ons-list-header>ジャンル</ons-list-header>
         <ons-list-item>
-            <div class="left">
-                <span class="button button--outline fileinput-button ">
-                    <span>画像選択</span>
-                    <input type="file" id="fileupload_name_name" name="file"></input>
-                </span>
-            </div>
-            <div class="center">
-                <button id="fileupload_name_cancel" class="button button--outline">キャンセル</button>
-            </div>
-        </ons-list-item>
-        <ons-list-item>
-            <div class="box">
-                <img id="fileupload_name_image" style="width:30vh;height:30vh;" />
-            </div>
+            <ons-select id="genre-sel" style="width:100%">
+                <option value="-1">ジャンルなし</option>
+                <option value="1">お弁当・お惣菜</option>
+                <option value="2">中華料理</option>
+                <option value="3">和食・日本料理・お寿司</option>
+                <option value="4">ピザ・パスタ</option>
+                <option value="5">洋食・西洋料理・とんかつ</option>
+                <option value="6">居酒屋・ダイニングバー・焼鳥</option>
+                <option value="7">アジア・エスニック・カレー</option>
+                <option value="8">ステーキ・ハンバーグ・焼肉・ホルモン</option>
+                <option value="9">創作料理・無国籍料理</option>
+                <option value="10">ラーメン</option>
+                <option value="11">カフェ・喫茶店</option>
+                <option value="12">バー・パブ・ラウンジ</option>
+                <option value="13">パン・サンドイッチ</option>
+                <option value="14">スイーツ</option>
+                <option value="15">スーパーマーケット・コンビニエンスストア</option>
+                <option value="0">その他</option>
+            </ons-select>
         </ons-list-item>
 
         <ons-list-header>店舗概要：</ons-list-header>
         <ons-list-item>
             <ons-input id="description" placeholder="店舗の概要やお店キャッチコピーみたいのを140文字以内でお書きください。" style="width:100%"></ons-input>
+        </ons-list-item>
+
+        <ons-list-header>店舗の画像ファイルをアップロード：画像は3個までです。</ons-list-header>
+        <ons-list-item>
+            <div class="left">
+                <span class="button button--outline fileinput-button ">
+                    <span>画像選択</span>
+                    <input type="file" id="fileupload_submit_name" name="file" multiple accept="image/*"></input>
+                </span>
+            </div>
+            <div class="center">
+                <button id="fileupload_cancel_name" class="button button--outline">キャンセル</button>
+            </div>
+        </ons-list-item>
+        <ons-list-item>
+            <ons-row>
+                <ons-col width="33%">
+                    <div class="box">
+                        <img id="fileupload_image_name0" style="width:30vh;" />
+                    </div>
+                </ons-col>
+                <ons-col width="33%">
+                    <div class="box">
+                        <img id="fileupload_image_name1" style="width:30vh;" />
+                    </div>
+                </ons-col>
+                <ons-col width="33%">
+                    <div class="box">
+                        <img id="fileupload_image_name2" style="width:30vh;" />
+                    </div>
+                </ons-col>
+            </ons-row>
         </ons-list-item>
 
         <ons-list-header>店舗住所：</ons-list-header>
@@ -101,42 +140,17 @@
                 <ons-input id="addr" placeholder="お店の市区町村以下の住所を入力してください・" style="width:100%"></ons-input>
         </ons-list-item>
 
-        <ons-list-header>地域：</ons-list-header>
+        <ons-list-header>店舗の地域：</ons-list-header>
         <ons-list-item>
             <ons-select id="area-sel" style="width:100%">
-                <option value="">地域の指定なし</option>
-                <option value="武蔵小杉・新丸子・元住吉">武蔵小杉・新丸子・元住吉</option>
-                <option value="武蔵新城・武蔵中原">武蔵新城・武蔵中原</option>
-                <option value="溝の口・梶ヶ谷・鷺沼">溝の口・梶ヶ谷・鷺沼</option>
-                <option value="登戸・稲田堤">登戸・稲田堤</option>
-                <option value="川崎・平間">川崎・平間</option>
-                <option value="百合ヶ丘・新百合ヶ丘">百合ヶ丘・新百合ヶ丘</option>
-                <option value="川崎市川崎区">川崎市川崎区</option>
-                <option value="川崎市幸区">川崎市幸区</option>
-                <option value="川崎市中原区">川崎市中原区</option>
-                <option value="川崎市高津区">川崎市高津区</option>
-                <option value="川崎市宮前区">川崎市宮前区</option>
-                <option value="川崎市多摩区">川崎市多摩区</option>
-                <option value="川崎市麻生区">川崎市麻生区</option>
-                <option value="横浜市青葉区">横浜市青葉区</option>
-                <option value="横浜市都筑区">横浜市都筑区</option>
-                <option value="横浜市港北区">横浜市港北区</option>
-                <option value="横浜市鶴見区">横浜市鶴見区</option>
-                <option value="横浜市緑区">横浜市緑区</option>
-                <option value="横浜市神奈川区">横浜市神奈川区</option>
-                <option value="横浜市瀬谷区">横浜市瀬谷区</option>
-                <option value="横浜市旭区">横浜市旭区</option>
-                <option value="横浜市保土ケ谷区">横浜市保土ケ谷区</option>
-                <option value="横浜市南区">横浜市南区</option>
-                <option value="横浜市西区">横浜市西区</option>
-                <option value="横浜市中区">横浜市中区</option>
-                <option value="横浜市泉区">横浜市泉区</option>
-                <option value="横浜市戸塚区">横浜市戸塚区</option>
-                <option value="横浜市港南区">横浜市港南区</option>
-                <option value="横浜市磯子区">横浜市磯子区</option>
-                <option value="横浜市栄区">横浜市栄区</option>
-                <option value="横浜市金沢区">横浜市金沢区</option>
-                <option value="">その他</option>
+                <option value="-1">地域の指定なし</option>
+                <option value="1">武蔵小杉・新丸子・元住吉</option>
+                <option value="2">武蔵新城・武蔵中原</option>
+                <option value="3">溝の口・梶ヶ谷・鷺沼</option>
+                <option value="4">登戸・稲田堤</option>
+                <option value="5">川崎・平間</option>
+                <option value="6">百合ヶ丘・新百合ヶ丘</option>
+                <option value="0">その他</option>
             </ons-select>
         </ons-list-item>
 
@@ -145,45 +159,59 @@
 
         <ons-list-item>
             <label class="radio-button radio-button--material">
-                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="対応している" checked="checked">
+                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="1" id="takeaway_ok">
                 <div class="radio-button__checkmark radio-button--material__checkmark"></div>
                 対応している
             </label>
         </ons-list-item>
         <ons-list-item>
             <label class="radio-button radio-button--material">
-                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="対応してない" id="takeaway_ng">
+                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="2" id="takeaway_ng">
                 <div class="radio-button__checkmark radio-button--material__checkmark"></div>
                 対応してない
             </label>
         </ons-list-item>
         <ons-list-item>
             <label class="radio-button radio-button--material">
-                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="準備中" id="takeaway_no">
+                <input type="radio" class="radio-button__input radio-button--material__input" name="takeaway" value="3" id="takeaway_no">
                 <div class="radio-button__checkmark radio-button--material__checkmark"></div>
                 準備中
             </label>
         </ons-list-item>
 
-        <ons-list-header>テイクアウトの画像ファイルアップロード：</ons-list-header>
+        <ons-list-header>テイクアウト（持ち帰り）の画像ファイルアップロード：画像は3個までです。</ons-list-header>
         <ons-list-item>
             <div class="left">
                 <span class="button button--outline fileinput-button ">
                     <span>画像選択</span>
-                    <input type="file" id="fileupload_takeaway_name" name="file"></input>
-                </span>
+                    <input type="file" id="fileupload_submit_takeway" name="file" multiple accept="image/*"></input>
+               </span>
             </div>
             <div class="center">
-                <button id="fileupload_takeaway_cancel" class="button button--outline">キャンセル</button>
+                <button id="fileupload_cancel_takeway" class="button button--outline">キャンセル</button>
             </div>
         </ons-list-item>
         <ons-list-item>
-            <div class="box">
-                <img id="fileupload_takeaway_image" style="width:30vh;height:30vh;" />
-            </div>
+            <ons-row>
+                <ons-col width="33%">
+                    <div class="box">
+                        <img id="fileupload_image_takeway0" style="width:30vh;"/>
+                    </div>
+                </ons-col>
+                <ons-col width="33%">
+                    <div class="box">
+                        <img id="fileupload_image_takeway1" style="width:30vh;" />
+                    </div>
+                </ons-col>
+                <ons-col width="33%">
+                    <div class="box">
+                        <img id="fileupload_image_takeway2" style="width:30vh;" />
+                    </div>
+                </ons-col>
+            </ons-row>
         </ons-list-item>
         <ons-list-item>
-            <ons-input id="takeaway_menu" placeholder="テイクアウトメニューの内容（テキストの場合）" style="width:70%"></ons-input>
+            <textarea id="takeaway_menu" class="textarea textarea--transparent" rows="3" placeholder="テイクアウトメニューの内容（テキストの場合）" style="width:100%"></textarea>
         </ons-list-item>
         <ons-list-item>
             <ons-input id="takeaway_note" placeholder="テイクアウトに関するお伝えしたい事項（ex.事前にお電話ください、受付時間は●〜●です等）" style="width:70%"></ons-input>
@@ -222,52 +250,32 @@
                 その他
             </label>
         </ons-list-item>
-        <ons-list-header>デリバリーの画像ファイルアップロード：</ons-list-header>
-        <ons-list-item>
-            <div class="left">
-                <span class="button button--outline fileinput-button ">
-                    <span>画像選択</span>
-                    <input type="file" id="fileupload_delivery_name" name="file"></input>
-                </span>
-            </div>
-            <div class="center">
-                <button id="fileupload_delivery_cancel" class="button button--outline">キャンセル</button>
-            </div>
-        </ons-list-item>
-        <ons-list-item>
-            <div class="box">
-                <img id="fileupload_delivery_image" style="width:30vh;height:30vh;" />
-            </div>
-        </ons-list-item>
-        <ons-list-item>
-            <ons-input id="delivery_menu" placeholder="デリバリーサービス（出前・配達）の内容（テキストの場合）" style="width:70%"></ons-input>
-        </ons-list-item>
         <ons-list-item>
             <ons-input id="delivery_note" placeholder="デリバリーサービス（出前・配達）に関するお伝えしたい事項（ex.混雑時は時間がかかる場合があります、受付時間は●〜●です等）" style="width:70%"></ons-input>
         </ons-list-item>
 
-        <ons-list-header>お店の電話番号：</ons-list-header>
+        <ons-list-header>店舗の電話番号：</ons-list-header>
         <ons-list-item>
             <ons-input id="phone" placeholder="市外局番から入力してください。例）044-1234-xxxx" style="width:100%"></ons-input>
         </ons-list-item>
 
-        <ons-list-header>営業時間：</ons-list-header>
+        <ons-list-header>店舗の営業時間：</ons-list-header>
         <ons-list-item>
             <ons-input id="opening_hours" placeholder="営業時間を記述してください 　例）平日: 07:30-23:00、土曜日: 07:30-23:00、日曜・祝日: 07:30-23:00" style="width:100%"></ons-input>
         </ons-list-item>
 
-        <ons-list-header>定休日：</ons-list-header>
+        <ons-list-header>店舗の定休日：</ons-list-header>
         <ons-list-item>
             <ons-input id="close_day" placeholder="定休日を入力してください。" style="width:100%"></ons-input>
         </ons-list-item>
 
-        <ons-list-header>支払い方法：</ons-list-header>
+        <ons-list-header>対応している支払い方法：</ons-list-header>
         <ons-list-item tappable>
             <label class="left">
                 <ons-checkbox input-id="payment-check-cash"></ons-checkbox>
             </label>
             <label for="payment-check-cash" class="center">
-                現金のみ
+                現金
             </label>
         </ons-list-item>
         <ons-list-item tappable>
@@ -306,42 +314,42 @@
         <ons-list-header>SNS・その他リンク：</ons-list-header>
         <ons-list-item>
             <label class="left">
-                <span style="margin-right:10px; margin-left:10px">Twitter</span>
+                <span style="margin-right:10px; margin-left:10px"><ons-icon icon="fa-twitter-square" size="20px" style="margin-right:10px"></ons-icon>Twitter</span>
             </label>
             <div class="center">
-                <ons-input id="twitter_account" placeholder="Twtterアカウント名" style="width:70%"></ons-input>
+                <ons-input id="twitter_account" placeholder="Twtterアカウント名を入力してください" style="width:70%"></ons-input>
             </div>
         </ons-list-item>
         <ons-list-item>
             <label class="left">
-                <span style="margin-right:10px; margin-left:10px">Facebook</span>
+                <span style="margin-right:10px; margin-left:10px"><ons-icon icon="fa-facebook-square" size="20px" style="margin-right:10px"></ons-icon>Facebook</span>
             </label>
             <div class="center">
-                <ons-input id="facebook_account" placeholder="facebookアカウント名" style="width:70%"></ons-input>
+                <ons-input id="facebook_account" placeholder="facebookアカウント名を入力してください" style="width:70%"></ons-input>
             </div>
         </ons-list-item>
         <ons-list-item>
             <label class="left">
-                <span style="margin-right:10px; margin-left:10px">Instagram</span>
+                <span style="margin-right:10px; margin-left:10px"><ons-icon icon="fa-instagram" size="20px" style="margin-right:10px"></ons-icon>Instagram</span>
             </label>
             <div class="center">
-                <ons-input id="instagram_account" placeholder="Instagramアカウント名" style="width:70%"></ons-input>
+                <ons-input id="instagram_account" placeholder="Instagramアカウント名を入力してください" style="width:70%"></ons-input>
             </div>
         </ons-list-item>
         <ons-list-item>
             <label class="left">
-                <span style="margin-right:10px; margin-left:10px">LINE</span>
+                <span style="margin-right:10px; margin-left:10px"><ons-icon icon="fa-line" size="20px" style="margin-right:10px"></ons-icon>LINE</span>
             </label>
             <div class="center">
-                <ons-input id="line_account" placeholder="LINEアカウント名" style="width:70%"></ons-input>
+                <ons-input id="line_account" placeholder="LINEアカウント名を入力してください" style="width:70%"></ons-input>
             </div>
         </ons-list-item>
         <ons-list-item>
             <label class="left">
-                <span style="margin-right:10px; margin-left:10px">その他のSNS</span>
+                <span style="margin-right:10px; margin-left:10px"><ons-icon icon="fa-share-square" size="20px" style="margin-right:10px"></ons-icon>その他のSNS</span>
             </label>
             <div class="center">
-                <ons-input id="sns_other_account" placeholder="その他のSNSの名前とSNSアカウント名を入力してください" style="width:100%"></ons-input>
+                <ons-input id="sns_other_account" placeholder="SNSの名称とアカウント名を入力してください" style="width:100%"></ons-input>
             </div>
         </ons-list-item>
 
@@ -373,7 +381,7 @@
             <textarea id="covid19" class="textarea textarea--transparent" rows="3" placeholder="店でのコロナ対策を教えてください（exアルコール除菌手洗いを必須にしています・席を間引いています等）"　 style="width:100%"></textarea>
         </ons-list-item>
 
-        <ons-list-header>その他、留意事項</ons-list-header>
+        <ons-list-header>お店からのメッセージ、留意事項</ons-list-header>
         <ons-list-item>
             <textarea id="note" class="textarea textarea--transparent" rows="3" placeholder="留意事項等のお客様にメッセージがあれば入力してください。"　 style="width:100%"></textarea>
         </ons-list-item>
@@ -400,6 +408,7 @@
                 this.querySelector('#agreement_text').textContent = "お店のオーナー様やお店の関係者様に掲載の件でお声がけと許可をいただいていますか？";
             }
 
+            // テイクアウト（持ち帰り）: 対応してない
             $("#takeaway_ng").attr("checked", true);
         };
 
@@ -407,84 +416,7 @@
             form_read(send_type);
         }
 
-        // アップロード用ファイルの登録：店の画像
-        $('#fileupload_name_cancel').on('click touchstart', function(){
-            $("#fileupload_name_image").attr("src",null);
-        });
-        $("#fileupload_name_name").fileupload({
-            disableImageResize: false,
-            previewMaxWidth: 200,
-            previewMaxHeight: 200,
-            dropZone: $(".wrapper"),
-            done: function (e, data) {
-                console.log(data);
-            },
-            add: function (e, data) {
-                console.log(data);
-                if (data.files && data.files[0]) {
-                    //$("#inputIcon").val(data.files[0].name);
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $("#fileupload_name_image").attr("src", e.target.result);
-                    }
-                    reader.readAsDataURL(data.files[0]);
-                    data.submit();
-                }
-            }
-        });
-
-        // アップロード用ファイルの登録：　テイクアウトの画像
-        $('#fileupload_takeaway_cancel').on('click touchstart', function(){
-            $("#fileupload_takeaway_image").attr("src",null);
-        });
-        $("#fileupload_takeaway_name").fileupload({
-            disableImageResize: false,
-            previewMaxWidth: 200,
-            previewMaxHeight: 200,
-            dropZone: $(".wrapper"),
-            done: function (e, data) {
-                console.log(data);
-            },
-            add: function (e, data) {
-                console.log(data);
-                if (data.files && data.files[0]) {
-                    //$("#inputIcon").val(data.files[0].name);
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $("#fileupload_takeaway_image").attr("src", e.target.result);
-                    }
-                    reader.readAsDataURL(data.files[0]);
-                    data.submit();
-                }
-            }
-        });
-
-        // アップロード用ファイルの登録：店名
-        $('#fileupload_delivery_cancel').on('click touchstart', function(){
-            $("#fileupload_delivery_image").attr("src",null);
-        });
-        $("#fileupload_delivery_name").fileupload({
-            disableImageResize: false,
-            previewMaxWidth: 200,
-            previewMaxHeight: 200,
-            dropZone: $(".wrapper"),
-            done: function (e, data) {
-                console.log(data);
-            },
-            add: function (e, data) {
-                console.log(data);
-                if (data.files && data.files[0]) {
-                    //$("#inputIcon").val(data.files[0].name);
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $("#fileupload_delivery_image").attr("src", e.target.result);
-                    }
-                    reader.readAsDataURL(data.files[0]);
-                    data.submit();
-                }
-            }
-        });
-
+        form_init(this);
     </script>
 
     <style>
@@ -499,10 +431,6 @@
             margin: 2em 0;
             font-weight: bold;
             border: solid 1px #000000;
-        }
-        .box p {
-            margin: 0;
-            padding: 0;
         }
     </style>
 </ons-page>
