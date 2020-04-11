@@ -40,9 +40,10 @@ function map() {
             var category = items[ii]["category"];
             var genre = items[ii]["genre"];
 
+            /*
             L.marker([lat, lon]).addTo(map)
                 .bindPopup('店名：' + name +　"<br>" + 'カテゴリ：' + category +　"<br>"  + 'ジャンル：' + genre +　"<br>"  + '電話：' + phone +　"<br>" + '住所：' + addr);
-
+            */
         }
     }
 

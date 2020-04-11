@@ -109,8 +109,7 @@ function form_read(type) {
     var delivery_ubereats = $('#delivery-check-ubereats').prop('checked');
     var delivery_own      = $('#delivery-check-own').prop('checked');
     var delivery_other    = $('#delivery-check-other').prop('checked');
-    var delivery_menu = $('#delivery_menu').val();
-    var delivery_note = $('#delivery_note').val();
+    var delivery_note     = $('#delivery_note').val();
 
     var phone         = $('#phone').val();
     var opening_hours = $('#opening_hours').val();
@@ -189,7 +188,6 @@ function form_read(type) {
             ubereats: delivery_ubereats,
             own: delivery_own,
             other: delivery_other,
-            menu: delivery_menu,
             note: delivery_note,
         },
         phone : phone,
@@ -283,9 +281,28 @@ var TAKEAWAY_CLASS = [
     [-1,'指定なし'],
 ];
 
+// デリバリー
+var DELIVERY_CLASS = [
+    [0, 'その他'],
+    [1, '出前館'],
+    [2, 'UberEats（ウーバーイーツ）'],
+    [3, '自店で配達・出前をしている'],
+    [-1,'指定なし'],
+];
+
+// 支払い方法
+var PAYMENT_CLASS = [
+    [0, 'その他'],
+    [1, '現金'],
+    [2, 'クレジットカード'],
+    [3, 'QRコード決済 (PayPay, LINE Pay等)'],
+    [4, '電子マネー (Suica、PASMO等)'],
+    [-1,'指定なし'],
+];
+
 function get_genre_sel_name(genre_sel) {
     for (var ii=0; ii<GENRE_CLASS.length; ii++) {
-        if (GENRE_CLASS[ii][0] == genre_sel) {
+        if (GENRE_CLASS[ii][0] === genre_sel) {
             return GENRE_CLASS[ii][1];
         }
     }
@@ -294,7 +311,7 @@ function get_genre_sel_name(genre_sel) {
 
 function get_area_sel_name(area_sel) {
     for (var ii=0; ii<AREA_CLASS.length; ii++) {
-        if (AREA_CLASS[ii][0] == area_sel) {
+        if (AREA_CLASS[ii][0] === area_sel) {
             return AREA_CLASS[ii][1];
         }
     }
@@ -303,7 +320,7 @@ function get_area_sel_name(area_sel) {
 
 function get_category_sel_name(category_sel) {
     for (var ii=0; ii<CATEGORY_CLASS.length; ii++) {
-        if (CATEGORY_CLASS[ii][0] == category_sel) {
+        if (CATEGORY_CLASS[ii][0] === category_sel) {
             return CATEGORY_CLASS[ii][1];
         }
     }
@@ -312,7 +329,7 @@ function get_category_sel_name(category_sel) {
 
 function get_takeaway_sel_name(takeaway_sel) {
     for (var ii=0; ii<TAKEAWAY_CLASS.length; ii++) {
-        if (TAKEAWAY_CLASS[ii][0] == takeaway_sel) {
+        if (TAKEAWAY_CLASS[ii][0] === takeaway_sel) {
             return TAKEAWAY_CLASS[ii][1];
         }
     }
@@ -327,3 +344,39 @@ function get_image_url(img, default_url) {
     return imageurl;
 }
 
+function get_delivery(item) {
+    var delivery_list = [];
+
+    if (item["delivery_demaekan"]) {
+        delivery_list.push(DELIVERY_CLASS[1][1])
+    }
+    if (item["delivery_ubereats"]) {
+        delivery_list.push(DELIVERY_CLASS[2][1])
+    }
+    if (item["delivery_own"]) {
+        delivery_list.push(DELIVERY_CLASS[3][1])
+    }
+    if (item["delivery_other"]) {
+        delivery_list.push(DELIVERY_CLASS[0][1])
+    }
+
+    return delivery_list.join('、');
+}
+
+function get_payment(item) {
+    var payment_list = [];
+
+    if (item["payment_cash"]) {
+        payment_list.push(PAYMENT_CLASS[1][1])
+    }
+    if (item["payment_card"]) {
+        payment_list.push(PAYMENT_CLASS[2][1])
+    }
+    if (item["payment_qr"]) {
+        payment_list.push(PAYMENT_CLASS[3][1])
+    }
+    if (item["payment_emoney"]) {
+        payment_list.push(PAYMENT_CLASS[4][1])
+    }
+    return payment_list.join('、');
+}

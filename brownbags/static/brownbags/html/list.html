@@ -87,7 +87,9 @@
                 </ons-select>
             </div>
         </ons-list-item>
+    </ons-list>
 
+    <ons-list>
         <ons-list-header>店舗</ons-list-header>
         <ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
     </ons-list>
@@ -121,56 +123,11 @@
 
             infiniteList.delegate = {
                 createItemContent: function(index) {
-                    return this.createItem(index);
+                    //return ons.createElement('<ons-list-item>Item ' + index + '</ons-list-item>');
+                    return createItem(index);
                 },
                 countItems: function() {
                     return getShopItemCount();
-                },
-                getItem: function (index) {
-                    var item = getShopItem(index);
-                    if (!item) {
-                        return null;
-                    }
-                    var name = "";
-                    if ("name" in item)
-                        name = item["name"];
-
-                    var phone = "";
-                    if ("phone" in item)
-                        phone = item["phone"];
-
-                    var genre = "";
-                    if ("genre_sel" in item)
-                        genre = get_genre_sel_name(item["genre_sel"]);
-
-                    var imageurl = get_image_url(item["images"]["name"][0],"/static/brownbags/images/shop.png");
-
-                    var data = {
-                        name: name,
-                        url: imageurl,
-                        phone: phone,
-                        genre: genre
-                    };
-                    //console.log("getItem1: " + JSON.stringify(data));
-                    return data;
-                },
-                createItem: function (index) {
-                    var item = this.getItem(index);
-                    if (!item) {
-                        return null;
-                    }
-                    //console.log("createItem: " + JSON.stringify(item));
-
-                    return ons.createElement(`
-                        <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${index}'})" modifier="chevron">
-                            <div class="left">
-                                <img class="list-item__thumbnail" src="${item.url}">
-                            </div>
-                            <div class="center">
-                                <span class="list-item__title">${item.name}</span><span class="list-item__subtitle">${item.genre}<br><a href='tel:${item.phone}'>${item.phone}</a></span>
-                            </div>
-                        </ons-list-item>
-                    `);
                 },
             };
 

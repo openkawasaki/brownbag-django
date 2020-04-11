@@ -8,58 +8,87 @@ function info(self) {
     self.querySelector('#shop_name').textContent = name;
 
     // 店舗画像
-    var html = get_image_html(item["images"]["name"]);
-    $("#image_name").html(html);
+    $("#image_name").html(get_image_html(item["images"]["name"]));
 
     // ジャンル
-    var genre = get_genre_sel_name(item["genre_sel"]);
-    self.querySelector('#shop_genre').textContent = genre;
+    self.querySelector('#shop_genre').textContent = get_genre_sel_name(item["genre_sel"]);
 
     // 店舗概要
-    var description = item["description"];
-    self.querySelector('#shop_description').textContent = description;
+    self.querySelector('#shop_description').textContent = item["description"];
+
+    // メニュー情報
+    $("#image_takeway").html(get_image_html(item["images"]["takeaway"]));
 
     // テイクアウト（持ち帰り）
-    var html = get_image_html(item["images"]["takeaway"]);
-    $("#image_name").html(html);
+    self.querySelector('#shop_takeaway_sel').textContent = get_takeaway_sel_name(item["takeaway_sel"]);
 
+    // テイクアウト（持ち帰り）メニュー
+    self.querySelector('#shop_takeaway_menu').textContent = item["takeaway_menu"];
 
-    /*
-    var imageurl = get_image_takeaway(item, null);
-    if (!isEmpty(imageurl)) {
-        self.querySelector('#shop_image_takeaway').innerHTML = '<div class="image_center"><img src="' + imageurl + '" width="50%"></div>';
-    } else {
-        self.querySelector('#shop_image_takeaway').innerHTML = '<div class="camera"><div class="focus"></div></div>';
-    }
-    */
-    var takeaway_menu = item["takeaway_menu"];
-    self.querySelector('#shop_takeaway_menu').textContent = takeaway_menu;
-    var takeaway_note = item["takeaway_note"];
-    self.querySelector('#shop_takeaway_note').textContent = takeaway_note;
+    // テイクアウトに関してのお知らせ
+    self.querySelector('#shop_takeaway_note').textContent = item["takeaway_note"];
 
     // デリバリーサービス（出前・配達）
-    //self.querySelector('#shop_delivery').textContent = delivery;
+    self.querySelector('#shop_delivery').textContent = get_delivery(item);
+
+    // デリバリーサービス（出前・配達）関してのお知らせ
+    self.querySelector('#shop_delivery_note').textContent = item["delivery_note"];
 
     // 電話番号
     var phone = item["phone"];
-    self.querySelector('#shop_phone').innerHTML = '<address><a href="tel:' + phone + '">' + phone + '</a></address>';
+    $("#shop_phone").html('<address><a href="tel:' + phone + '">' + phone + '</a></address>');
 
     // 営業時間
-    var opening_hours = item["opening_hours"];
-    self.querySelector('#shop_opening_hours').textContent = opening_hours;
+    self.querySelector('#shop_opening_hours').textContent = item["opening_hours"];
+
     // 定休日
-    var close_day = item["close_day"];
-    self.querySelector('#shop_close_day').textContent = close_day;
+    self.querySelector('#shop_close_day').textContent = item["close_day"];
+
+    // 住所
+    self.querySelector('#shop_addr').textContent = item["addr_sel"] + item["addr"];
 
     // Webサイト>
     var website = item["website"];
     if (!isEmpty(website)) {
-        self.querySelector('#shop_website').innerHTML = '<a href="' + website + '">' + website + '</a>';
+        $("#shop_website").html('<a href="' + website + '" target="_blank" rel="noopener noreferrer">' + website + '</a>');
     }
 
+    // SNS
+    var twitter = item["twitter"];
+    if (!isEmpty(twitter))
+        $("#shop_twitter").html('<a href="https://twitter.com/' + twitter + '" target="_blank" rel="noopener noreferrer">' + twitter + '</a>');
+
+    var facebook = item["facebook"];
+    if (!isEmpty(facebook))
+        $("#shop_facebook").html('<a href="https://www.facebook.com/' + facebook + '" target="_blank" rel="noopener noreferrer">' + facebook + '</a>');
+
+    var instagram = item["instagram"];
+    if (!isEmpty(instagram))
+        $("#shop_instagram").html('<a href="https://www.instagram.com/' + instagram + '" target="_blank" rel="noopener noreferrer">' + instagram + '</a>');
+
+    self.querySelector('#shop_line').textContent = item["line"];
+    self.querySelector('#shop_sns_other').textContent = item["sns_other"];
+
+    // 支払い方法
+    self.querySelector('#shop_payment').textContent = get_payment(item);
+
+    // 支払い方法に関してのお知らせ
+    self.querySelector('#shop_payment_note').textContent = item["payment_note"];
+
+    // アクセス
+    self.querySelector('#shop_transportation').textContent = item["transportation"];
+
+    // ベジタリアン
+    self.querySelector('#shop_diet_note').textContent = item["diet_note"];
+
+    // アレルギー
+    self.querySelector('#shop_allergy_note').textContent = item["allergy_note"];
+
+    // covid19
+    self.querySelector('#shop_covid19').textContent = item["covid19"];
+
     // メモ
-    var note = item["note"];
-    self.querySelector('#shop_note').textContent = note;
+    self.querySelector('#shop_note').textContent = item["note"];
 
     // マップ
     var lat = item["latitude"];
@@ -69,21 +98,64 @@ function info(self) {
 
 function get_image_html(images_name) {
 
-    var html = "<ons-row>";
-    for (var ii = 0; ii < images_name.length; ii++) {
-        var img = images_name[ii];
-        var imageurl = get_image_url(img, null);
+    var html = "";
+    var html_deffault = '<div class="camera"><div class="focus"></div></div>';
 
+    if (images_name.length == 0) {
+        html += '<ons-row><ons-col width="33%"></ons-col>';
+        html += '<ons-col width="33%">';
+        html += html_deffault;
+        html += '</ons-col>';
+        html += '<ons-col width="33%"></ons-col></ons-row>';
+
+    } else if (images_name.length == 1) {
+        html += '<ons-row><ons-col width="33%"></ons-col>';
         html += '<ons-col width="33%">';
 
+        var img = images_name[0];
+        var imageurl = get_image_url(img, null);
         if (imageurl) {
-            html += '<img src="' + imageurl + '" style="width:30vh;">';
+            html += '<img src="' + imageurl + '" style="height:200px">';
         } else {
-            html += '<div class="camera"><div class="focus"></div></div>';
+            html += html_deffault;
         }
         html += '</ons-col>';
-    }
-    html += '</ons-row>';
+        html += '<ons-col width="33%"></ons-col></ons-row>';
+
+    } else if (images_name.length == 2) {
+        html += '<ons-row><ons-col width="17%"></ons-col>';
+        for (var ii=0; ii<images_name.length; ii++) {
+            var img = images_name[ii];
+            var imageurl = get_image_url(img, null);
+
+            html += '<ons-col width="33%">';
+
+            if (imageurl) {
+                html += '<img src="' + imageurl + '" style="height:200px">';
+            } else {
+                html += html_deffault;
+            }
+            html += '</ons-col>';
+        }
+        html += '<ons-col width="16%"></ons-col></ons-row>';
+
+    } else if (images_name.length == 3) {
+        html += "<ons-row>";
+        for (var ii=0; ii<images_name.length; ii++) {
+            var img = images_name[ii];
+            var imageurl = get_image_url(img, null);
+
+            html += '<ons-col width="33%">';
+
+            if (imageurl) {
+                html += '<img src="' + imageurl + '" style="height:200px">';
+            } else {
+                html += html_deffault;
+            }
+            html += '</ons-col>';
+        }
+        html += '</ons-row>';
+   }
 
     return html;
 }
