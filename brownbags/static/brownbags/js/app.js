@@ -6,6 +6,29 @@ ons.ready(function() {
     readShopList();
 });
 
+/**
+ * loading on
+ */
+function OnLoading() {
+	$.blockUI({
+		message: ' <img src="/static/images/loading.gif"><br>ただいま処理中です・・・<br>しばらくお待ちください。',
+		css: {
+			border: 'none',
+			padding: '10px',
+			backgroundColor: '#333',
+			opacity: .5,
+			color: '#fff'
+		}
+	});
+}
+/**
+ * loading off
+ */
+function OffLoading() {
+	$.unblockUI();
+}
+
+//--------------------
 var g_shop_list = null;
 function getShopItem(index) {
     if (g_shop_list == null) {
