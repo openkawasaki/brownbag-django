@@ -206,8 +206,17 @@ def shop_post(post_data):
         obj_shop.diet_note = post_data["diet_note"]
         obj_shop.allergy_note = post_data["allergy_note"]
 
-        obj_shop.latitude = float(post_data["latitude"]) if len(post_data["latitude"]) > 0 else 0.0
-        obj_shop.longitude = float(post_data["longitude"]) if len(post_data["longitude"]) > 0 else 0.0
+        addr = post_data["addr_sel"] + post_data["addr"]
+        if is_float(post_data["latitude"]) and is_float(post_data["longitude"]):
+            obj_shop.latitude  = float(post_data["latitude"])
+            obj_shop.longitude = float(post_data["longitude"])
+        elif len(addr) > 0:
+            coordinates = geocoding(addr)
+            obj_shop.longitude = coordinates[0]["longitude"]
+            obj_shop.latitude  = coordinates[0]["latitude"]
+        else:
+            obj_shop.longitude = 0.0
+            obj_shop.latitude  = 0.0
 
         obj_shop.covid19 = post_data["covid19"]
         obj_shop.note = post_data["note"]
@@ -241,3 +250,56 @@ def shop_post(post_data):
         raise Exception(e)
 
 
+#-----------------------------------
+def is_float(n):
+    try:
+        float(n)
+    except ValueError:
+        return False
+
+    return True
+
+#-----------------------------------
+
+import requests
+import urllib.parse
+import xml.etree.ElementTree as ET
+
+def geocoding(addr):
+    '''
+    ジオコーディング
+    :param addr:住所文字列
+    :return:
+    '''
+
+    coordinates = []
+
+    try:
+        addr_enc = urllib.parse.quote(addr)
+
+        # 東京大学空間情報科学研究センター
+        # CSISシンプルジオコーディング実験
+        # http://newspat.csis.u-tokyo.ac.jp/geocode/modules/geocode/index.php?content_id=1
+        url = "http://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi?charset=UTF8&addr=" + addr_enc
+
+        # HTTP GET: 緯度経度取得
+        read_data = requests.get(url)
+        # 読み込みデータ取得
+        xml_string = read_data.text
+
+        # xmlデータを読み込みます
+        root = ET.fromstring(xml_string)
+
+        # candidate => longitude, latitude
+        candidates = root.findall('candidate')
+        for row in candidates:
+            # 座標取得
+            longitude = float(row.find("longitude").text)
+            latitude  = float(row.find("latitude").text)
+            coordinates.append({"longitude":longitude, "latitude":latitude})
+
+    except Exception as e:
+        traceback.print_exc()
+        raise Exception('geocoding() error = {}'.format(e))
+
+    return coordinates
