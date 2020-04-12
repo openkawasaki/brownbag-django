@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'brownbags.apps.BrownbagsConfig',
     'accounts.apps.AccountsConfig',
+    'gunicorn',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
