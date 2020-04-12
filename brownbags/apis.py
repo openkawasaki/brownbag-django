@@ -32,10 +32,10 @@ class shop(APIView):
             logger.debug("GET: shop()")
             name     = request.GET.get('name', None)
             area     = request.GET.get('area', None)
-            category = request.GET.get('category', None)
             genre    = request.GET.get('genre', None)
+            category = request.GET.get('category', None)
 
-            shop_list = shop_get(name, area, category, genre)
+            shop_list = shop_get(name, area, genre, category)
 
             result   = { "shop": shop_list }
             response = Response(result, status=status.HTTP_200_OK)
@@ -75,7 +75,7 @@ class shop(APIView):
         return response
 
 #---------------------------------------------
-def shop_get(name=None, area=None, category=None, genre=None):
+def shop_get(name=None, area=None, genre=None, category=None):
 
     try:
         if name is None or len(name) <= 0:
@@ -185,8 +185,7 @@ def shop_post(post_data):
         obj_shop.delivery_note = post_data["delivery"]["note"]
 
         obj_shop.phone = post_data["phone"]
-        obj_shop.opening_hours = post_data["opening_hours"]
-        obj_shop.close_day = post_data["close_day"]
+        obj_shop.open_day = post_data["open_day"]
 
         obj_shop.payment_cash = post_data["payment"]["cash"]
         obj_shop.payment_card = post_data["payment"]["card"]
@@ -218,7 +217,7 @@ def shop_post(post_data):
             obj_shop.longitude = 0.0
             obj_shop.latitude  = 0.0
 
-        obj_shop.covid19 = post_data["covid19"]
+        obj_shop.covid19_note = post_data["covid19_note"]
         obj_shop.note = post_data["note"]
 
         obj_shop.update()

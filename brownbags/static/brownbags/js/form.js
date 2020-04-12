@@ -111,9 +111,8 @@ function form_read(type) {
     var delivery_other    = $('#delivery-check-other').prop('checked');
     var delivery_note     = $('#delivery_note').val();
 
-    var phone         = $('#phone').val();
-    var opening_hours = $('#opening_hours').val();
-    var close_day     = $('#close_day').val();
+    var phone    = $('#phone').val();
+    var open_day = $('#open_day').val();
 
     var payment_cash   = $('#payment-check-cash').prop('checked');
     var payment_card   = $('#payment-check-card').prop('checked');
@@ -136,8 +135,8 @@ function form_read(type) {
     var latitude  = $('#latitude').val();
     var longitude = $('#longitude').val();
 
-    var covid19 = $('#covid19').val();
-    var note    = $('#note').val();
+    var covid19_note = $('#covid19_note').val();
+    var note = $('#note').val();
 
     var name_image_list = [];
     for (var ii=0; ii<maxImageFileNames; ii++) {
@@ -191,8 +190,7 @@ function form_read(type) {
             note: delivery_note,
         },
         phone : phone,
-        opening_hours: opening_hours,
-        close_day: close_day,
+        open_day: open_day,
         payment: {
             cash: payment_cash,
             card:payment_card,
@@ -215,8 +213,8 @@ function form_read(type) {
         latitude: latitude,
         longitude: longitude,
 
-        covid19: covid19,
-        note:note,
+        covid19_note: covid19_note,
+        note: note,
         images: images
     };
 

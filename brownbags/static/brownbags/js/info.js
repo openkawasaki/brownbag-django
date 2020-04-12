@@ -38,11 +38,8 @@ function info(self) {
     var phone = item["phone"];
     $("#shop_phone").html('<address><a href="tel:' + phone + '">' + phone + '</a></address>');
 
-    // 営業時間
-    self.querySelector('#shop_opening_hours').textContent = item["opening_hours"];
-
-    // 定休日
-    self.querySelector('#shop_close_day').textContent = item["close_day"];
+    // 定休日・営業時間
+    self.querySelector('#shop_open_day').textContent = item["open_day"];
 
     // 住所
     self.querySelector('#shop_addr').textContent = item["addr_sel"] + item["addr"];
@@ -85,7 +82,7 @@ function info(self) {
     self.querySelector('#shop_allergy_note').textContent = item["allergy_note"];
 
     // covid19
-    self.querySelector('#shop_covid19').textContent = item["covid19"];
+    self.querySelector('#shop_covid19_note').textContent = item["covid19_note"];
 
     // メモ
     self.querySelector('#shop_note').textContent = item["note"];

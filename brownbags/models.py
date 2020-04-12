@@ -124,9 +124,8 @@ class Shop(models.Model):
     delivery_other    = models.BooleanField('delivery_other', blank=False, null=False, default=False)
     delivery_note     = models.TextField('delivery_note', max_length=512, blank=True, null=False, default="")
 
-    phone = models.CharField('phone', max_length=256, blank=False, null=True, default=None)
-    opening_hours = models.CharField('opening_hours', max_length=256, blank=False, null=True, default=None)
-    close_day     = models.CharField('close_day', max_length=256, blank=False, null=True, default=None)
+    phone    = models.CharField('phone', max_length=256, blank=False, null=True, default=None)
+    open_day = models.TextField('open_day', max_length=1024, blank=True, null=False, default="")
 
     payment_cash = models.BooleanField('payment_cash', blank=False, null=False, default=False)
     payment_card = models.BooleanField('payment_card', blank=False, null=False, default=False)
@@ -149,12 +148,12 @@ class Shop(models.Model):
     latitude  = models.FloatField('latitude', blank=False, null=False, default=0.0)
     longitude = models.FloatField('longitude', blank=False, null=False, default=0.0)
 
-    covid19 = models.TextField('covid19', max_length=512, blank=True, null=False, default="")
-    note    = models.TextField('note', max_length=512, blank=True, null=False, default="")
+    covid19_note = models.TextField('covid19_note', max_length=512, blank=True, null=False, default="")
+    note         = models.TextField('note', max_length=512, blank=True, null=False, default="")
 
     ## 各種ステータス情報
     expired_shop_date = models.DateTimeField(blank=False, null=True) # お店無効
-    closes_shop_date = models.DateTimeField(blank=False, null=True) # お店休止・閉店
+    closes_shop_date  = models.DateTimeField(blank=False, null=True) # お店休止・閉店
     soldout_takeaway_date = models.DateTimeField(blank=False, null=True) # テイクアウト売り切れ
     soldout_delivery_date = models.DateTimeField(blank=False, null=True) # デリバリー売り切れ
 
@@ -266,6 +265,7 @@ class ImageData(models.Model):
     image_data_thumbnail = ImageSpecField(source='image_data', processors=[ResizeToFill(80, 80)], format='JPEG', options={'quality': 60})
 
     image_data_class = models.IntegerField("クラス", choices=IMAGE_DATA_CLASS, default=-1)
+    order = models.IntegerField("順番", default=0)
 
     expired_date = models.DateTimeField(blank=False, null=True)
 
