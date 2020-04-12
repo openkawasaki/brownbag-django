@@ -103,6 +103,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "config.context_processors.google_analytics_key",
             ],
         },
     },
@@ -110,6 +111,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+# Google Analytics
+GOOGLE_ANALYTICS_KEY = os.environ.get('GOOGLE_ANALYTICS_KEY', False)
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
