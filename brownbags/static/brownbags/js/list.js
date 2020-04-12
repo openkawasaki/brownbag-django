@@ -39,15 +39,27 @@ function createItem(index) {
         return null;
     }
     //console.log("createItem: " + JSON.stringify(item));
-
-    return ons.createElement(`
-        <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${index}'})" modifier="chevron">
-            <div class="left">
-                <img class="list-item__thumbnail" src="${item.url}">
-            </div>
-            <div class="center">
-                <span class="list-item__title">${item.name}</span><span class="list-item__subtitle">${item.genre}<br><a href='tel:${item.phone}'>${item.phone}</a></span>
-            </div>
-        </ons-list-item>
-    `);
+    if (!isEmpty(item["phone"])) {
+        return ons.createElement(`
+            <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${index}'})" modifier="chevron">
+                <div class="left">
+                    <img class="list-item__thumbnail" src="${item.url}">
+                </div>
+                <div class="center">
+                    <span class="list-item__title">${item.name}</span><span class="list-item__subtitle">${item.genre}<br><a href='tel:${item.phone}'>${item.phone}</a></span>
+                </div>
+            </ons-list-item>
+        `);
+    } else {
+        return ons.createElement(`
+            <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${index}'})" modifier="chevron">
+                <div class="left">
+                    <img class="list-item__thumbnail" src="${item.url}">
+                </div>
+                <div class="center">
+                    <span class="list-item__title">${item.name}</span><span class="list-item__subtitle">${item.genre}</span>
+                </div>
+            </ons-list-item>
+        `);
+    }
 }

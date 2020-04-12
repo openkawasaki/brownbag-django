@@ -1,7 +1,7 @@
 <ons-page id="form-edit-page">
     <ons-toolbar>
         <div class="left">
-            <ons-back-button>お店の登録</ons-back-button>
+            <ons-back-button>戻る</ons-back-button>
         </div>
         <div class="center"></div>
     </ons-toolbar>
@@ -70,7 +70,7 @@
             <ons-input id="description" placeholder="店舗の概要やお店キャッチコピーみたいのを140文字以内でお書きください。" style="width:100%"></ons-input>
         </ons-list-item>
 
-        <ons-list-header>店舗の画像ファイルをアップロード：画像は3個までです。</ons-list-header>
+        <ons-list-header>店舗の外観・内観の画像ファイルをアップロード：画像は3個までです。</ons-list-header>
         <ons-list-item>
             <div class="left">
                 <span class="button button--outline fileinput-button ">
@@ -154,7 +154,7 @@
             </ons-select>
         </ons-list-item>
 
-        <ons-list-header>メニュー情報：</ons-list-header>
+        <ons-list-header>料理・メニュー情報：</ons-list-header>
         <ons-list-header style="color:red"><b>テイクアウト（持ち帰り）に対応してますか？&nbsp;&nbsp;&lt;必須&gt;</b></ons-list-header>
 
         <ons-list-item>
@@ -179,7 +179,7 @@
             </label>
         </ons-list-item>
 
-        <ons-list-header>テイクアウト（持ち帰り）の画像ファイルアップロード：画像は3個までです。</ons-list-header>
+        <ons-list-header>テイクアウト（持ち帰り）の料理・メニューの画像ファイルアップロード：画像は3個までです。</ons-list-header>
         <ons-list-item>
             <div class="left">
                 <span class="button button--outline fileinput-button ">
@@ -211,10 +211,10 @@
             </ons-row>
         </ons-list-item>
         <ons-list-item>
-            <textarea id="takeaway_menu" class="textarea textarea--transparent" rows="3" placeholder="テイクアウトメニューの内容（テキストの場合）" style="width:100%"></textarea>
+            <textarea id="takeaway_menu" class="textarea textarea--transparent" rows="3" placeholder="テイクアウトメニューの内容（テキストの場合）を記述してください。" style="width:100%"></textarea>
         </ons-list-item>
         <ons-list-item>
-            <ons-input id="takeaway_note" placeholder="テイクアウトに関するお伝えしたい事項（ex.事前にお電話ください、受付時間は●〜●です等）" style="width:70%"></ons-input>
+            <textarea id="takeaway_note" class="textarea textarea--transparent" rows="3" placeholder="テイクアウトに関するお伝えしたい事項（ex.事前にお電話ください、受付時間は●〜●です等）" style="width:100%"></textarea>
         </ons-list-item>
 
         <ons-list-header>デリバリーサービス（出前・配達）に対応してますか？</ons-list-header>
@@ -251,7 +251,7 @@
             </label>
         </ons-list-item>
         <ons-list-item>
-            <ons-input id="delivery_note" placeholder="デリバリーサービス（出前・配達）に関するお伝えしたい事項（ex.混雑時は時間がかかる場合があります、受付時間は●〜●です等）" style="width:70%"></ons-input>
+            <textarea id="delivery_note" class="textarea textarea--transparent" rows="3" placeholder="デリバリーサービス（出前・配達）に関するお伝えしたい事項（ex.混雑時は時間がかかる場合があります、受付時間は●〜●です等）" style="width:100%"></textarea>
         </ons-list-item>
 
         <ons-list-header>店舗の電話番号：</ons-list-header>
@@ -261,7 +261,7 @@
 
         <ons-list-header>店舗の定休日・営業時間</ons-list-header>
         <ons-list-item>
-            <ons-input id="open_day" placeholder="定休日と営業時間を記述してください 　例）平日: 07:30-23:00、土曜日: 07:30-23:00、日曜・祝日: 07:30-23:00" style="width:100%"></ons-input>
+            <textarea id="open_day" class="textarea textarea--transparent" rows="3" placeholder="定休日と営業時間を記述してください 　例）平日: 07:30-23:00、土曜日: 07:30-23:00、日曜・祝日: 07:30-23:00" style="width:100%"></textarea>
         </ons-list-item>
 
         <ons-list-header>対応している支払い方法：</ons-list-header>
@@ -298,8 +298,8 @@
             </label>
         </ons-list-item>
         <ons-list-item>
-            <ons-input id="payment_note" placeholder="支払いの条件をテキストで入力してください" style="width:70%"></ons-input>
-        </ons-list-item>
+            <textarea id="payment_note" class="textarea textarea--transparent" rows="3" placeholder="支払いの条件をテキストで入力してください" style="width:100%"></textarea>
+       </ons-list-item>
 
         <ons-list-header>ホームページ</ons-list-header>
         <ons-list-item>
@@ -350,17 +350,17 @@
 
         <ons-list-header>アクセス情報・交通手段</ons-list-header>
         <ons-list-item>
-            <ons-input id="transportation" placeholder="アクセス情報を入力してください。武蔵小杉駅徒歩５分など" style="width:100%"></ons-input>
+            <textarea id="transportation" class="textarea textarea--transparent" rows="3" placeholder="アクセス情報を入力してください。武蔵小杉駅徒歩５分など" style="width:100%"></textarea>
         </ons-list-item>
 
         <ons-list-header>ベジタリアン（vegetarian）、ビーガン（vegan）対応のメニュー：</ons-list-header>
         <ons-list-item>
-            <ons-input id="diet_note" placeholder="ベジタリアンメニューの内容をテキストで入力してください。" style="width:70%"></ons-input>
+            <textarea id="diet_note" class="textarea textarea--transparent" rows="3" placeholder="ベジタリアンメニューについてテキストで入力してください。" style="width:100%"></textarea>
         </ons-list-item>
 
         <ons-list-header>アレルギー対応のメニュー：</ons-list-header>
         <ons-list-item>
-            <ons-input id="allergy_note" placeholder="アレルギーメニューの内容をテキストで入力してください。" style="width:70%"></ons-input>
+            <textarea id="allergy_note" class="textarea textarea--transparent" rows="3" placeholder="アレルギーメニューについてテキストで入力してください。" style="width:100%"></textarea>
         </ons-list-item>
 
         <ons-list-header>お店の位置情報</ons-list-header>

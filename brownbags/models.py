@@ -96,8 +96,8 @@ class Shop(models.Model):
     お店のモデル
     """
     class Meta:
-        verbose_name = _('店')  # オブジェクトの人間が読める名前(単数)小文字でよい
-        verbose_name_plural = _('店')  # オブジェクトの複数の名前 小文字でよい
+        verbose_name = _('店舗')  # オブジェクトの人間が読める名前(単数)小文字でよい
+        verbose_name_plural = _('店舗')  # オブジェクトの複数の名前 小文字でよい
 
     type = models.IntegerField("type", choices=DATA_TYPE_CLASS, default=-1)
 
@@ -108,15 +108,15 @@ class Shop(models.Model):
 
     genre_sel = models.IntegerField("genre_sel", choices=GENRE_CLASS, default=-1)
 
-    description = models.CharField('description', max_length=256, blank=False, null=True, default=None)
-    addr_sel    = models.CharField('addr_sel', max_length=256, blank=False, null=True, default=None)
-    addr        = models.CharField('addr', max_length=256, blank=False, null=True, default=None)
+    description = models.CharField('description', max_length=256, blank=True, null=True, default=None)
+    addr_sel    = models.CharField('addr_sel', max_length=256, blank=True, null=True, default=None)
+    addr        = models.CharField('addr', max_length=256, blank=True, null=True, default=None)
 
     area_sel    = models.IntegerField("area_sel", choices=AREA_CLASS, default=-1)
 
     takeaway_sel  = models.IntegerField("takeaway_sel", choices=TAKEAWAY_CLASS, default=-1)
     takeaway_menu = models.TextField('takeaway_menu', max_length=1024, blank=True, null=False, default="")
-    takeaway_note = models.CharField('takeaway_note', max_length=512, blank=False, null=True, default=None)
+    takeaway_note = models.TextField('takeaway_note', max_length=1024, blank=True, null=False, default="")
 
     delivery_demaekan = models.BooleanField('delivery_demaekan', blank=False, null=False, default=False)
     delivery_ubereats = models.BooleanField('delivery_ubereats', blank=False, null=False, default=False)
@@ -124,7 +124,7 @@ class Shop(models.Model):
     delivery_other    = models.BooleanField('delivery_other', blank=False, null=False, default=False)
     delivery_note     = models.TextField('delivery_note', max_length=512, blank=True, null=False, default="")
 
-    phone    = models.CharField('phone', max_length=256, blank=False, null=True, default=None)
+    phone    = models.CharField('phone', max_length=256, blank=True, null=True, default=None)
     open_day = models.TextField('open_day', max_length=1024, blank=True, null=False, default="")
 
     payment_cash = models.BooleanField('payment_cash', blank=False, null=False, default=False)
@@ -133,17 +133,17 @@ class Shop(models.Model):
     payment_emoney = models.BooleanField('payment_emoney', blank=False, null=False, default=False)
     payment_note = models.TextField('payment_note', max_length=512, blank=True, null=False, default="")
 
-    website     = models.CharField('website', max_length=1024, blank=False, null=True, default=None)
+    website     = models.CharField('website', max_length=1024, blank=True, null=True, default=None)
 
-    twitter   = models.CharField('twitter', max_length=256, blank=False, null=True, default=None)
-    facebook  = models.CharField('facebook', max_length=256, blank=False, null=True, default=None)
-    instagram = models.CharField('instagram', max_length=256, blank=False, null=True, default=None)
-    line      = models.CharField('line', max_length=256, blank=False, null=True, default=None)
-    sns_other = models.CharField('sns_other', max_length=256, blank=False, null=True, default=None)
+    twitter   = models.CharField('twitter', max_length=256, blank=True, null=True, default=None)
+    facebook  = models.CharField('facebook', max_length=256, blank=True, null=True, default=None)
+    instagram = models.CharField('instagram', max_length=256, blank=True, null=True, default=None)
+    line      = models.CharField('line', max_length=256, blank=True, null=True, default=None)
+    sns_other = models.CharField('sns_other', max_length=256, blank=True, null=True, default=None)
 
-    transportation = models.CharField('transportation', max_length=256, blank=False, null=True, default=None)
-    diet_note    = models.TextField('diet_note', max_length=512, blank=True, null=False, default="")
-    allergy_note = models.TextField('allergy_note', max_length=512, blank=True, null=False, default="")
+    transportation = models.TextField('transportation', max_length=512, blank=True, null=False, default="")
+    diet_note      = models.TextField('diet_note', max_length=512, blank=True, null=False, default="")
+    allergy_note   = models.TextField('allergy_note', max_length=512, blank=True, null=False, default="")
 
     latitude  = models.FloatField('latitude', blank=False, null=False, default=0.0)
     longitude = models.FloatField('longitude', blank=False, null=False, default=0.0)
@@ -152,10 +152,10 @@ class Shop(models.Model):
     note         = models.TextField('note', max_length=512, blank=True, null=False, default="")
 
     ## 各種ステータス情報
-    expired_shop_date = models.DateTimeField(blank=False, null=True) # お店無効
-    closes_shop_date  = models.DateTimeField(blank=False, null=True) # お店休止・閉店
-    soldout_takeaway_date = models.DateTimeField(blank=False, null=True) # テイクアウト売り切れ
-    soldout_delivery_date = models.DateTimeField(blank=False, null=True) # デリバリー売り切れ
+    expired_shop_date = models.DateTimeField(blank=True, null=True) # お店無効
+    closes_shop_date  = models.DateTimeField(blank=True, null=True) # お店休止・閉店
+    soldout_takeaway_date = models.DateTimeField(blank=True, null=True) # テイクアウト売り切れ
+    soldout_delivery_date = models.DateTimeField(blank=True, null=True) # デリバリー売り切れ
 
     created_date = models.DateTimeField('作成日', default=timezone.now)
     update_date  = models.DateTimeField('修正日', blank=True, null=True)
@@ -250,6 +250,20 @@ def get_file_extension(file_name, decoded_file):
 
     return extension
 
+# ------------------------------------------------------
+def get_image_path(self, filename):
+    """カスタマイズした画像パスを取得する.
+    :param self: インスタンス (models.Model)
+    :param filename: 元ファイル名
+    :return: カスタマイズしたファイル名を含む画像パス
+    """
+
+    timetext  = datetime.now().strftime("%Y%m%d%H%M%S%f")
+    extension = os.path.splitext(filename)[-1]
+    savefilename = timetext + extension
+
+    return os.path.join("images", str(self.shop.pk), savefilename)
+
 #------------------------------------------------------
 class ImageData(models.Model):
     '''
@@ -261,16 +275,17 @@ class ImageData(models.Model):
 
     shop = models.ForeignKey(Shop, verbose_name='Shop', related_name='image', on_delete=models.CASCADE)
 
-    image_data = models.ImageField(_('画像'), upload_to='images/',  default="/static/brownbags/images/none.png", blank=True, null=True)  # 画像
+    image_data = models.ImageField(_('画像'), upload_to=get_image_path,  default="/static/brownbags/images/none.png", blank=True, null=True)  # 画像
     image_data_thumbnail = ImageSpecField(source='image_data', processors=[ResizeToFill(80, 80)], format='JPEG', options={'quality': 60})
 
     image_data_class = models.IntegerField("クラス", choices=IMAGE_DATA_CLASS, default=-1)
     order = models.IntegerField("順番", default=0)
 
-    expired_date = models.DateTimeField(blank=False, null=True)
+    expired_date = models.DateTimeField(blank=True, null=True)
 
     created_date = models.DateTimeField(default=timezone.now)
     update_date  = models.DateTimeField(blank=True, null=True)
+
 
     def get_pathname(self):
         """

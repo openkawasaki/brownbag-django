@@ -24,9 +24,15 @@ function getShopItemCount() {
     }
     return g_shop_list.length;
 }
+
 function readShopList() {
     get("/api/v1.0/shop/", {}, readShopListDone);
 }
+
+function updateShopList(done) {
+    get("/api/v1.0/shop/", {}, done);
+}
+
 function readShopListDone(data) {
     g_shop_list = data["shop"];
 }

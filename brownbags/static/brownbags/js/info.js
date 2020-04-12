@@ -14,7 +14,8 @@ function info(self) {
     self.querySelector('#shop_genre').textContent = get_genre_sel_name(item["genre_sel"]);
 
     // 店舗概要
-    self.querySelector('#shop_description').textContent = item["description"];
+    if (!isEmpty(item["description"]))
+        self.querySelector('#shop_description').textContent = item["description"];
 
     // メニュー情報
     $("#image_takeway").html(get_image_html("image_takeway", item["images"]["takeaway"]));
@@ -23,26 +24,36 @@ function info(self) {
     self.querySelector('#shop_takeaway_sel').textContent = get_takeaway_sel_name(item["takeaway_sel"]);
 
     // テイクアウト（持ち帰り）メニュー
-    self.querySelector('#shop_takeaway_menu').textContent = item["takeaway_menu"];
+    if (!isEmpty(item["takeaway_menu"]))
+        self.querySelector('#shop_takeaway_menu').innerHTML = conv_br(item["takeaway_menu"]);
 
     // テイクアウトに関してのお知らせ
-    self.querySelector('#shop_takeaway_note').textContent = item["takeaway_note"];
+    if (!isEmpty(item["takeaway_note"]))
+        self.querySelector('#shop_takeaway_note').innerHTML = conv_br(item["takeaway_note"]);
 
     // デリバリーサービス（出前・配達）
     self.querySelector('#shop_delivery').textContent = get_delivery(item);
 
     // デリバリーサービス（出前・配達）関してのお知らせ
-    self.querySelector('#shop_delivery_note').textContent = item["delivery_note"];
+    if (!isEmpty(item["delivery_note"]))
+        self.querySelector('#shop_delivery_note').innerHTML = conv_br(item["delivery_note"]);
 
     // 電話番号
     var phone = item["phone"];
-    $("#shop_phone").html('<address><a href="tel:' + phone + '">' + phone + '</a></address>');
+    if (!isEmpty(phone))
+        $("#shop_phone").html('<address><a href="tel:' + phone + '">' + phone + '</a></address>');
 
     // 定休日・営業時間
-    self.querySelector('#shop_open_day').textContent = item["open_day"];
+    if (!isEmpty(item["open_day"]))
+        self.querySelector('#shop_open_day').innerHTML = conv_br(item["open_day"]);
 
     // 住所
-    self.querySelector('#shop_addr').textContent = item["addr_sel"] + item["addr"];
+    if (!isEmpty(item["addr_sel"]) && !isEmpty(item["addr"]))
+        self.querySelector('#shop_addr').textContent = item["addr_sel"] + item["addr"];
+    else if (!isEmpty(item["addr_sel"]) && isEmpty(item["addr"]))
+        self.querySelector('#shop_addr').textContent = item["addr_sel"];
+    else if (isEmpty(item["addr_sel"]) && !isEmpty(item["addr"]))
+        self.querySelector('#shop_addr').textContent = item["addr"];
 
     // Webサイト>
     var website = item["website"];
@@ -63,35 +74,48 @@ function info(self) {
     if (!isEmpty(instagram))
         $("#shop_instagram").html('<a href="https://www.instagram.com/' + instagram + '" target="_blank" rel="noopener noreferrer">' + instagram + '</a>');
 
-    self.querySelector('#shop_line').textContent = item["line"];
-    self.querySelector('#shop_sns_other').textContent = item["sns_other"];
+    if (!isEmpty(item["line"]))
+        self.querySelector('#shop_line').textContent = item["line"];
+    if (!isEmpty(item["sns_other"]))
+        self.querySelector('#shop_sns_other').textContent = item["sns_other"];
 
     // 支払い方法
     self.querySelector('#shop_payment').textContent = get_payment(item);
 
     // 支払い方法に関してのお知らせ
-    self.querySelector('#shop_payment_note').textContent = item["payment_note"];
+    if (!isEmpty(item["payment_note"]))
+        self.querySelector('#shop_payment_note').innerHTML = conv_br(item["payment_note"]);
 
-    // アクセス
-    self.querySelector('#shop_transportation').textContent = item["transportation"];
+    // アクセス・交通手段
+    if (!isEmpty(item["transportation"]))
+        self.querySelector('#shop_transportation').innerHTML = conv_br(item["transportation"]);
 
     // ベジタリアン
-    self.querySelector('#shop_diet_note').textContent = item["diet_note"];
+    if (!isEmpty(item["diet_note"]))
+        self.querySelector('#shop_diet_note').innerHTML = conv_br(item["diet_note"]);
 
     // アレルギー
-    self.querySelector('#shop_allergy_note').textContent = item["allergy_note"];
+    if (!isEmpty(item["allergy_note"]))
+        self.querySelector('#shop_allergy_note').innerHTML = conv_br(item["allergy_note"]);
 
     // covid19
-    self.querySelector('#shop_covid19_note').textContent = item["covid19_note"];
+    if (!isEmpty(item["covid19_note"]))
+        self.querySelector('#shop_covid19_note').innerHTML = conv_br(item["covid19_note"]);
 
     // メモ
-    self.querySelector('#shop_note').textContent = item["note"];
+    if (!isEmpty(item["note"]))
+        self.querySelector('#shop_note').innerHTML = conv_br(item["note"]);
 
     // マップ
     var lat = item["latitude"];
     var lon = item["longitude"];
     map_info(lat, lon, name);
 }
+function conv_br(str) {
+    var text = str.replace(/\r?\n/g, '<br>');
+    return text;
+}
+
 /* slick
  Version: 1.6.0
   Author: Ken Wheeler

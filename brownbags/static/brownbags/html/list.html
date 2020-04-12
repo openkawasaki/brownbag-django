@@ -95,6 +95,9 @@
     </ons-list>
 
     <script>
+        ons.getScriptPage().onInit = function () {
+        };
+
         function search(value) {
             var text = '検索文字: ' + value;
             //ons.notification.alert(text);
@@ -117,8 +120,9 @@
             ons.notification.toast("現在開発中です。少しお待ちください", { timeout: 1000, animation: 'fall' });
         }
 
-        // アクティブなタブが変わる前に発火します。
-        document.addEventListener('prechange', function(event) {
+        function updateList(data) {
+            readShopListDone(data);
+
             var infiniteList = document.getElementById('infinite-list');
 
             infiniteList.delegate = {
@@ -132,7 +136,14 @@
             };
 
             infiniteList.refresh();
+        }
+
+        // アクティブなタブが変わる前に発火します。
+        document.addEventListener('prechange', function(event) {
+            //updateList();
+            updateShopList(updateList);
         });
+
     </script>
 
 </ons-page>
