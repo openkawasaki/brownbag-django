@@ -39,7 +39,7 @@
     </ons-card>
 
     <ons-list>
-        <ons-list-header>お店の登録はこちらからお願いします。</ons-list-header>
+        <ons-list-header>お店の新規登録はこちらからお願いします。</ons-list-header>
 
         <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/form_edit.html', 'title':'お店のオーナー、お店の関係者の方が登録', 'index': 0})" modifier="chevron">
             <div class="left">
@@ -58,6 +58,24 @@
             <div class="center">
                 <span class="list-item__title" style="color:red"><b>ユーザー（個人）、お店のファンの方が登録</b></span>
                 <span class="list-item__subtitle" style="color:red">ユーザー（個人）、お店のファンの方はこちらをクリックしてください</span>
+            </div>
+        </ons-list-item>
+    </ons-list>
+
+    <ons-list>
+        <ons-list-header>登録済みのお店の内容を変更する場合はこちらからお願いします。</ons-list-header>
+        <ons-list-item modifier="chevron">
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="fa-pen"></ons-icon>
+            </div>
+            <div class="center">
+                <span class="list-item__title" style="color:red">
+                    <a href="/edit">お店の情報を変更する</a>
+                </span>
+                <span class="list-item__subtitle" style="color:red">
+                    登録済みのお店の情報を変更する場合は、ユーザ登録が必要です。
+                    <div style="color: red">この機能は開発中です。もう少しお待ちください。</div>
+                </span>
             </div>
         </ons-list-item>
     </ons-list>

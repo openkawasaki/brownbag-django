@@ -157,6 +157,20 @@ MEDIA_URL = '/uploads/'
 
 # accountsというアプリケーションです
 # see also: DjangoでUserモデルのカスタマイズ <https://narito.ninja/blog/detail/39/>
+# LOGIN
+# ------------------------------------------------------------------------------
+# Djangoでログイン画面を自作する
+# https://torina.top/detail/222/
+# defaults
+#LOGIN_URL = '/accounts/login/'
+#LOGIN_REDIRECT_URL = 'accounts/profile/'
+# update
+#LOGIN_URL = '/login/'      # ログイン画面のURL
+
+#LOGIN_URL='/accounts/login'
+LOGIN_REDIRECT_URL='/'
+LOGOUT_REDIRECT_URL='/'
+#AUTH_USER_MODEL = 'users.User'
 AUTH_USER_MODEL = 'accounts.User'
 
 # LOGGING

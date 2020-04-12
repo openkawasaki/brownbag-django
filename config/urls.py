@@ -30,9 +30,9 @@ import config.settings as settings
 #----------------------
 # Change admin site title
 #----------------------
-admin.site.site_title  = ugettext_lazy('ログイン')
-admin.site.site_header = ugettext_lazy('Brown Bag 管理画面')
-admin.site.index_title = ugettext_lazy('メニュー')
+#admin.site.site_title  = 'ログイン'
+#admin.site.site_header = 'Brown Bag 管理画面'
+#admin.site.index_title = 'メニュー'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
