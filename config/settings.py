@@ -11,21 +11,36 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _
+import environ
+from django.conf import settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = environ.Path(__file__) - 2
+APPS_DIR = ROOT_DIR.path('/')
 
+# Load operating system environment variables and then prepare to use them
+env = environ.Env()
+
+# .env file, should load only in development environment
+READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=True)
+
+if READ_DOT_ENV_FILE:
+    env_file = str(ROOT_DIR.path('.env'))
+    print('Loading : {}'.format(env_file))
+    env.read_env(env_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zjs0_cv9rxsqx2b5&ahi=0!98*4i3w7d+yf3^5-s=pxo7r5+-9'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG', False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS=[os.environ['DJANGO_ALLOWED_HOSTS']]
 
 # Application definition
 
@@ -97,13 +112,27 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# for sqlite3
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
 
+# for postgres
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ['POSTGRES_ENGINE'],
+        'NAME': os.environ['POSTGRES_DATABASE'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': os.environ['POSTGRES_HOST'],
+        'PORT': os.environ['POSTGRES_PORT']
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -123,15 +152,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
-
 LANGUAGE_CODE = 'ja'
+
 TIME_ZONE = 'Asia/Tokyo'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+# locale
+# ------------------------------------------------------------------------------
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('ja', _('Japanese')),
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -152,36 +191,39 @@ STATICFILES_FINDERS = (
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
-MEDIA_URL = '/uploads/'
+# AWS S3
+# ------------------------------------------------------------------------------
+if 'DJANGO_DEFAULT_FILE_STORAGE' in os.environ:
+    DEFAULT_FILE_STORAGE = os.environ['DJANGO_DEFAULT_FILE_STORAGE']
+    AWS_ACCESS_KEY_ID = os.environ['DJANGO_AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['DJANGO_AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['DJANGO_AWS_STORAGE_BUCKET_NAME']
+    AWS_LOCATION = os.environ['DJANGO_AWS_LOCATION']
+    AWS_DEFAULT_ACL = None
+    AWS_S3_FILE_OVERWRITE = True
+    AWS_S3_USE_SSL = True
 
-# accountsというアプリケーションです
-# see also: DjangoでUserモデルのカスタマイズ <https://narito.ninja/blog/detail/39/>
+    S3_URL = 'https://%s.s3.amazonaws.com/%s/' % (AWS_STORAGE_BUCKET_NAME, AWS_LOCATION)
+    MEDIA_URL = S3_URL
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
+    MEDIA_URL = '/uploads/'
+
 # LOGIN
 # ------------------------------------------------------------------------------
-# Djangoでログイン画面を自作する
-# https://torina.top/detail/222/
-# defaults
-#LOGIN_URL = '/accounts/login/'
-#LOGIN_REDIRECT_URL = 'accounts/profile/'
-# update
-#LOGIN_URL = '/login/'      # ログイン画面のURL
-
 #LOGIN_URL='/accounts/login'
 LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='/'
-#AUTH_USER_MODEL = 'users.User'
 AUTH_USER_MODEL = 'accounts.User'
 
 # LOGGING
 # ------------------------------------------------------------------------------
-
-LOGGING_PATH = os.path.join(BASE_DIR, 'logs', 'uploads')
+LOGGING_PATH = os.path.join(BASE_DIR, 'logs')
 LOGGING_FILE = 'app.log'
 
 if os.name == 'nt':
     LOGGING = {
-        'version': 1,   # これを設定しないと怒られる
+        'version': 1,
         'formatters': {
             'all': {
                 'format': ':'.join([
@@ -194,18 +236,18 @@ if os.name == 'nt':
             },
         },
         'handlers': {
-            'console': {  # 標準出力
+            'console': {
                 'level': 'DEBUG',
                 'class': 'logging.StreamHandler',
                 'formatter': 'all',
             },
         },
         'loggers': {
-            'common': {  # commandという名前のloggerを定義
+            'common': {
                 'handlers': ['console'],
                 'level': 'DEBUG',
             },
-            'api': {  # detectionという名前のloggerを定義
+            'api': {
                 'handlers': ['console'],
                 'level': 'DEBUG',
             }
@@ -213,7 +255,7 @@ if os.name == 'nt':
     }
 else:
     LOGGING = {
-        'version': 1,   # これを設定しないと怒られる
+        'version': 1,
         'formatters': {
             'all': {
                 'format': ':'.join([
@@ -233,7 +275,6 @@ else:
                 'formatter': 'all',
                 'when': 'D',
                 'interval': 1,
-                #'backupCount': 30,
             },
             'console': { # 標準出力
                 'level': 'DEBUG',
@@ -242,13 +283,42 @@ else:
             },
         },
         'loggers': {
-            'common': {  # commandという名前のloggerを定義
+            'common': {
                 'handlers': ['file_time_rotation', 'console' ],
                 'level': 'DEBUG',
             },
-            'api': {  # detectionという名前のloggerを定義
+            'api': {
                 'handlers': ['file_time_rotation', 'console'],
                 'level': 'DEBUG',
             },
         },
     }
+
+# GeoDjango on Windows
+# ------------------------------------------------------------------------------
+if os.name == 'nt':
+    import platform
+    """
+    POSTGRES = r"C:\Program Files\PostgreSQL\10"
+    OSGEO4W = r"C:\OSGeo4W"
+    if '64' in platform.architecture()[0]:
+        OSGEO4W += "64"
+    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
+
+    os.environ['OSGEO4W_ROOT'] = OSGEO4W
+    os.environ['POSTGRES_ROOT'] = POSTGRES
+    os.environ['GDAL_LIBRARY_PATH'] = OSGEO4W + r"\bin"
+    os.environ['GEOS_LIBRARY_PATH'] = OSGEO4W + r"\bin"
+    os.environ['GDAL_DATA'] = OSGEO4W + r"\share\gdal"
+    os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
+    os.environ['PATH'] = OSGEO4W + r"\bin;" + POSTGRES + r"\bin;" + os.environ['PATH']
+    """
+    POSTGRES = r"C:\Program Files\PostgreSQL\10"
+    OSGEO4W = r"C:\Program Files\QGIS 3.4"
+    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
+
+    os.environ['OSGEO4W_ROOT'] = OSGEO4W
+    os.environ['POSTGRES_ROOT'] = POSTGRES
+    os.environ['GDAL_LIBRARY_PATH'] = OSGEO4W + r"\bin"
+    os.environ['GEOS_LIBRARY_PATH'] = OSGEO4W + r"\bin"
+    os.environ['PATH'] = OSGEO4W + r"\bin;" + POSTGRES + r"\bin;" + os.environ['PATH']

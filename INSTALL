@@ -1,6 +1,66 @@
 Install
 ===============
 
+仮想環境作成
+------
+
+仮想環境作成
+
+    $ python -m venv env
+
+仮想環境モードになる
+
+    MacOSの場合
+    $ source env/bin/activate
+    Windowsの場合
+    c:¥> env¥Scripts¥activate.bat
+
+pipをアップグレード
+
+    (env) $ python -m pip install --upgrade pip
+
+ライブラリをまとめてインストール
+
+    (env) $ pip install -r requirements\requirements.txt
+
+インストール済みパッケージを確認
+    (env) $ pip freeze
+
+Windowsの場合「sqlite3のエラー」が出る場合に、sqlite3.dllがぶつかって場合がある
+
+    (env) $ ren venv\Scripts\sqlite3.dll venv\Scripts\000.sqlite3.dll
+
+データベース
+------
+
+データベース作成
+
+    # データベース削除
+    $ dropdb -U postgres brownbagdb
+
+    # データベース作成
+    $ createdb -E utf8 -O postgres -U postgres brownbagdb
+      or
+    $ createdb -U postgres -E UTF-8 brownbagdb
+
+    # データベース拡張インストール
+    $ psql -U postgres -d brownbagdb -c "CREATE EXTENSION postgis;"
+
+    # データベース拡張を確認
+    $ psql -U postgres -d brownbagdb -c "select * from pg_available_extensions;"
+
+    # コマンドモード
+    $ psql -U postgres -d brownbagdb
+
+データベース初期化
+
+    (env) $ python manage.py makemigrations
+    (env) $ python manage.py migrate
+
+ユーザ登録
+
+    (env) $ python manage.py createsuperuser
+
 ### Setup
 
 ```
@@ -37,6 +97,7 @@ $ python manage.py createsuperuser
 ```
 
 ### AUTH_USER_MODEL
+
 カスタムユーザモデルの定義は絶対にしよう！(AUTH_USER_MODEL)
 * [DjangoでUserモデルのカスタマイズ ](https://narito.ninja/blog/detail/39/)
 * [Django Userモデルへの参照方法（AUTH_USER_MODEL, get_user_modelの使い方）](https://djangobrothers.com/blogs/referencing_the_user_model/)
@@ -45,5 +106,6 @@ $ python manage.py createsuperuser
 2.AUTH_USER_MODELを参照する
 3.get_user_model( )で呼び出す
 
-
+```
 $ python manage.py startapp accounts
+```
