@@ -218,14 +218,11 @@ function form_read(type) {
         images: images
     };
 
-    OnLoading(); // loading on
-
     post("/api/v1.0/shop/ ", jsondata, form_read_done);
     console.log("form_read(): " + JSON.stringify(jsondata));
 }
 
 function form_read_done(data) {
-    OffLoading(); // loading off
     ons.notification.toast("登録完了", { timeout: 1000, animation: 'fall' });
 }
 // ------------------------------

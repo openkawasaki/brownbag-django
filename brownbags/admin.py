@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from django.contrib.auth.models import User, Group
+from django.utils.safestring import mark_safe
 
 from brownbags.models import Shop, ImageData
 
@@ -33,10 +34,13 @@ admin.site.register(Shop, ShopAdmin)
 #----------------------------
 class ImageDataAdmin(admin.ModelAdmin):
     # 一覧画面に表示させる項目
-    list_display = ('id', 'get_shop_name', 'image_data_class')  # 一覧に出したい項目
+    list_display = ('id', 'get_shop_name', 'image_data_class', 'image_tag')  # 一覧に出したい項目
 
     # 詳細画面へのリンクを付ける項目
     list_display_links = ('id', 'get_shop_name')  # 修正リンクでクリックできる項目
+
+    def image_tag(self, obj):
+        return mark_safe('<img src="{}" style="width:50px;height:auto;">'.format(obj.image_data_thumbnail.url))
 
     # 一覧画面に表示
     def get_shop_name(self, obj):
@@ -52,7 +56,7 @@ class ImageDataAdmin(admin.ModelAdmin):
     #list_filter = ['target_year', 'area_name', "operator"]
 
     # 検索窓で対象となる項目
-    #search_fields = ['facility_id', 'facility_name']
+    search_fields = ['shop__name', 'image_data_class']
 
     # 変指定フィールドの日付を使って日付ベースで絞り込み
     #date_hierarchy = 'created_date'

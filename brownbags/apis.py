@@ -29,7 +29,8 @@ class shop(APIView):
 
     def get(self, request, *args, **keywords):
         try:
-            logger.debug("GET: shop()")
+            #logger.debug("GET: shop()")
+
             name     = request.GET.get('name', None)
             area     = request.GET.get('area', None)
             genre    = request.GET.get('genre', None)
@@ -49,7 +50,7 @@ class shop(APIView):
 
     def post(self, request, *args, **keywords):
         try:
-            logger.debug("POST: shop()")
+            #logger.debug("POST: shop()")
 
             # 現在ログインしている?
             #if not request.user.is_authenticated:
@@ -152,6 +153,8 @@ def shop_post(post_data):
 
         if name is None or len(name) <= 0:
             raise Exception("name is None")
+
+        logger.info("POST: shop = " + name)
 
         try:
             obj_shop = Shop.objects.get(name=name)

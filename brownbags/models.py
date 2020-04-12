@@ -25,6 +25,8 @@ from PIL import Image
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
+from .validators import validate_file_extension
+
 # データタイプ
 DATA_TYPE_CLASS = (
     (0, 'オーナー'),
@@ -275,7 +277,7 @@ class ImageData(models.Model):
 
     shop = models.ForeignKey(Shop, verbose_name='Shop', related_name='image', on_delete=models.CASCADE)
 
-    image_data = models.ImageField(_('画像'), upload_to=get_image_path,  default="/static/brownbags/images/none.png", blank=True, null=True)  # 画像
+    image_data = models.ImageField(_('画像'), upload_to=get_image_path,  default="/static/brownbags/images/none.png", blank=True, null=True, validators=[validate_file_extension])  # 画像
     image_data_thumbnail = ImageSpecField(source='image_data', processors=[ResizeToFill(80, 80)], format='JPEG', options={'quality': 60})
 
     image_data_class = models.IntegerField("クラス", choices=IMAGE_DATA_CLASS, default=-1)

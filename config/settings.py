@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'gunicorn',
     'rest_framework',
     'django_cleanup.apps.CleanupConfig',
+    'imagekit',
+    'storages',
 ]
 
 MIDDLEWARE = [

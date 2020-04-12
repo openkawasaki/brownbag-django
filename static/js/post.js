@@ -7,6 +7,29 @@ $(function(){
 */
 
 /**
+ * loading on
+ */
+function OnLoading() {
+	$.blockUI({
+		message: ' <img src="/static/images/loading.gif"><br>ただいま処理中です・・・<br>しばらくお待ちください。',
+		css: {
+			border: 'none',
+			padding: '10px',
+			backgroundColor: '#333',
+			opacity: .5,
+			color: '#fff'
+		}
+	});
+}
+/**
+ * loading off
+ */
+function OffLoading() {
+	$.unblockUI();
+}
+
+
+/**
  * get_d()
  * @param api
  * @param param
@@ -93,6 +116,8 @@ function post_d(url, data, done) {
  */
 function get(url, param, done) {
 
+    OnLoading();
+
     /* GET通信実行 */
     $.get(url,param)
         .done(function (data) {
@@ -104,6 +129,8 @@ function get(url, param, done) {
             console.log("XMLHttpRequest : " + jqXHR.status);
             console.log("textStatus : " + textStatus);
             console.log("errorThrown : " + errorThrown);
+        }).always(function (data) {
+            OffLoading();
         });
 }
 
@@ -121,22 +148,26 @@ function post(url, data, done) {
 
     var post_data = JSON.stringify(data);
 
+    OnLoading();
+
     /* POST通信実行 */
     $.ajax({
-        type:"post",     // method = "POST"
+        type: "post",     // method = "POST"
         url: url,        // POST送信先のURL
         data: post_data, // JSONデータ本体
         contentType: 'application/json',    // リクエストの Content-Type
         dataType: "json",                   // レスポンスをJSONとしてパースする
-        }).done(function(data) {
+        }).done(function (data) {
             if (done) {
                 done(data);
             }
-        }).fail(function(jqXHR, textStatus, errorThrown){
+        }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log("fail: post() = " + url);
             console.log("XMLHttpRequest : " + jqXHR.status);
             console.log("textStatus : " + textStatus);
             console.log("errorThrown : " + errorThrown);
             alert("server error: pleasy try again later.");
+        }).always(function (data) {
+            OffLoading();
         });
-}
+    }
