@@ -31,3 +31,5 @@ Compiles and hot-reloads for development
     - <https://github.com/openkawasaki/brownbag-django>
 * 東京大学空間情報科学研究センター CSVアドレスマッチングサービス
     - <http://newspat.csis.u-tokyo.ac.jp/geocode/>
+* 国土数値情報　ダウンロードサービス
+    - <http://nlftp.mlit.go.jp/ksj/index.html>
