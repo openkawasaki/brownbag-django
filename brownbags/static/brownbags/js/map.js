@@ -32,18 +32,16 @@ function map() {
     var items = getShopItems();
     if (items !== null) {
         for (var ii=0; ii<items.length; ii++) {
-            var lon =　items[ii]["lon"];
-            var lat =　items[ii]["lat"];
-            var name = items[ii]["name"];
-            var addr = items[ii]["addr"];
+            var lon   =　items[ii]["longitude"];
+            var lat   =　items[ii]["latitude"];
+            var name  = items[ii]["name"];
             var phone = items[ii]["phone"];
-            var category = items[ii]["category"];
-            var genre = items[ii]["genre"];
+            var genre = get_genre_sel_name(items[ii]["genre_sel"]);
 
-            /*
-            L.marker([lat, lon]).addTo(map)
-                .bindPopup('店名：' + name +　"<br>" + 'カテゴリ：' + category +　"<br>"  + 'ジャンル：' + genre +　"<br>"  + '電話：' + phone +　"<br>" + '住所：' + addr);
-            */
+            if (lat !== 0.0 && lon !== 0.0) {
+                L.marker([lat, lon]).addTo(map)
+                    .bindPopup('店名：' + name + "<br>" + 'ジャンル：' + genre + "<br>" + '電話：' + phone);
+            }
         }
     }
 
@@ -61,12 +59,12 @@ function map() {
     var lc = L.control.locate(option).addTo(map);
 }
 
-function map_info(lat, lon) {
+function map_info(lat, lon, name) {
 
     var lat0 = lat;
     var lon0 = lon;
 
-    if (lat == 0.0 || lon == 0.0) {
+    if (lat === 0.0 || lon === 0.0) {
         lat0 = LAT;
         lon0 = LON;
     }

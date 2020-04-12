@@ -46,7 +46,7 @@ function createItem(index) {
                 <img class="list-item__thumbnail" src="${item.url}">
             </div>
             <div class="center">
-                <span class="list-item__title">${item.id} - ${item.name}</span><span class="list-item__subtitle">${item.genre}<br><a href='tel:${item.phone}'>${item.phone}</a></span>
+                <span class="list-item__title">${item.name}</span><span class="list-item__subtitle">${item.genre}<br><a href='tel:${item.phone}'>${item.phone}</a></span>
             </div>
         </ons-list-item>
     `);

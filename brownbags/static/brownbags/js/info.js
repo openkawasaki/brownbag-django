@@ -93,7 +93,7 @@ function info(self) {
     // マップ
     var lat = item["latitude"];
     var lon = item["longitude"];
-    map_info(lat, lon);
+    map_info(lat, lon, name);
 }
 /* slick
  Version: 1.6.0
