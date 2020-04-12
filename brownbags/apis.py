@@ -121,7 +121,8 @@ def shop_get_data(obj_shop):
         for row in image_list:
             image_dict = {
                 "id": row.pk,
-                "src": row.image_data.url
+                "src": row.image_data_middle.url,
+                "src_full": row.image_data.url
             }
             image_data_name_list.append(image_dict)
 
@@ -133,7 +134,8 @@ def shop_get_data(obj_shop):
         for row in image_list:
             image_dict = {
                 "id": row.pk,
-                "src": row.image_data.url
+                "src": row.image_data_middle.url,
+                "src_full": row.image_data.url
             }
             image_data_takeaway_list.append(image_dict)
 

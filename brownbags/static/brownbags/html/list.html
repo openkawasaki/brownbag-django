@@ -121,7 +121,7 @@
         }
 
         function updateList(data) {
-            readShopListDone(data);
+            //readShopListDone(data);
 
             var infiniteList = document.getElementById('infinite-list');
 
@@ -140,8 +140,8 @@
 
         // アクティブなタブが変わる前に発火します。
         document.addEventListener('prechange', function(event) {
-            //updateList();
-            updateShopList(updateList);
+            updateList(null);
+            //updateShopList(updateList);
         });
 
     </script>

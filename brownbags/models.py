@@ -278,10 +278,19 @@ class ImageData(models.Model):
     shop = models.ForeignKey(Shop, verbose_name='Shop', related_name='image', on_delete=models.CASCADE)
 
     image_data = models.ImageField(_('画像'), upload_to=get_image_path,  default="/static/brownbags/images/none.png", blank=True, null=True, validators=[validate_file_extension])  # 画像
-    image_data_thumbnail = ImageSpecField(source='image_data', processors=[ResizeToFill(80, 80)], format='JPEG', options={'quality': 60})
+
+    image_data_thumbnail = ImageSpecField(source='image_data',
+                                          processors=[ResizeToFill(80, 80)],
+                                          format='JPEG',
+                                          options={'quality': 60})
+
+    image_data_middle = ImageSpecField(source='image_data',
+                                       processors=[ResizeToFill(480, 320)],
+                                       format="JPEG",
+                                       options={'quality': 75})
 
     image_data_class = models.IntegerField("クラス", choices=IMAGE_DATA_CLASS, default=-1)
-    order = models.IntegerField("順番", default=0)
+    image_data_order = models.IntegerField("順番", default=0)
 
     expired_date = models.DateTimeField(blank=True, null=True)
 
