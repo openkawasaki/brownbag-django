@@ -27,5 +27,5 @@ Compiles and hot-reloads for development
 
 ## Licensing
 * Source code is under MIT license.
-    - <https://github.com/openkawasaki/brownbag>
+    - <https://github.com/openkawasaki/brownbag-django>
 * Copyright (c) 2020 @homata (https://twitter.com/homata)

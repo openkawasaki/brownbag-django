@@ -80,10 +80,40 @@
 
 <!-- body javascript --->
 {% block js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.11.0/js/vendor/jquery.ui.widget.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.11.0/js/jquery.iframe-transport.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.11.0/js/jquery.fileupload.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.11.0/js/jquery.fileupload-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/vendor/jquery.ui.widget.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/jquery.iframe-transport.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/jquery.fileupload.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/jquery.fileupload-ui.min.js"></script>
+{% comment %}
+<script src="{% static 'node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'node_modules/blueimp-file-upload/js/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'node_modules/blueimp-file-upload/js/jquery.fileupload.js' %}"></script>
+<script src="{% static 'node_modules/blueimp-file-upload/js/jquery.fileupload-ui.js' %}"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+{% endcomment %}
+{% comment %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/2.38.0/css/blueimp-gallery.min.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/2.38.0/css/blueimp-gallery-indicator.css}">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/2.38.0/js/blueimp-gallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/2.38.0/js/blueimp-gallery-indicator.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/2.38.0/js/blueimp-gallery-fullscreen.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/2.38.0/js/jquery.blueimp-gallery.js"></script>
+{% endcomment %}
+
+
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+{% comment %}
+<link rel="stylesheet" href="{% static 'node_modules/blueimp-gallery/css/blueimp-gallery.min.css' %}" />
+<link rel="stylesheet" href="{% static 'node_modules/blueimp-gallery/css/blueimp-gallery-indicator.css' %}" />
+<script src="{% static 'node_modules/blueimp-gallery/js/blueimp-gallery.min.js' %}"></script>
+<script src="{% static 'node_modules/blueimp-gallery/js/jquery.blueimp-gallery.min.js' %}"></script>
+{% endcomment %}
 
 <script type="text/javascript" src="{% static 'brownbags/js/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/form.js' %}"></script>
