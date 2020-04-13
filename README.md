@@ -1,15 +1,18 @@
 BrownBagプロジェクト
 -------
 
-URL: <https://brownbag.openkawasaki.org/>
+アプリのURL: <https://brownbag.openkawasaki.org/>
 
-川崎市を中心にテイクアウト（持ち帰り）・デリバリーサービス（出前・配達）が可能な飲食店の情報をまとめるアプリです。
-誰でも触れるように、シンプルなJSで記述してます。
+横浜市、川崎市を中心にテイクアウト（持ち帰り）・デリバリーサービス（出前・配達）が可能な飲食店の情報をまとめるアプリです。
+誰でも触れるように、出来るだけシンプルなJavaScriptを使って記述してます。
 
 ### 使用ツール
+* Django - <https://www.djangoproject.com/>
+* PostGIS - <https://postgis.net/>
 * jQuery - <https://jquery.com/>
 * Onsen UI - <https://ja.onsen.io/>
 * leaflet - <https://leafletjs.com/>
+* Amazon S3 - <https://aws.amazon.com/jp/s3/>
 
 ### Getting Started
 - Install Nodejs from [Nodejs Official Page](https://nodejs.org/en/)
