@@ -203,8 +203,8 @@ STATICFILES_FINDERS = (
 
 # Django Compress
 # https://remotestance.com/blog/1222/#index-1
-if not DEBUG:
-    COMPRESS_ENABLED = True
+#if not DEBUG:
+COMPRESS_ENABLED = True
 
 # AWS S3
 # ------------------------------------------------------------------------------
