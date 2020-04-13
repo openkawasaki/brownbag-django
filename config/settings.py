@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'imagekit',
     'storages',
+    'compressor',  # Django Compress
 ]
 
 MIDDLEWARE = [
@@ -197,7 +198,13 @@ STATICFILES_FINDERS = (
     # アプリケーションのstaticディレクトリからファイルを読み込みむ
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder', # Django Compress
 )
+
+# Django Compress
+# https://remotestance.com/blog/1222/#index-1
+if not DEBUG:
+    COMPRESS_ENABLED = True
 
 # AWS S3
 # ------------------------------------------------------------------------------

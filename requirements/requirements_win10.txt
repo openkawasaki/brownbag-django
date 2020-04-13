@@ -10,6 +10,7 @@ Django==3.0.5
 django-appconf==1.0.4
 django-bootstrap-form==3.4
 django-cleanup==4.0.0
+django-compressor==2.4
 django-debug-toolbar==2.2
 django-environ==0.4.5
 django-extensions==2.2.9
@@ -28,7 +29,9 @@ pyasn1==0.4.8
 python-dateutil==2.8.1
 pytz==2019.3
 PyYAML==5.3.1
+rcssmin==1.0.6
 requests==2.23.0
+rjsmin==1.1.0
 rsa==3.4.2
 s3transfer==0.3.3
 six==1.14.0

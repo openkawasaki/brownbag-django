@@ -31,6 +31,14 @@ function map() {
 
     var items = getShopItems();
     if (items !== null) {
+        // アイコンを作成する
+        var markerIcon = L.icon({
+            iconUrl: '/static/images/marker.png', // アイコン画像のURL
+            iconSize:     [20, 28], // アイコンの大きさ
+            iconAnchor:   [16, 32], // 画像内でマーカーの位置を指し示す点の位置
+            popupAnchor:  [0, -32]  // ポップアップが出現する位置（iconAnchorからの相対位置）
+        });
+
         for (var ii=0; ii<items.length; ii++) {
             var lon   =　items[ii]["longitude"];
             var lat   =　items[ii]["latitude"];
@@ -39,7 +47,8 @@ function map() {
             var genre = get_genre_sel_name(items[ii]["genre_sel"]);
 
             if (lat !== 0.0 && lon !== 0.0) {
-                L.marker([lat, lon]).addTo(map)
+                // 上記で作成したアイコンを使用してマーカーを作成する
+                L.marker([lat, lon], {icon: markerIcon}).addTo(map)
                     .bindPopup('店名：' + name + "<br>" + 'ジャンル：' + genre + "<br>" + '電話：' + phone);
             }
         }
@@ -97,7 +106,15 @@ function map_info(lat, lon, name) {
     });
 
     if (lat != 0.0 &&  lon != 0.0) {
-        L.marker([lat, lon]).addTo(map)
+        // アイコンを作成する
+        var markerIcon = L.icon({
+            iconUrl: '/static/images/marker.png', // アイコン画像のURL
+            iconSize:     [20, 28], // アイコンの大きさ
+            iconAnchor:   [16, 32], // 画像内でマーカーの位置を指し示す点の位置
+            popupAnchor:  [0, -32]  // ポップアップが出現する位置（iconAnchorからの相対位置）
+        });
+
+        L.marker([lat, lon], {icon: markerIcon}).addTo(map)
             .bindPopup(name)
             .openPopup();
     }
