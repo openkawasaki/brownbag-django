@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load compress %}
 
 {% block title %}
 {{ block.super }}
@@ -75,7 +76,9 @@
 
 <!-- body css --->
 {% block css %}
+{% compress css %}
 <link rel="stylesheet" href="{% static 'brownbags/css/brownbags.css' %}">
+{% endcompress %}
 {% endblock %}
 
 <!-- body javascript --->
@@ -116,11 +119,13 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
 
+{% compress js %}
 <script type="text/javascript" src="{% static 'brownbags/js/app.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/form.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/info.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/list.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/map.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/brownbags.js' %}"></script>
+{% endcompress %}
 {% endblock %}
 

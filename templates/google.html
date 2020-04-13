@@ -1,9 +1,11 @@
 {% load static %}
 {% load i18n %}
+{% load compress %}
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 {% if google_analytics_key %}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_key }}"></script>
+{% compress js %}
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -11,4 +13,5 @@
 
   gtag('config', '{{ google_analytics_key }}');
 </script>
+{% endcompress %}
 {% endif %}

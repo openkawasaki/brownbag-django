@@ -36,3 +36,6 @@ Compiles and hot-reloads for development
     - <http://newspat.csis.u-tokyo.ac.jp/geocode/>
 * 国土数値情報　ダウンロードサービス
     - <http://nlftp.mlit.go.jp/ksj/index.html>
+* フリーのアイコンイラスト素材 icon-pit
+    - <https://icon-pit.com/policy>
+    
