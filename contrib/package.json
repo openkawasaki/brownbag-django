@@ -13,11 +13,15 @@
   "author": "@homata",
   "license": "MIT",
   "dependencies": {
-    "blueimp-file-upload": "^10.12.0",
-    "blueimp-gallery": "^2.38.0",
+    "blueimp-file-upload": "^10.13.0",
     "http-server": "^0.12.1",
+    "jquery-blockui": "^2.7.0",
+    "jquery.iframe-transport": "^1.0.0",
     "kind-of": ">=6.0.3",
-    "onsenui": "^2.10.10"
+    "leaflet": "^1.6.0",
+    "leaflet.locatecontrol": "^0.71.1",
+    "onsenui": "^2.10.10",
+    "unitegallery": "^1.7.28"
   },
   "devDependencies": {
     "csv2json": "^2.0.2",

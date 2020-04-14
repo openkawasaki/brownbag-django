@@ -8,7 +8,7 @@ function info(self) {
     self.querySelector('#shop_name').textContent = name;
 
     // 店舗画像
-    $("#image_name").html(get_image_html("image_name", item["images"]["name"]));
+    $("#image_name").html(info_gallery("image_name", item["images"]["name"]));
 
     // ジャンル
     self.querySelector('#shop_genre').textContent = get_genre_sel_name(item["genre_sel"]);
@@ -18,7 +18,7 @@ function info(self) {
         self.querySelector('#shop_description').textContent = item["description"];
 
     // メニュー情報
-    $("#image_takeway").html(get_image_html("image_takeway", item["images"]["takeaway"]));
+    $("#image_takeway").html(info_gallery("image_takeway", item["images"]["takeaway"]));
 
     // テイクアウト（持ち帰り）
     self.querySelector('#shop_takeaway_sel').textContent = get_takeaway_sel_name(item["takeaway_sel"]);
@@ -116,41 +116,34 @@ function conv_br(str) {
     return text;
 }
 
-/* slick
- Version: 1.6.0
-  Author: Ken Wheeler
- Website: http://kenwheeler.github.io
-    Docs: http://kenwheeler.github.io/slick
-    Repo: http://github.com/kenwheeler/slick
-  Issues: http://github.com/kenwheeler/slick/issues
-slick.jsの使い方まとめ
-    http://cly7796.net/wp/javascript/plugin-slick/
-Doc
-    https://kenwheeler.github.io/slick/
-*/
-function get_image_html(selector, images_name) {
-    var html_deffault = '<div class="camera"><div class="focus"></div></div>';
+function info_gallery(selector, images_name) {
 
-    for (var ii=0; ii<images_name.length; ii++) {
-        var imageurl = get_image_url(images_name[ii], null);
-        if (!imageurl) {
-            imageurl = html_deffault;
-        }
-        //var html = '<div class="" style="border:1px"><img src="' + imageurl + '" style="width:70%;height:200px"></div>';
-        var html = '<div class="" style="border:1px"><img src="' + imageurl + '" style="height:300px"></div>';
+    if (images_name.length === 0){
+        var imageurl = '/static/brownbags/images/noimage.png';
+        var html = '<img src="' + imageurl + '" data-image="' + imageurl + '">';
         $("#" + selector).append(html);
+
+    } else {
+        for (var ii=0; ii<images_name.length; ii++) {
+            var imageurl = get_image_url(images_name[ii], '/static/brownbags/images/noimage.png', 2);
+            var html = '<img src="' + imageurl + '" data-image="' + imageurl + '">';
+            $("#" + selector).append(html);
+        }
     }
 
-    $("#" + selector).slick({
-        slidesToShow: 1,
-        slidesToScroll: 2,
-        centerMode: true,
-        centerPadding: '0px',
-        dots: true,
-        infinite: true,
-        speed: 500,
-        //fade: true,
-        cssEase: 'linear'
-    });
+    jQuery(document).ready(function(){
+		jQuery("#" + selector).unitegallery({
+		    gallery_theme:"default",
 
+            theme_enable_fullscreen_button: true,	//show, hide the theme fullscreen button. The position in the theme is constant
+            theme_enable_play_button: false,		//show, hide the theme play button. The position in the theme is constant
+			theme_enable_hidepanel_button: false,	//show, hide the hidepanel button
+			theme_enable_text_panel: false,			//enable the panel text panel.
+
+            slider_enable_zoom_panel: true,	         //true,false - enable the zoom buttons, works together with zoom control.
+
+            gallery_width: "100%",
+            //gallery_height: "400px",
+        });
+	});
 }

@@ -17,9 +17,9 @@ function getItem(index) {
 
     var imageurl = "";
     if (item["images"]["name"].length > 0) {
-        imageurl = get_image_url(item["images"]["name"][0],"/static/brownbags/images/none.png");
+        imageurl = get_image_url(item["images"]["name"][0],"/static/brownbags/images/noimage.png", 0);
     } else {
-        imageurl = "/static/brownbags/images/none.png";
+        imageurl = "/static/brownbags/images/noimage.png";
     }
 
     var data = {
@@ -43,7 +43,7 @@ function createItem(index) {
         return ons.createElement(`
             <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${index}'})" modifier="chevron">
                 <div class="left">
-                    <img class="list-item__thumbnail" src="${item.url}">
+                    <img class="list-item__thumbnail" src="${item.url}" style="border:1px #000 solid;">
                 </div>
                 <div class="center">
                     <span class="list-item__title">${item.name}</span><span class="list-item__subtitle">${item.genre}<br><a href='tel:${item.phone}'>${item.phone}</a></span>
@@ -54,7 +54,7 @@ function createItem(index) {
         return ons.createElement(`
             <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${index}'})" modifier="chevron">
                 <div class="left">
-                    <img class="list-item__thumbnail" src="${item.url}">
+                    <img class="list-item__thumbnail" src="${item.url}" style="border:1px #000 solid;">
                 </div>
                 <div class="center">
                     <span class="list-item__title">${item.name}</span><span class="list-item__subtitle">${item.genre}</span>

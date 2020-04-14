@@ -54,7 +54,7 @@ if settings.DEBUG:
     ] + urlpatterns
 
 # AWS S3に画像を保存するのでMEDIA_URLは"settinngs.py"で設定する
-#if settings.DEBUG:
-#    #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
-#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

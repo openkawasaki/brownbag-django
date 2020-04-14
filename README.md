@@ -38,4 +38,5 @@ Compiles and hot-reloads for development
     - <http://nlftp.mlit.go.jp/ksj/index.html>
 * フリーのアイコンイラスト素材 icon-pit
     - <https://icon-pit.com/policy>
+* フリー素材 ブログ（http://www.shoshinsha-design.com/）デザイナー：eshu
     
