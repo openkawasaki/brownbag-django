@@ -36,6 +36,7 @@ function updateShopList(done) {
 
 function readShopListDone(data) {
     g_shop_list = data["shop"];
+    map();
 }
 
 //--------------------------
@@ -78,23 +79,21 @@ document.addEventListener('prechange', function(event) {
 //--------------------------
 document.addEventListener("init", function(event) {
     var page = event.target;
-    /*
     if (page.id === "home-page") {
-        console.log("home-page");
+        //console.log("home-page");
     } else if (page.id === "list-page") {
-        console.log("list-page");
+        //console.log("list-page");
     } else if (page.id === "map-page") {
-        console.log("map-page");
+        //console.log("map-page");
     } else if (page.id === "info-page") {
-        console.log("info-page");
+        //console.log("info-page");
     } else if (page.id === "form-page") {
-        console.log("form-page");
+        //console.log("form-page");
     } else if (page.id === "form-edit-page") {
-        console.log("form-edit-page");
+        //console.log("form-edit-page");
     } else if (page.id === "about-page") {
-        console.log("about-page");
+        //console.log("about-page");
     } else {
-        console.log(page.id);
+        //console.log(page.id);
     }
-    */
 });
