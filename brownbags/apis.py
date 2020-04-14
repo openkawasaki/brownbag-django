@@ -110,6 +110,9 @@ def shop_get_data(obj_shop):
         dict_shop = obj_shop.to_dict()
         dict_shop["images"] = {}
 
+        #if "name" in dict_shop:
+        #    logger.debug("shop_get_data(): name = {}".format(dict_shop["name"]))
+
         """
         expired_date ??
         last day ??
@@ -135,8 +138,9 @@ def shop_get_data(obj_shop):
         for row in image_list:
             image_dict = {
                 "id": row.pk,
-                "src": row.image_data_middle.url,
-                "src_full": row.image_data.url
+                "src": row.image_data.url,
+                "src_thumbnail": row.image_data_thumbnail.url,
+                "src_middle": row.image_data_middle.url
             }
             image_data_takeaway_list.append(image_dict)
 
@@ -145,6 +149,10 @@ def shop_get_data(obj_shop):
         return dict_shop
 
     except Exception as e:
+        if "name" in dict_shop:
+            logger.error("shop_get_data(): name = {}".format(dict_shop["name"]))
+        else:
+            logger.error("shop_get_data()")
         traceback.print_exc()
         raise Exception(e)
 
