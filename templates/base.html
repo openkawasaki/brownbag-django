@@ -1,6 +1,6 @@
 {% load static %}
 {% load i18n %}
-{% load compress %}
+{# {% load compress %} #}
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -19,15 +19,15 @@
     {% block content %}
     {% endblock %}
 
-    {% compress css %}
+    {# {% compress css %} #}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    {% endcompress %}
-    {% compress js %}
+    {# {% endcompress %} #}
+    {# {% compress js %} #}
     <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/csrf_token.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/utility.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/post.js' %}"></script>
-    {% endcompress %}
+    {# {% endcompress %} #}
 
     {% block css %}
     {% endblock %}

@@ -203,30 +203,25 @@ STATICFILES_FINDERS = (
 
 # Django Compress
 # https://remotestance.com/blog/1222/#index-1
-if not DEBUG:
-    COMPRESS_ENABLED = True
+COMPRESS_ENABLED = True
 
 # AWS S3
 # ------------------------------------------------------------------------------
-if settings.DEBUG:
+if 'DJANGO_DEFAULT_FILE_STORAGE' in os.environ:
+    DEFAULT_FILE_STORAGE = os.environ['DJANGO_DEFAULT_FILE_STORAGE']
+    AWS_ACCESS_KEY_ID = os.environ['DJANGO_AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['DJANGO_AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['DJANGO_AWS_STORAGE_BUCKET_NAME']
+    AWS_LOCATION = os.environ['DJANGO_AWS_LOCATION']
+    AWS_DEFAULT_ACL = None
+    AWS_S3_FILE_OVERWRITE = True
+    AWS_S3_USE_SSL = True
+
+    S3_URL = 'https://%s.s3.amazonaws.com/%s/' % (AWS_STORAGE_BUCKET_NAME, AWS_LOCATION)
+    MEDIA_URL = S3_URL
+else:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
     MEDIA_URL = '/uploads/'
-else:
-    if 'DJANGO_DEFAULT_FILE_STORAGE' in os.environ:
-        DEFAULT_FILE_STORAGE = os.environ['DJANGO_DEFAULT_FILE_STORAGE']
-        AWS_ACCESS_KEY_ID = os.environ['DJANGO_AWS_ACCESS_KEY_ID']
-        AWS_SECRET_ACCESS_KEY = os.environ['DJANGO_AWS_SECRET_ACCESS_KEY']
-        AWS_STORAGE_BUCKET_NAME = os.environ['DJANGO_AWS_STORAGE_BUCKET_NAME']
-        AWS_LOCATION = os.environ['DJANGO_AWS_LOCATION']
-        AWS_DEFAULT_ACL = None
-        AWS_S3_FILE_OVERWRITE = True
-        AWS_S3_USE_SSL = True
-
-        S3_URL = 'https://%s.s3.amazonaws.com/%s/' % (AWS_STORAGE_BUCKET_NAME, AWS_LOCATION)
-        MEDIA_URL = S3_URL
-    else:
-        MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'uploads')
-        MEDIA_URL = '/uploads/'
 
 # LOGIN
 # ------------------------------------------------------------------------------

@@ -109,3 +109,15 @@ $ python manage.py createsuperuser
 ```
 $ python manage.py startapp accounts
 ```
+
+### image-kit
+
+### Failed I/O operation on closed file.
+画像のCACHEがおかしい場合にエラーになる.  
+原因はCACHEのサムネイル画像が存在しない時になる？
+
+画像のCACHEを強制的に作りなおす。
+(Failed I/O..が出たら何回もエラーが出なくなるまで繰り返す)
+```
+$ python manage.py generateimages --force
+```
