@@ -116,45 +116,6 @@ function conv_br(str) {
     return text;
 }
 
-/* slick
- Version: 1.6.0
-  Author: Ken Wheeler
- Website: http://kenwheeler.github.io
-    Docs: http://kenwheeler.github.io/slick
-    Repo: http://github.com/kenwheeler/slick
-  Issues: http://github.com/kenwheeler/slick/issues
-slick.jsの使い方まとめ
-    http://cly7796.net/wp/javascript/plugin-slick/
-Doc
-    https://kenwheeler.github.io/slick/
-*/
-function get_image_html(selector, images_name) {
-    var html_deffault = '<div class="camera"><div class="focus"></div></div>';
-
-    for (var ii=0; ii<images_name.length; ii++) {
-        var imageurl = get_image_url(images_name[ii], null);
-        if (!imageurl) {
-            imageurl = html_deffault;
-        }
-        //var html = '<div class="" style="border:1px"><img src="' + imageurl + '" style="width:70%;height:200px"></div>';
-        var html = '<div class="" style="border:1px"><img src="' + imageurl + '" style="height:300px"></div>';
-        $("#" + selector).append(html);
-    }
-
-    $("#" + selector).slick({
-        slidesToShow: 1,
-        slidesToScroll: 2,
-        centerMode: true,
-        centerPadding: '0px',
-        dots: true,
-        infinite: true,
-        speed: 500,
-        //fade: true,
-        cssEase: 'linear'
-    });
-
-}
-
 function info_gallery(selector, images_name) {
 
     if (images_name.length === 0){
@@ -170,20 +131,19 @@ function info_gallery(selector, images_name) {
         }
     }
 
-
-
     jQuery(document).ready(function(){
 		jQuery("#" + selector).unitegallery({
 		    gallery_theme:"default",
 
             theme_enable_fullscreen_button: true,	//show, hide the theme fullscreen button. The position in the theme is constant
-            theme_enable_play_button: false,			//show, hide the theme play button. The position in the theme is constant
+            theme_enable_play_button: false,		//show, hide the theme play button. The position in the theme is constant
 			theme_enable_hidepanel_button: false,	//show, hide the hidepanel button
 			theme_enable_text_panel: false,			//enable the panel text panel.
 
-            slider_enable_zoom_panel: false,				 //true,false - enable the zoom buttons, works together with zoom control.
+            slider_enable_zoom_panel: true,	         //true,false - enable the zoom buttons, works together with zoom control.
 
             gallery_width: "100%",
+            //gallery_height: "400px",
         });
 	});
 }

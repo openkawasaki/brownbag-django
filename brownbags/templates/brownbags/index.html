@@ -9,31 +9,47 @@
 
 <!-- header --->
 {% block extrahead %}
+    {% comment %}
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
     <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
-    {% comment %}
-    {%  endcomment %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-    <!--
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.0.1/collection/components/icon/icon.min.css">
-    -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% endcomment %}
+    <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/onsenui.min.css' %}" type='text/css' />
+    <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/onsen-css-components.min.css' %}" type='text/css' />
+    <script type='text/javascript' src="{% static 'node_modules/onsenui/js/onsenui.min.js' %}"></script>
+    <script type='text/javascript' src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+
+    <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/material-design-iconic-font/css/material-design-iconic-font.min.css' %}" type='text/css' />
+    <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/ionicons/css/ionicons.min.css' %}" type='text/css' />
+    <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/font_awesome/css/fontawesome.min.css' %}" type='text/css' />
+
+    {% comment %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
           integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
           crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
             integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
             crossorigin=""></script>
-
-    <!--
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.71.1/dist/L.Control.Locate.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.71.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+    {% endcomment %}
 
+    <link rel='stylesheet' href="{% static 'node_modules/leaflet/dist/leaflet.css' %}" type='text/css' />
+    <script type='text/javascript' src="{% static 'node_modules/leaflet/dist/leaflet.js' %}"></script>
+    <link rel='stylesheet' href="{% static 'node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.css' %}" type='text/css' />
+    <script type='text/javascript' src="{% static 'node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.js' %}"></script>
+
+    {% comment %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.11.0/css/jquery.fileupload.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.11.0/css/jquery.fileupload-ui.min.css" />
+    {% endcomment %}
+    <link rel='stylesheet' href="{% static 'node_modules/blueimp-file-upload/css/jquery.fileupload.css' %}" type='text/css' />
+    <link rel='stylesheet' href="{% static 'node_modules/blueimp-file-upload/css/jquery.fileupload-ui.css' %}" type='text/css' />
+
 {% endblock %}
 
 <!-- body --->
@@ -84,16 +100,22 @@
 
 <!-- body javascript --->
 {% block js %}
+{% comment %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/vendor/jquery.ui.widget.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/jquery.iframe-transport.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/jquery.fileupload.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/10.12.0/js/jquery.fileupload-ui.min.js"></script>
+{% endcomment %}
+<script type='text/javascript' src="{% static 'node_modules/jquery.iframe-transport/jquery.iframe-transport.js' %}"></script>
+<script type='text/javascript' src="{% static 'node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js' %}"></script>
+<script type='text/javascript' src="{% static 'node_modules/blueimp-file-upload/js/jquery.fileupload.js' %}"></script>
+<script type='text/javascript' src="{% static 'node_modules/blueimp-file-upload/js/jquery.fileupload-ui.js' %}"></script>
 
 {# Unite Gallery #}
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/js/unitegallery.min.js' %}"></script>
 <link rel='stylesheet' href="{% static 'node_modules/unitegallery/dist/css/unite-gallery.css' %}" type='text/css' />
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/default/ug-theme-default.js' %}"></script>
+<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/js/unitegallery.min.js' %}"></script>
 <link rel='stylesheet' href="{% static 'node_modules/unitegallery/dist/themes/default/ug-theme-default.css' %}" type='text/css' />
+<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/default/ug-theme-default.js' %}"></script>
 
 {% comment %}
 <script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/tiles/ug-theme-tiles.js' %}"></script>
@@ -109,7 +131,10 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 {% endcomment %}
 
+{% comment %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
+{% endcomment %}
+<script type='text/javascript' src="{% static 'node_modules/jquery-blockui/jquery.blockUI.js' %}"></script>
 
 {% compress js %}
 <script type="text/javascript" src="{% static 'brownbags/js/app.js' %}"></script>
