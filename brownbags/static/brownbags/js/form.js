@@ -333,11 +333,28 @@ function get_takeaway_sel_name(takeaway_sel) {
     }
     return "";
 }
+var ImageSize = {
+    src : 0,
+    thumbnail : 1,
+    small : 2,
+    middle : 3,
+    big : 4
+};
 
-function get_image_url(img, default_url) {
+function get_image_url(img, default_url, size) {
+
     var imageurl = default_url;
-    if (!isEmpty(img["src"])) {
+
+    if (ImageSize.src === size && !isEmpty(img["src"])) {
         imageurl = img["src"];
+    } else if (ImageSize.thumbnail === size && !isEmpty(img["thumbnail"])) {
+        imageurl = img["thumbnail"];
+    } else if (ImageSize.small === size && !isEmpty(img["small"])) {
+        imageurl = img["small"];
+    } else if (ImageSize.middle === size && !isEmpty(img["middle"])) {
+        imageurl = img["middle"];
+    } else if (ImageSize.middle === size && !isEmpty(img["big"])) {
+        imageurl = img["big"];
     }
     return imageurl;
 }

@@ -8,7 +8,7 @@ function info(self) {
     self.querySelector('#shop_name').textContent = name;
 
     // 店舗画像
-    $("#image_name").html(info_gallery("image_name", item["images"]["name"]));
+    $("#image_name").html(info_gallery("image_name", item["images"]["name"], name));
 
     // ジャンル
     self.querySelector('#shop_genre').textContent = get_genre_sel_name(item["genre_sel"]);
@@ -18,7 +18,7 @@ function info(self) {
         self.querySelector('#shop_description').textContent = item["description"];
 
     // メニュー情報
-    $("#image_takeway").html(info_gallery("image_takeway", item["images"]["takeaway"]));
+    $("#image_takeway").html(info_gallery("image_takeway", item["images"]["takeaway"], name));
 
     // テイクアウト（持ち帰り）
     self.querySelector('#shop_takeaway_sel').textContent = get_takeaway_sel_name(item["takeaway_sel"]);
@@ -116,7 +116,7 @@ function conv_br(str) {
     return text;
 }
 
-function info_gallery(selector, images_name) {
+function info_gallery(selector, images_name, name) {
 
     if (images_name.length === 0){
         var imageurl = '/static/brownbags/images/noimage.png';
@@ -125,8 +125,16 @@ function info_gallery(selector, images_name) {
 
     } else {
         for (var ii=0; ii<images_name.length; ii++) {
-            var imageurl = get_image_url(images_name[ii], '/static/brownbags/images/noimage.png', 2);
-            var html = '<img src="' + imageurl + '" data-image="' + imageurl + '">';
+            var image_thumbnail = get_image_url(images_name[ii], '/static/brownbags/images/noimage.png', ImageSize.small);
+            var image_src       = get_image_url(images_name[ii], '/static/brownbags/images/noimage.png', ImageSize.middle);
+
+            /*
+            alt - image title (optional)
+            src - url of the thumbnail image
+            data-image - url of the big image.
+            data-description - the description of the image (optional)
+            */
+            var html = '<img src="' + image_thumbnail + '" data-image="' + image_src + '" data-description="' + name +  '">';
             $("#" + selector).append(html);
         }
     }
@@ -138,7 +146,7 @@ function info_gallery(selector, images_name) {
             theme_enable_fullscreen_button: true,	//show, hide the theme fullscreen button. The position in the theme is constant
             theme_enable_play_button: false,		//show, hide the theme play button. The position in the theme is constant
 			theme_enable_hidepanel_button: false,	//show, hide the hidepanel button
-			theme_enable_text_panel: false,			//enable the panel text panel.
+			theme_enable_text_panel: true,			//enable the panel text panel.
 
             slider_enable_zoom_panel: true,	         //true,false - enable the zoom buttons, works together with zoom control.
 

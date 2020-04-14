@@ -17,7 +17,7 @@ function getItem(index) {
 
     var imageurl = "";
     if (item["images"]["name"].length > 0) {
-        imageurl = get_image_url(item["images"]["name"][0],"/static/brownbags/images/noimage.png", 0);
+        imageurl = get_image_url(item["images"]["name"][0],"/static/brownbags/images/noimage.png", ImageSize.thumbnail);
     } else {
         imageurl = "/static/brownbags/images/noimage.png";
     }
