@@ -17,7 +17,8 @@
     "blueimp-gallery": "^2.38.0",
     "http-server": "^0.12.1",
     "kind-of": ">=6.0.3",
-    "onsenui": "^2.10.10"
+    "onsenui": "^2.10.10",
+    "unitegallery": "^1.7.28"
   },
   "devDependencies": {
     "csv2json": "^2.0.2",

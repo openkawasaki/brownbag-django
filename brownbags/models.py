@@ -181,7 +181,7 @@ def image_get_default_data(width=None, height=None):
     :return:
     '''
     try:
-        pathname = os.path.join(settings.BASE_DIR, 'static', 'brownbags', 'images', 'none.png')
+        pathname = os.path.join(settings.BASE_DIR, 'static', 'brownbags', 'images', 'noimage.png')
 
         if width is not None and height is not None:
             image_data_str = image_as_base64(pathname, width, height)
@@ -277,7 +277,7 @@ class ImageData(models.Model):
 
     shop = models.ForeignKey(Shop, verbose_name='Shop', related_name='image', on_delete=models.CASCADE)
 
-    image_data = models.ImageField(_('画像'), upload_to=get_image_path,  default="/static/brownbags/images/none.png", blank=True, null=True, validators=[validate_file_extension])  # 画像
+    image_data = models.ImageField(_('画像'), upload_to=get_image_path,  default="/static/brownbags/images/noimage.png", blank=True, null=True, validators=[validate_file_extension])  # 画像
 
     image_data_thumbnail = ImageSpecField(source='image_data',
                                           processors=[ResizeToFill(80, 80)],
