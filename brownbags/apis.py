@@ -106,6 +106,8 @@ def shop_get(name=None, area=None, genre=None, category=None):
 #---------------------------------------------
 def shop_get_data(obj_shop):
 
+    dict_shop = {}
+
     try:
         dict_shop = obj_shop.to_dict()
         dict_shop["images"] = {}
@@ -124,9 +126,11 @@ def shop_get_data(obj_shop):
         for row in image_list:
             image_dict = {
                 "id": row.pk,
-                "src": row.image_data.url,
-                "src_thumbnail": row.image_data_thumbnail.url,
-                "src_middle": row.image_data_middle.url
+                "src"      : row.image_data.url,
+                "thumbnail": row.image_data_thumbnail.url,
+                "small"    : row.image_data_small.url,
+                "middle"   : row.image_data_middle.url,
+                "big"      : row.image_data_big.url
             }
             image_data_name_list.append(image_dict)
 
@@ -138,9 +142,11 @@ def shop_get_data(obj_shop):
         for row in image_list:
             image_dict = {
                 "id": row.pk,
-                "src": row.image_data.url,
-                "src_thumbnail": row.image_data_thumbnail.url,
-                "src_middle": row.image_data_middle.url
+                "src"      : row.image_data.url,
+                "thumbnail": row.image_data_thumbnail.url,
+                "small"    : row.image_data_small.url,
+                "middle"   : row.image_data_middle.url,
+                "big"      : row.image_data_big.url
             }
             image_data_takeaway_list.append(image_dict)
 

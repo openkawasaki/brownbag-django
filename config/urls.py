@@ -26,6 +26,7 @@ from django.views.generic.base import RedirectView
 from django.utils.translation   import ugettext as _, ugettext_lazy
 
 import config.settings as settings
+import os
 
 #----------------------
 # Change admin site title
@@ -54,7 +55,8 @@ if settings.DEBUG:
     ] + urlpatterns
 
 # AWS S3に画像を保存するのでMEDIA_URLは"settinngs.py"で設定する
+if not 'DJANGO_DEFAULT_FILE_STORAGE' in os.environ:
 #if settings.DEBUG:
-#    #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
-#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes=True)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

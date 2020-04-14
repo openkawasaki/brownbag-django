@@ -270,6 +270,7 @@ def get_image_path(self, filename):
 class ImageData(models.Model):
     '''
     画像データ
+    see also: https://qiita.com/felyce/items/57421ea191ab89175e9e
     '''
     class Meta:
         verbose_name = _('画像')
@@ -284,8 +285,19 @@ class ImageData(models.Model):
                                           format='JPEG',
                                           options={'quality': 60})
 
+    image_data_small = ImageSpecField(source='image_data',
+                                        processors=[ResizeToFill(240,160)],
+                                        format="JPEG",
+                                        options={'quality': 60}
+                                        )
+
     image_data_middle = ImageSpecField(source='image_data',
                                        processors=[ResizeToFill(480, 320)],
+                                       format="JPEG",
+                                       options={'quality': 75})
+
+    image_data_big   = ImageSpecField(source='image_data',
+                                       processors=[ResizeToFill(720, 480)],
                                        format="JPEG",
                                        options={'quality': 75})
 
