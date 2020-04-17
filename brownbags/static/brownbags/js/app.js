@@ -2,8 +2,8 @@
 
 // CordovaのAPIを呼び出す準備が整った
 ons.ready(function() {
-    //console.log("ons.ready");
-    readShopList();
+    console.log("ons.ready");
+    //readShopList(readShopListDone);
 });
 
 //--------------------
@@ -26,17 +26,19 @@ function getShopItemCount() {
     return g_shop_list.length;
 }
 
-function readShopList() {
-    get("/api/v1.0/shop/", {}, readShopListDone);
-}
-
-function updateShopList(done) {
-    get("/api/v1.0/shop/", {}, done);
+function readShopList(done) {
+    console.log("readShopList()");
+    get("/api/v1.0/shop/list/", {}, done);
 }
 
 function readShopListDone(data) {
+    console.log("readShopListDone()");
     g_shop_list = data["shop"];
-    map();
+}
+
+function readShop(shop_id, done) {
+    console.log("readShopList()");
+    get("/api/v1.0/shop/", {shop_id:shop_id}, done);
 }
 
 //--------------------------
@@ -69,31 +71,110 @@ window.fn.pushPage = function (page, anim) {
 // アクティブなタブが変わる前に発火します。
 //--------------------------
 document.addEventListener('prechange', function(event) {
+    console.log("prechange()");
+
     // ラベル設定
     document.querySelector('ons-toolbar .center')
         .innerHTML = event.tabItem.getAttribute('label');
 });
 
 //--------------------------
-// initイベント
+// initイベント <ons-page>がDOMにアタッチされる
 //--------------------------
+/*
 document.addEventListener("init", function(event) {
     var page = event.target;
     if (page.id === "home-page") {
-        //console.log("home-page");
+        console.log("home-page: init()");
     } else if (page.id === "list-page") {
-        //console.log("list-page");
+        console.log("list-page: init()");
     } else if (page.id === "map-page") {
-        //console.log("map-page");
+        console.log("map-page: init()");
     } else if (page.id === "info-page") {
-        //console.log("info-page");
+        console.log("info-page: init()");
     } else if (page.id === "form-page") {
-        //console.log("form-page");
+        console.log("form-page: init()");
     } else if (page.id === "form-edit-page") {
-        //console.log("form-edit-page");
+        console.log("form-edit-page: init()");
     } else if (page.id === "about-page") {
-        //console.log("about-page");
+        console.log("about-page: init()");
     } else {
         //console.log(page.id);
     }
 });
+*/
+//--------------------------
+// destroyイベント <ons-page>がDOMからデアタッチされる直前
+//--------------------------
+/*
+document.addEventListener("destroy", function(event) {
+    var page = event.target;
+    if (page.id === "home-page") {
+        console.log("home-page: destroy()");
+    } else if (page.id === "list-page") {
+        console.log("list-page: destroy()");
+    } else if (page.id === "map-page") {
+        console.log("map-page: destroy()");
+    } else if (page.id === "info-page") {
+        console.log("info-page: destroy()");
+    } else if (page.id === "form-page") {
+        console.log("form-page: destroy()");
+    } else if (page.id === "form-edit-page") {
+        console.log("form-edit-page: destroy()");
+    } else if (page.id === "about-page") {
+        console.log("about-page: destroy()");
+    } else {
+        //console.log(page.id);
+    }
+});
+*/
+//--------------------------
+// showイベント <ons-page>が画面に現れるたび
+//--------------------------
+/*
+document.addEventListener("show", function(event) {
+    var page = event.target;
+    if (page.id === "home-page") {
+        console.log("home-page: show()");
+    } else if (page.id === "list-page") {
+        console.log("list-page: show()");
+    } else if (page.id === "map-page") {
+        console.log("map-page: show()");
+    } else if (page.id === "info-page") {
+        console.log("info-page: show()");
+    } else if (page.id === "form-page") {
+        console.log("form-page: show()");
+    } else if (page.id === "form-edit-page") {
+        console.log("form-edit-page: show()");
+    } else if (page.id === "about-page") {
+        console.log("about-page: show()");
+    } else {
+        //console.log(page.id);
+    }
+});
+*/
+//--------------------------
+// hideイベント <ons-page>が画面から隠れた場合
+//--------------------------
+/*
+document.addEventListener("hide", function(event) {
+    var page = event.target;
+    if (page.id === "home-page") {
+        console.log("home-page: hide()");
+    } else if (page.id === "list-page") {
+        console.log("list-page: hide()");
+    } else if (page.id === "map-page") {
+        console.log("map-page: hide()");
+    } else if (page.id === "info-page") {
+        console.log("info-page: hide()");
+    } else if (page.id === "form-page") {
+        console.log("form-page: hide()");
+    } else if (page.id === "form-edit-page") {
+        console.log("form-edit-page: hide()");
+    } else if (page.id === "about-page") {
+        console.log("about-page: hide()");
+    } else {
+        //console.log(page.id);
+    }
+});
+*/

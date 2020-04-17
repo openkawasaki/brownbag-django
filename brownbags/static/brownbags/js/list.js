@@ -3,40 +3,36 @@ function getItem(index) {
     if (!item) {
         return null;
     }
-    var name = "";
-    if ("name" in item)
-        name = item["name"];
 
-    var phone = "";
-    if ("phone" in item)
-        phone = item["phone"];
+    var shop_id  = item["shop_id"];
+    var name     = item["name"];
+    var phone    = item["phone"];
+    var genre    = get_genre_sel_name(item["genre_sel"]);
 
-    var genre = "";
-    if ("genre_sel" in item)
-        genre = get_genre_sel_name(item["genre_sel"]);
-
+    var image_id = item["image_id"];
     var imageurl = "";
-    if (item["images"]["name"].length > 0) {
-        imageurl = get_image_url(item["images"]["name"][0],"/static/brownbags/images/noimage.png", ImageSize.thumbnail);
+    if (!isEmpty(item["src"])) {
+        imageurl = item["src"];
     } else {
         imageurl = "/static/brownbags/images/noimage.png";
     }
 
     var data = {
         id: index,
+        shop_id: shop_id,
         name: name,
-        url: imageurl,
         phone: phone,
-        genre: genre
+        genre: genre,
+        image_id: image_id,
+        url: imageurl
     };
-    //console.log("getItem1: " + JSON.stringify(data));
     return data;
 }
 
 function createItem(index) {
     var item = getItem(index);
     if (!item) {
-        return null;
+        return ons.createElement('<ons-list-item></ons-list-item>');
     }
     //console.log("createItem: " + JSON.stringify(item));
     if (!isEmpty(item["phone"])) {

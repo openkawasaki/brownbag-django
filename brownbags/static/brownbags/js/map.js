@@ -1,8 +1,11 @@
-var LAT = 35.581105;
-var LON = 139.606619;
+var LAT = 35.48639282474548;
+var LON = 139.59228515625003;
 
-function map() {
-    var map = L.map('map').setView([LAT, LON], 10);
+var map = null;
+var map_info = null;
+
+function map_init() {
+    map = L.map('map').setView([LAT, LON], 10);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -28,31 +31,6 @@ function map() {
             style: style
             }).addTo(map);
     });
-
-    var items = getShopItems();
-    if (items !== null) {
-        // アイコンを作成する
-        var markerIcon = L.icon({
-            iconUrl: '/static/images/marker.png', // アイコン画像のURL
-            iconSize:     [20, 28], // アイコンの大きさ
-            iconAnchor:   [16, 32], // 画像内でマーカーの位置を指し示す点の位置
-            popupAnchor:  [0, -32]  // ポップアップが出現する位置（iconAnchorからの相対位置）
-        });
-
-        for (var ii=0; ii<items.length; ii++) {
-            var lon   =　items[ii]["longitude"];
-            var lat   =　items[ii]["latitude"];
-            var name  = items[ii]["name"];
-            var phone = items[ii]["phone"];
-            var genre = get_genre_sel_name(items[ii]["genre_sel"]);
-
-            if (lat !== 0.0 && lon !== 0.0) {
-                // 上記で作成したアイコンを使用してマーカーを作成する
-                L.marker([lat, lon], {icon: markerIcon}).addTo(map)
-                    .bindPopup('店名：' + name + "<br>" + 'ジャンル：' + genre + "<br>" + '電話：' + phone);
-            }
-        }
-    }
 
     // Locate
     var option = {
@@ -66,9 +44,56 @@ function map() {
         }
     };
     var lc = L.control.locate(option).addTo(map);
+
+    //クリックイベント
+    map.on('click', function(e) {
+        //クリック位置経緯度取得
+        lat = e.latlng.lat;
+        lng = e.latlng.lng;
+        //経緯度表示
+        console.log("lat: " + lat + ", lng: " + lng);
+    });
 }
 
-function map_info(lat, lon, name) {
+var markers = [];
+function map_show() {
+    var items = getShopItems();
+    if (items !== null) {
+        // アイコンを作成する
+        var markerIcon = L.icon({
+            iconUrl: '/static/images/marker.png', // アイコン画像のURL
+            iconSize:     [20, 28], // アイコンの大きさ
+            iconAnchor:   [16, 32], // 画像内でマーカーの位置を指し示す点の位置
+            popupAnchor:  [0, -32]  // ポップアップが出現する位置（iconAnchorからの相対位置）
+        });
+
+        for (var ii=0; ii<items.length; ii++) {
+            var lon   = items[ii]["longitude"];
+            var lat   = items[ii]["latitude"];
+            var name  = items[ii]["name"];
+            var phone = items[ii]["phone"];
+            var genre = get_genre_sel_name(items[ii]["genre_sel"]);
+
+            if (lat !== 0.0 && lon !== 0.0) {
+                // 上記で作成したアイコンを使用してマーカーを作成する
+                var marker = L.marker([lat, lon], {icon: markerIcon}).addTo(map)
+                    .bindPopup('店名：' + name + "<br>" + 'ジャンル：' + genre + "<br>" + '電話：' + phone);
+
+                markers.push(marker);
+            }
+        }
+    }
+}
+
+function map_hide() {
+    for (var ii=0; ii<markers.length; ii++) {
+        var marker = markers[ii];
+        map.removeLayer(marker);
+    }
+    markers = [];
+}
+
+function map_info_show(lat, lon, name) {
 
     var lat0 = lat;
     var lon0 = lon;
@@ -78,10 +103,10 @@ function map_info(lat, lon, name) {
         lon0 = LON;
     }
 
-    var map = L.map('info_map').setView([lat0, lon0], 10);
+    map_info = L.map('info_map').setView([lat0, lon0], 10);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    }).addTo(map_info);
 
     $.getJSON("/static/brownbags/data/kawasaki.geojson", function (data) {
         var style = {
@@ -91,7 +116,7 @@ function map_info(lat, lon, name) {
         };
         L.geoJson(data, {
             style: style
-        }).addTo(map);
+        }).addTo(map_info);
     });
 
     $.getJSON("/static/brownbags/data/yokohama.geojson", function (data) {
@@ -102,7 +127,7 @@ function map_info(lat, lon, name) {
         };
         L.geoJson(data, {
             style: style
-        }).addTo(map);
+        }).addTo(map_info);
     });
 
     if (lat != 0.0 &&  lon != 0.0) {
@@ -114,7 +139,7 @@ function map_info(lat, lon, name) {
             popupAnchor:  [0, -32]  // ポップアップが出現する位置（iconAnchorからの相対位置）
         });
 
-        L.marker([lat, lon], {icon: markerIcon}).addTo(map)
+        L.marker([lat, lon], {icon: markerIcon}).addTo(map_info)
             .bindPopup(name)
             .openPopup();
     }
@@ -130,5 +155,14 @@ function map_info(lat, lon, name) {
             maxZoom: 16
         }
     };
-    var lc = L.control.locate(option).addTo(map);
+    var lc = L.control.locate(option).addTo(map_info);
+
+    //クリックイベント
+    map_info.on('click', function(e) {
+        //クリック位置経緯度取得
+        lat = e.latlng.lat;
+        lng = e.latlng.lng;
+        //経緯度表示
+        console.log("lat: " + lat + ", lng: " + lng);
+    });
 }

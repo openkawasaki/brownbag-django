@@ -16,10 +16,38 @@ import os
 #import urllib.parse
 
 from django.core.exceptions import MultipleObjectsReturned
+#from django.db.models import Avg, Max, Min, Sum
+from django.db.models import Q
 
 from brownbags.models import Shop
 from brownbags.models import ImageData
 from brownbags.models import IMAGE_DATA_CLASS
+
+#---------------------------------------------
+class shop_list(APIView):
+    """
+    店舗リストデータ
+    """
+
+    def get(self, request, *args, **keywords):
+        try:
+            #logger.debug("GET: shop_list()")
+
+            area_sel     = request.GET.get('area_sel', None)
+            genre_sel    = request.GET.get('genre_sel', None)
+            category_sel = request.GET.get('category_sel', None)
+
+            shop_list = shop_get_list(area_sel, genre_sel, category_sel)
+
+            result   = { "shop": shop_list }
+            response = Response(result, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.error("GET: shop : {}".format(e))
+            result = {'message': '{}'.format(e)}
+            response = Response(result, status=status.HTTP_404_NOT_FOUND)
+
+        return response
 
 #---------------------------------------------
 class shop(APIView):
@@ -31,19 +59,18 @@ class shop(APIView):
         try:
             #logger.debug("GET: shop()")
 
-            name     = request.GET.get('name', None)
-            area     = request.GET.get('area', None)
-            genre    = request.GET.get('genre', None)
-            category = request.GET.get('category', None)
+            shop_id = request.GET.get('shop_id', None)
+            if shop_id is None:
+                raise Exception("shop_id is None")
 
-            shop_list = shop_get(name, area, genre, category)
-
-            result   = { "shop": shop_list }
+            shop_id = int(shop_id)
+            shop = shop_get(shop_id)
+            result   = { "shop": shop }
             response = Response(result, status=status.HTTP_200_OK)
 
         except Exception as e:
             logger.error("GET: shop : {}".format(e))
-            result = {}
+            result = {'message': '{}'.format(e)}
             response = Response(result, status=status.HTTP_404_NOT_FOUND)
 
         return response
@@ -70,34 +97,87 @@ class shop(APIView):
 
         except Exception as e:
             logger.error("POST: shop : {}".format(e))
-            result   = {}
+            result = {'message': '{}'.format(e)}
             response = Response(result, status=status.HTTP_404_NOT_FOUND)
 
         return response
 
+#------------------------------------------------------
+"""
+def get_queries_or(ids):
+
+    # OR条件でフィルター作成
+    #queries = [Q(device__deviceID=deviceID) for deviceID in deviceIDs]
+    queries = [Q(device__id=id) for id in ids]
+    device_query = queries.pop()
+    for item in queries:
+        device_query |= item
+
+    return device_query
+"""
+#------------------------------------------------------
+def get_queryset(area_sel=None, genre_sel=None, category_sel=None):
+
+    # 検索条件
+    condition_area_sel  = Q()
+    condition_genre_sel = Q()
+    condition_category  = Q()
+
+    if area_sel is not None:
+        condition_area_sel = Q(area_sel=area_sel)
+
+    if genre_sel is not None:
+        condition_genre_sel = Q(genre_sel=genre_sel)
+
+    if category_sel is not None:
+        condition_category = Q(category_sel=category_sel)
+
+    return condition_area_sel, condition_genre_sel, condition_category
+
 #---------------------------------------------
-def shop_get(name=None, area=None, genre=None, category=None):
+def shop_get_list(area_sel=None, genre_sel=None, category_sel=None):
 
     try:
-        if name is None or len(name) <= 0:
-            shops = Shop.objects.all()
+        if area_sel is None and genre_sel is None and category_sel is None:
+            shops = Shop.objects.all().values_list('id','name', 'phone', 'genre_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
         else:
-            """
-            try:
-                obj_shop = Shop.objects.get(name=name)
-            except MultipleObjectsReturned:
-                obj_shop = Shop.objects.filter(name=name).order_by('id').first()
-            except Shop.DoesNotExist:
-                raise Exception("shop does not exist")
-            """
-            shops = Shop.objects.filter(name=name).order_by('id')
+            condition_area_sel, condition_genre_sel, category_sel = get_queryset(area_sel, genre_sel, category_sel)
+            shops = Shop.objects.filter(condition_area_sel & condition_genre_sel & category_sel).values_list('id','name', 'phone', 'genre_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
 
         shop_list = []
         for row in shops:
-            data = shop_get_data(row)
+            shop_id = row[0]
+            image_data = ImageData.objects.filter(shop_id=shop_id, image_data_class=IMAGE_DATA_CLASS[1][0]).order_by('image_data_order').first()
+            url = image_data.image_data_thumbnail.url
+            data = {
+                "shop_id": shop_id,
+                "name": row[1],
+                "phone": row[2] if row[2] is not None else "",
+                "genre_sel": row[3],
+                "latitude": row[4],
+                "longitude": row[5],
+                "image_id": image_data.pk,
+                "src": url if url is not None else "",
+            }
+
             shop_list.append(data)
 
         return shop_list
+
+    except Exception as e:
+        traceback.print_exc()
+        raise Exception(e)
+
+#---------------------------------------------
+def shop_get(shop_id):
+
+    try:
+        shop = Shop.objects.filter(id=shop_id).order_by('id').first()
+        if shop is None:
+            raise Exception("shop not found")
+
+        data = shop_get_data(shop)
+        return data
 
     except Exception as e:
         traceback.print_exc()
@@ -115,15 +195,13 @@ def shop_get_data(obj_shop):
         #if "name" in dict_shop:
         #    logger.debug("shop_get_data(): name = {}".format(dict_shop["name"]))
 
-        """
-        expired_date ??
-        last day ??
-        """
-
         # ImageData:name
-        image_list = ImageData.objects.filter(shop=obj_shop, image_data_class=IMAGE_DATA_CLASS[1][0])
+        image_list = ImageData.objects.filter(shop=obj_shop, image_data_class=IMAGE_DATA_CLASS[1][0]).order_by('image_data_order')
         image_data_name_list = []
         for row in image_list:
+            if row.expired_date is not None:
+                continue
+
             image_dict = {
                 "id": row.pk,
                 "src"      : row.image_data.url,
@@ -137,9 +215,12 @@ def shop_get_data(obj_shop):
         dict_shop["images"]["name"] = image_data_name_list
 
         # ImageData:takeaway
-        image_list = ImageData.objects.filter(shop=obj_shop, image_data_class=IMAGE_DATA_CLASS[2][0])
+        image_list = ImageData.objects.filter(shop=obj_shop, image_data_class=IMAGE_DATA_CLASS[2][0]).order_by('image_data_order')
         image_data_takeaway_list = []
         for row in image_list:
+            if row.expired_date is not None:
+                continue
+
             image_dict = {
                 "id": row.pk,
                 "src"      : row.image_data.url,

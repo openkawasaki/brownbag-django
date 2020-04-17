@@ -3,9 +3,20 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //map();
-            //console.log("ons.getScriptPage().onInit : map-page");
-        }
+            map_init();
+            console.log("map.html: onInit()");
+        };
+        ons.getScriptPage().onShow = function () {
+            map_show();
+            console.log("map.html: onShow()");
+        };
+        ons.getScriptPage().onHide = function () {
+            map_hide();
+            console.log("map.html: onHide()");
+        };
+        ons.getScriptPage().onDestroy = function () {
+            console.log("map.html: onDestroy()");
+        };
     </script>
 
     <style>

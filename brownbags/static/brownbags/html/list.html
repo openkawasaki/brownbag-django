@@ -12,41 +12,39 @@
         <ons-list-item>
             <div class="center">
                 <ons-select id="area-input" style="width:100%" onchange="selectArea(event)">
-                    <option value="">地域の指定なし</option>
-                    <option value="武蔵小杉・新丸子・元住吉">武蔵小杉・新丸子・元住吉</option>
-                    <option value="武蔵新城・武蔵中原">武蔵新城・武蔵中原</option>
-                    <option value="溝の口・梶ヶ谷・鷺沼">溝の口・梶ヶ谷・鷺沼</option>
-                    <option value="登戸・稲田堤">登戸・稲田堤</option>
-                    <option value="川崎・平間">川崎・平間</option>
-                    <option value="百合ヶ丘・新百合ヶ丘">百合ヶ丘・新百合ヶ丘</option>
-                    <option value="川崎市川崎区">川崎市川崎区</option>
-                    <option value="川崎市幸区">川崎市幸区</option>
-                    <option value="川崎市中原区">川崎市中原区</option>
-                    <option value="川崎市高津区">川崎市高津区</option>
-                    <option value="川崎市宮前区">川崎市宮前区</option>
-                    <option value="川崎市多摩区">川崎市多摩区</option>
-                    <option value="川崎市麻生区">川崎市麻生区</option>
-
-                    <option value="横浜市青葉区">横浜市青葉区</option>
-                    <option value="横浜市都筑区">横浜市都筑区</option>
-                    <option value="横浜市港北区">横浜市港北区</option>
-                    <option value="横浜市鶴見区">横浜市鶴見区</option>
-                    <option value="横浜市緑区">横浜市緑区</option>
-                    <option value="横浜市神奈川区">横浜市神奈川区</option>
-                    <option value="横浜市瀬谷区">横浜市瀬谷区</option>
-                    <option value="横浜市旭区">横浜市旭区</option>
-                    <option value="横浜市保土ケ谷区">横浜市保土ケ谷区</option>
-                    <option value="横浜市南区">横浜市南区</option>
-                    <option value="横浜市西区">横浜市西区</option>
-                    <option value="横浜市中区">横浜市中区</option>
-                    <option value="横浜市泉区">横浜市泉区</option>
-                    <option value="横浜市戸塚区">横浜市戸塚区</option>
-                    <option value="横浜市港南区">横浜市港南区</option>
-                    <option value="横浜市磯子区">横浜市磯子区</option>
-                    <option value="横浜市栄区">横浜市栄区</option>
-                    <option value="横浜市金沢区">横浜市金沢区</option>
-
-                    <option value="">その他</option>
+                    <option value="-1">地域の指定なし</option>
+                    <option value="1">武蔵小杉・新丸子・元住吉</option>
+                    <option value="2">武蔵新城・武蔵中原</option>
+                    <option value="3">溝の口・梶ヶ谷・鷺沼</option>
+                    <option value="4">登戸・稲田堤</option>
+                    <option value="5">川崎・平間</option>
+                    <option value="6">百合ヶ丘・新百合ヶ丘</option>
+                    <option value="7">川崎市川崎区</option>
+                    <option value="8">川崎市幸区</option>
+                    <option value="9">川崎市中原区</option>
+                    <option value="10">川崎市高津区</option>
+                    <option value="11">川崎市宮前区</option>
+                    <option value="12">川崎市多摩区</option>
+                    <option value="13">川崎市麻生区</option>
+                    <option value="14">横浜市青葉区</option>
+                    <option value="15">横浜市都筑区</option>
+                    <option value="16">横浜市港北区</option>
+                    <option value="17">横浜市鶴見区</option>
+                    <option value="18">横浜市緑区</option>
+                    <option value="19">横浜市神奈川区</option>
+                    <option value="20">横浜市瀬谷区</option>
+                    <option value="21">横浜市旭区</option>
+                    <option value="22">横浜市保土ケ谷区</option>
+                    <option value="23">横浜市南区</option>
+                    <option value="24">横浜市西区</option>
+                    <option value="25">横浜市中区</option>
+                    <option value="26">横浜市泉区</option>
+                    <option value="27">横浜市戸塚区</option>
+                    <option value="28">横浜市港南区</option>
+                    <option value="29">横浜市磯子区</option>
+                    <option value="30">横浜市栄区</option>
+                    <option value="31">横浜市金沢区</option>
+                <option value="0">その他</option>
                 </ons-select>
             </div>
         </ons-list-item>
@@ -57,7 +55,8 @@
                 <ons-select id="category-input" style="width:100%" onchange="selectCategory(event)">
                     <option value="-1">指定なし</option>
                     <option value="1">テイクアウト（持ち帰り）</option>
-                    <option value="2">デリバリーサービス（出前・配達）</option>
+                    <option value="2">デリバリー（出前・配達）</option>
+                    <option value="3">テイクアウト&デリバリー</option>
                     <option value="0">その他</option>
                 </ons-select>
             </div>
@@ -96,6 +95,16 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
+            console.log("list.html: onInit()");
+        };
+        ons.getScriptPage().onShow = function () {
+            console.log("list.html: onShow()");
+        };
+        ons.getScriptPage().onHide = function () {
+            console.log("list.html: onHide()");
+        };
+        ons.getScriptPage().onDestroy = function () {
+            console.log("list.html: onDestroy()");
         };
 
         function search(value) {
@@ -121,7 +130,7 @@
         }
 
         function updateList(data) {
-            //readShopListDone(data);
+            readShopListDone(data);
 
             var infiniteList = document.getElementById('infinite-list');
 
@@ -140,8 +149,24 @@
 
         // アクティブなタブが変わる前に発火します。
         document.addEventListener('prechange', function(event) {
-            updateList(null);
+            //updateList(null);
             //updateShopList(updateList);
+            readShopList(updateList);
+            /*
+            var infiniteList = document.getElementById('infinite-list');
+
+            infiniteList.delegate = {
+                createItemContent: function(index) {
+                    //return ons.createElement('<ons-list-item>Item ' + index + '</ons-list-item>');
+                    return createItem(index);
+                },
+                countItems: function() {
+                    return getShopItemCount();
+                },
+            };
+
+            infiniteList.refresh();
+            */
         });
 
     </script>
