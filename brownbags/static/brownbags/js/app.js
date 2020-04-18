@@ -26,6 +26,14 @@ function getShopItemCount() {
     return g_shop_list.length;
 }
 
+function readShopListPrams(area_sel, category_sel, genre_sel, done) {
+    var param = {
+        area_sel: area_sel,
+        category_sel: category_sel,
+        genre_sel: genre_sel,
+    };
+    get("/api/v1.0/shop/list/",param, done);
+}
 function readShopList(done) {
     //console.log("readShopList()");
     get("/api/v1.0/shop/list/", {}, done);
