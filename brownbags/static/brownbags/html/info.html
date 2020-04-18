@@ -174,17 +174,19 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            console.log("info.html: onInit()");
+            map_info_init();
+            //console.log("info.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
             info(this);
-            console.log("info.html: onShow()");
+            //console.log("info.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
-            console.log("info.html: onHide()");
+            map_info_hide();
+            //console.log("info.html: onHide()");
         };
         ons.getScriptPage().onDestroy = function () {
-            console.log("info.html: onDestroy()");
+            //console.log("info.html: onDestroy()");
         };
     </script>
 

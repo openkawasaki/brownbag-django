@@ -219,7 +219,7 @@ function form_read(type) {
     };
 
     post("/api/v1.0/shop/ ", jsondata, form_read_done);
-    console.log("form_read(): " + JSON.stringify(jsondata));
+    //console.log("form_read(): " + JSON.stringify(jsondata));
 }
 
 function form_read_done(data) {

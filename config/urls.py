@@ -43,7 +43,7 @@ urlpatterns = [
 
     path('i18n/', include('django.conf.urls.i18n')),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
-    path('favicon\.ico', RedirectView.as_view(url='/static/images/favicon.ico')),
+    #path('favicon\.ico', RedirectView.as_view(url='/static/images/favicon.ico')),
 
     path('', include('brownbags.urls'), name='brownbags'),
 ]

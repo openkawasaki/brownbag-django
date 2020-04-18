@@ -2,7 +2,7 @@
 
 // CordovaのAPIを呼び出す準備が整った
 ons.ready(function() {
-    console.log("ons.ready");
+    //console.log("ons.ready");
     //readShopList(readShopListDone);
 });
 
@@ -27,17 +27,17 @@ function getShopItemCount() {
 }
 
 function readShopList(done) {
-    console.log("readShopList()");
+    //console.log("readShopList()");
     get("/api/v1.0/shop/list/", {}, done);
 }
 
 function readShopListDone(data) {
-    console.log("readShopListDone()");
+    //console.log("readShopListDone()");
     g_shop_list = data["shop"];
 }
 
 function readShop(shop_id, done) {
-    console.log("readShopList()");
+    //console.log("readShopList()");
     get("/api/v1.0/shop/", {shop_id:shop_id}, done);
 }
 
@@ -71,7 +71,7 @@ window.fn.pushPage = function (page, anim) {
 // アクティブなタブが変わる前に発火します。
 //--------------------------
 document.addEventListener('prechange', function(event) {
-    console.log("prechange()");
+    //console.log("prechange()");
 
     // ラベル設定
     document.querySelector('ons-toolbar .center')

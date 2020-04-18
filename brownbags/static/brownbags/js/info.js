@@ -12,24 +12,25 @@ function info_done(data) {
     // 店名設定
     var name = item["name"];
     //self.querySelector('ons-toolbar .center').innerHTML = name;
-    $('.ons-toolbar .center').html(name);
-    $('#shop_name').val(name);
+    //self.querySelector('#shop_name').textContent = name;
+    $('ons-toolbar .center').html(name);
+    $('#shop_name').text(name);
 
     // 店舗画像
     $("#image_name").html(info_gallery("image_name", item["images"]["name"], name));
 
     // ジャンル
-    $('#shop_genre').val(get_genre_sel_name(item["genre_sel"]));
+    $('#shop_genre').text(get_genre_sel_name(item["genre_sel"]));
 
     // 店舗概要
     if (!isEmpty(item["description"]))
-        $('#shop_description').val(item["description"]);
+        $('#shop_description').text(item["description"]);
 
     // メニュー情報
     $("#image_takeway").html(info_gallery("image_takeway", item["images"]["takeaway"], name));
 
     // テイクアウト（持ち帰り）
-    $('#shop_takeaway_sel').val(get_takeaway_sel_name(item["takeaway_sel"]));
+    $('#shop_takeaway_sel').text(get_takeaway_sel_name(item["takeaway_sel"]));
 
     // テイクアウト（持ち帰り）メニュー
     if (!isEmpty(item["takeaway_menu"]))
@@ -40,7 +41,7 @@ function info_done(data) {
         $('#shop_takeaway_note').html(conv_br(item["takeaway_note"]));
 
     // デリバリーサービス（出前・配達）
-    $('#shop_delivery').val(get_delivery(item));
+    $('#shop_delivery').text(get_delivery(item));
 
     // デリバリーサービス（出前・配達）関してのお知らせ
     if (!isEmpty(item["delivery_note"]))
@@ -57,11 +58,11 @@ function info_done(data) {
 
     // 住所
     if (!isEmpty(item["addr_sel"]) && !isEmpty(item["addr"]))
-        $('#shop_addr').val(item["addr_sel"] + item["addr"]);
+        $('#shop_addr').text(item["addr_sel"] + item["addr"]);
     else if (!isEmpty(item["addr_sel"]) && isEmpty(item["addr"]))
-        $('#shop_addr').val(item["addr_sel"]);
+        $('#shop_addr').text(item["addr_sel"]);
     else if (isEmpty(item["addr_sel"]) && !isEmpty(item["addr"]))
-        $('#shop_addr').val(item["addr"]);
+        $('#shop_addr').text(item["addr"]);
 
     // Webサイト>
     var website = item["website"];
@@ -83,12 +84,12 @@ function info_done(data) {
         $("#shop_instagram").html('<a href="https://www.instagram.com/' + instagram + '" target="_blank" rel="noopener noreferrer">' + instagram + '</a>');
 
     if (!isEmpty(item["line"]))
-        $('#shop_line').val(item["line"]);
+        $('#shop_line').text(item["line"]);
     if (!isEmpty(item["sns_other"]))
-        $('#shop_sns_other').val(item["sns_other"]);
+        $('#shop_sns_other').text(item["sns_other"]);
 
     // 支払い方法
-    $('#shop_payment').val(get_payment(item));
+    $('#shop_payment').text(get_payment(item));
 
     // 支払い方法に関してのお知らせ
     if (!isEmpty(item["payment_note"]))
@@ -117,6 +118,7 @@ function info_done(data) {
     // マップ
     var lat = item["latitude"];
     var lon = item["longitude"];
+
     map_info_show(lat, lon, name);
 }
 
