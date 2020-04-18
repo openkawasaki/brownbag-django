@@ -22,6 +22,10 @@ from django.db.models import Q
 from brownbags.models import Shop
 from brownbags.models import ImageData
 from brownbags.models import IMAGE_DATA_CLASS
+from brownbags.models import GENRE_CLASS
+from brownbags.models import AREA_CLASS
+from brownbags.models import CATEGORY_CLASS
+from brownbags.models import TAKEAWAY_CLASS
 
 #---------------------------------------------
 class shop_list(APIView):
@@ -33,9 +37,16 @@ class shop_list(APIView):
         try:
             #logger.debug("GET: shop_list()")
 
-            area_sel     = request.GET.get('area_sel', None)
-            genre_sel    = request.GET.get('genre_sel', None)
-            category_sel = request.GET.get('category_sel', None)
+            area_sel     = int(request.GET.get('area_sel', -1))
+            genre_sel    = int(request.GET.get('genre_sel', -1))
+            category_sel = int(request.GET.get('category_sel', -1))
+
+            if area_sel == AREA_CLASS[32][0]: # 地域: AREA_CLASS (地域の指定なし)
+                area_sel = None
+            if genre_sel == GENRE_CLASS[16][0]:  # ジャンル: GENRE_CLASS (ジャンルなし)
+                genre_sel = None
+            if category_sel == CATEGORY_CLASS[4][0]: # カテゴリー: CATEGORY_CLASS (指定なし)
+                category_sel = None
 
             shop_list = shop_get_list(area_sel, genre_sel, category_sel)
 
@@ -132,7 +143,7 @@ def get_queryset(area_sel=None, genre_sel=None, category_sel=None):
     if category_sel is not None:
         condition_category = Q(category_sel=category_sel)
 
-    return condition_area_sel, condition_genre_sel, condition_category
+    return condition_area_sel & condition_genre_sel & condition_category
 
 #---------------------------------------------
 def shop_get_list(area_sel=None, genre_sel=None, category_sel=None):
@@ -141,8 +152,8 @@ def shop_get_list(area_sel=None, genre_sel=None, category_sel=None):
         if area_sel is None and genre_sel is None and category_sel is None:
             shops = Shop.objects.all().values_list('id','name', 'phone', 'genre_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
         else:
-            condition_area_sel, condition_genre_sel, category_sel = get_queryset(area_sel, genre_sel, category_sel)
-            shops = Shop.objects.filter(condition_area_sel & condition_genre_sel & category_sel).values_list('id','name', 'phone', 'genre_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
+            condition = get_queryset(area_sel, genre_sel, category_sel)
+            shops = Shop.objects.filter(condition).values_list('id','name', 'phone', 'genre_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
 
         shop_list = []
         for row in shops:
@@ -326,6 +337,31 @@ def shop_post(post_data):
         obj_shop.covid19_note = post_data["covid19_note"]
         obj_shop.note = post_data["note"]
 
+        # category_sel "カテゴリ", choices=CATEGORY_CLASS
+        takeaway_sel = False
+        if obj_shop.takeaway_sel == TAKEAWAY_CLASS[1][0]:  # 対応している
+            takeaway_sel = True
+
+        delivery_sel = False
+        if obj_shop.delivery_demaekan: # 出前館
+            delivery_sel = True
+        if obj_shop.delivery_ubereats: # UberEats
+            delivery_sel = True
+        if obj_shop.delivery_own:      # 自店で配達
+            delivery_sel = True
+        if obj_shop.delivery_other:    # デリバリー・その他
+            delivery_sel = True
+
+        if takeaway_sel and delivery_sel:
+            obj_shop.category_sel = CATEGORY_CLASS[3][0]  # テイクアウト&デリバリー
+        elif takeaway_sel:
+            obj_shop.category_sel = CATEGORY_CLASS[1][0]  # テイクアウト
+        elif delivery_sel:
+            obj_shop.category_sel = CATEGORY_CLASS[2][0]  # デリバリー
+        else:
+            obj_shop.category_sel = CATEGORY_CLASS[4][0]  # 指定なし
+
+        # -------------------
         obj_shop.update()
 
         # ImageData:name

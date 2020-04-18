@@ -26,6 +26,12 @@ function info_done(data) {
     if (!isEmpty(item["description"]))
         $('#shop_description').text(item["description"]);
 
+    // 店舗の地域
+    $('#shop_area').text(get_area_sel_name(item["area_sel"]));
+
+    // カテゴリ
+    $('#shop_category').text(get_category_sel_name(item["category_sel"]));
+
     // メニュー情報
     $("#image_takeway").html(info_gallery("image_takeway", item["images"]["takeaway"], name));
 

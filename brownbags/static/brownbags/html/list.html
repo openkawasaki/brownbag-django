@@ -108,25 +108,36 @@
         };
 
         function search(value) {
+            /*
             var text = '検索文字: ' + value;
-            //ons.notification.alert(text);
+            ons.notification.alert(text);
             ons.notification.toast(text, { timeout: 1000, animation: 'fall' });
+            */
         }
         function selectArea(event) {
+            /*
             var value = event.target.value;
-            console.log("selectArea=" + value);
+            console.log("selectArea = " + value);
             ons.notification.toast("現在開発中です。少しお待ちください", {timeout: 1000, animation: 'fall'});
+            */
+            list_filter();
         }
         function selectCategory(event) {
+            /*
             var value = event.target.value;
-            console.log("selectCategory=" + value);
+            console.log("selectCategory = " + value);
             ons.notification.toast("現在開発中です。少しお待ちください", { timeout: 1000, animation: 'fall' });
+            */
+            list_filter();
         }
 
         function selectGenre(event) {
+            /*
             var value = event.target.value;
-            console.log("selectGenre=" + value);
+            console.log("selectGenre = " + value);
             ons.notification.toast("現在開発中です。少しお待ちください", { timeout: 1000, animation: 'fall' });
+            */
+            list_filter();
         }
 
         function updateList(data) {
@@ -145,28 +156,12 @@
             };
 
             infiniteList.refresh();
+            ons.notification.toast("リスト更新", { timeout: 1000, animation: 'fall' });
         }
 
         // アクティブなタブが変わる前に発火します。
         document.addEventListener('prechange', function(event) {
-            //updateList(null);
-            //updateShopList(updateList);
             readShopList(updateList);
-            /*
-            var infiniteList = document.getElementById('infinite-list');
-
-            infiniteList.delegate = {
-                createItemContent: function(index) {
-                    //return ons.createElement('<ons-list-item>Item ' + index + '</ons-list-item>');
-                    return createItem(index);
-                },
-                countItems: function() {
-                    return getShopItemCount();
-                },
-            };
-
-            infiniteList.refresh();
-            */
         });
 
     </script>
