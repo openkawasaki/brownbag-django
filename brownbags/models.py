@@ -72,14 +72,40 @@ AREA_CLASS = (
     (4, '登戸・稲田堤'),
     (5, '川崎・平間'),
     (6, '百合ヶ丘・新百合ヶ丘'),
+    (7, '川崎市川崎区'),
+    (8, '川崎市幸区'),
+    (9, '川崎市中原区'),
+    (10, '川崎市高津区'),
+    (11, '川崎市宮前区'),
+    (12, '川崎市多摩区'),
+    (13, '川崎市麻生区'),
+    (14, '横浜市青葉区'),
+    (15, '横浜市都筑区'),
+    (16, '横浜市港北区'),
+    (17, '横浜市鶴見区'),
+    (18, '横浜市緑区'),
+    (19, '横浜市神奈川区'),
+    (20, '横浜市瀬谷区'),
+    (21, '横浜市旭区'),
+    (22, '横浜市保土ケ谷区'),
+    (23, '横浜市南区'),
+    (24, '横浜市西区'),
+    (25, '横浜市中区'),
+    (26, '横浜市泉区'),
+    (27, '横浜市戸塚区'),
+    (28, '横浜市港南区'),
+    (29, '横浜市磯子区'),
+    (30, '横浜市栄区'),
+    (31, '横浜市金沢区'),
     (-1,'地域の指定なし'),
 )
 
 # カテゴリー
 CATEGORY_CLASS = (
     (0, 'その他'),
-    (1, 'テイクアウト（持ち帰り）'),
-    (2, 'デリバリーサービス（出前・配達）'),
+    (1, 'テイクアウト'),
+    (2, 'デリバリー'),
+    (3, 'テイクアウト&デリバリー'),
     (-1,'指定なし'),
 )
 
@@ -101,63 +127,65 @@ class Shop(models.Model):
         verbose_name = _('店舗')  # オブジェクトの人間が読める名前(単数)小文字でよい
         verbose_name_plural = _('店舗')  # オブジェクトの複数の名前 小文字でよい
 
-    type = models.IntegerField("type", choices=DATA_TYPE_CLASS, default=-1)
+    type = models.IntegerField("タイプ", choices=DATA_TYPE_CLASS, default=-1)
 
-    agreement = models.BooleanField('agreement', blank=False, null=False, default=False)
+    category_sel = models.IntegerField("カテゴリ", choices=CATEGORY_CLASS, default=-1)
 
-    mail = models.CharField('mail', max_length=512, blank=False, null=True, default=None)
-    name = models.CharField('name', max_length=512, blank=False, null=True, default=None, unique=True)
+    agreement = models.BooleanField('承認', blank=False, null=False, default=False)
 
-    genre_sel = models.IntegerField("genre_sel", choices=GENRE_CLASS, default=-1)
+    mail = models.CharField('メール', max_length=512, blank=False, null=True, default=None)
+    name = models.CharField('店名', max_length=512, blank=False, null=True, default=None, unique=True)
 
-    description = models.CharField('description', max_length=256, blank=True, null=True, default=None)
-    addr_sel    = models.CharField('addr_sel', max_length=256, blank=True, null=True, default=None)
-    addr        = models.CharField('addr', max_length=256, blank=True, null=True, default=None)
+    genre_sel = models.IntegerField("ジャンル", choices=GENRE_CLASS, default=-1)
 
-    area_sel    = models.IntegerField("area_sel", choices=AREA_CLASS, default=-1)
+    description = models.CharField('店舗概要', max_length=256, blank=True, null=True, default=None)
+    addr_sel    = models.CharField('都道府県', max_length=256, blank=True, null=True, default=None)
+    addr        = models.CharField('店舗住所', max_length=256, blank=True, null=True, default=None)
 
-    takeaway_sel  = models.IntegerField("takeaway_sel", choices=TAKEAWAY_CLASS, default=-1)
-    takeaway_menu = models.TextField('takeaway_menu', max_length=1024, blank=True, null=False, default="")
-    takeaway_note = models.TextField('takeaway_note', max_length=1024, blank=True, null=False, default="")
+    area_sel    = models.IntegerField("店舗の地域", choices=AREA_CLASS, default=-1)
 
-    delivery_demaekan = models.BooleanField('delivery_demaekan', blank=False, null=False, default=False)
-    delivery_ubereats = models.BooleanField('delivery_ubereats', blank=False, null=False, default=False)
-    delivery_own      = models.BooleanField('delivery_own', blank=False, null=False, default=False)
-    delivery_other    = models.BooleanField('delivery_other', blank=False, null=False, default=False)
-    delivery_note     = models.TextField('delivery_note', max_length=512, blank=True, null=False, default="")
+    takeaway_sel  = models.IntegerField("テイクアウト", choices=TAKEAWAY_CLASS, default=-1)
+    takeaway_menu = models.TextField('テイクアウトメニュー', max_length=1024, blank=True, null=False, default="")
+    takeaway_note = models.TextField('テイクアウト対応', max_length=1024, blank=True, null=False, default="")
 
-    phone    = models.CharField('phone', max_length=256, blank=True, null=True, default=None)
-    open_day = models.TextField('open_day', max_length=1024, blank=True, null=False, default="")
+    delivery_demaekan = models.BooleanField('出前館', blank=False, null=False, default=False)
+    delivery_ubereats = models.BooleanField('UberEats（ウーバーイーツ）', blank=False, null=False, default=False)
+    delivery_own      = models.BooleanField('自店で配達', blank=False, null=False, default=False)
+    delivery_other    = models.BooleanField('デリバリー・その他', blank=False, null=False, default=False)
+    delivery_note     = models.TextField('デリバリー対応', max_length=512, blank=True, null=False, default="")
 
-    payment_cash = models.BooleanField('payment_cash', blank=False, null=False, default=False)
-    payment_card = models.BooleanField('payment_card', blank=False, null=False, default=False)
-    payment_qr   = models.BooleanField('payment_qr', blank=False, null=False, default=False)
-    payment_emoney = models.BooleanField('payment_emoney', blank=False, null=False, default=False)
-    payment_note = models.TextField('payment_note', max_length=512, blank=True, null=False, default="")
+    phone    = models.CharField('電話番号', max_length=256, blank=True, null=True, default=None)
+    open_day = models.TextField('定休日・営業時間', max_length=1024, blank=True, null=False, default="")
 
-    website     = models.CharField('website', max_length=1024, blank=True, null=True, default=None)
+    payment_cash = models.BooleanField('現金', blank=False, null=False, default=False)
+    payment_card = models.BooleanField('クレジットカード', blank=False, null=False, default=False)
+    payment_qr   = models.BooleanField('QRコード決済', blank=False, null=False, default=False)
+    payment_emoney = models.BooleanField('電子マネー', blank=False, null=False, default=False)
+    payment_note = models.TextField('支払いノート', max_length=512, blank=True, null=False, default="")
 
-    twitter   = models.CharField('twitter', max_length=256, blank=True, null=True, default=None)
-    facebook  = models.CharField('facebook', max_length=256, blank=True, null=True, default=None)
-    instagram = models.CharField('instagram', max_length=256, blank=True, null=True, default=None)
-    line      = models.CharField('line', max_length=256, blank=True, null=True, default=None)
-    sns_other = models.CharField('sns_other', max_length=256, blank=True, null=True, default=None)
+    website     = models.CharField('ホームページ', max_length=1024, blank=True, null=True, default=None)
 
-    transportation = models.TextField('transportation', max_length=512, blank=True, null=False, default="")
-    diet_note      = models.TextField('diet_note', max_length=512, blank=True, null=False, default="")
-    allergy_note   = models.TextField('allergy_note', max_length=512, blank=True, null=False, default="")
+    twitter   = models.CharField('Twitter', max_length=256, blank=True, null=True, default=None)
+    facebook  = models.CharField('Facebook', max_length=256, blank=True, null=True, default=None)
+    instagram = models.CharField('Instagram', max_length=256, blank=True, null=True, default=None)
+    line      = models.CharField('LINE', max_length=256, blank=True, null=True, default=None)
+    sns_other = models.CharField('SNS、他サイト', max_length=256, blank=True, null=True, default=None)
 
-    latitude  = models.FloatField('latitude', blank=False, null=False, default=0.0)
-    longitude = models.FloatField('longitude', blank=False, null=False, default=0.0)
+    transportation = models.TextField('交通手段', max_length=512, blank=True, null=False, default="")
+    diet_note      = models.TextField('ベジタリアン対応', max_length=512, blank=True, null=False, default="")
+    allergy_note   = models.TextField('アレルギー対応', max_length=512, blank=True, null=False, default="")
 
-    covid19_note = models.TextField('covid19_note', max_length=512, blank=True, null=False, default="")
-    note         = models.TextField('note', max_length=512, blank=True, null=False, default="")
+    latitude  = models.FloatField('緯度(latitude)', blank=False, null=False, default=0.0)
+    longitude = models.FloatField('経度(longitude)', blank=False, null=False, default=0.0)
+
+    covid19_note = models.TextField('コロナ対策', max_length=512, blank=True, null=False, default="")
+    note         = models.TextField('留意事項', max_length=512, blank=True, null=False, default="")
 
     ## 各種ステータス情報
-    expired_shop_date = models.DateTimeField(blank=True, null=True) # お店無効
-    closes_shop_date  = models.DateTimeField(blank=True, null=True) # お店休止・閉店
-    soldout_takeaway_date = models.DateTimeField(blank=True, null=True) # テイクアウト売り切れ
-    soldout_delivery_date = models.DateTimeField(blank=True, null=True) # デリバリー売り切れ
+    expired_shop_date = models.DateTimeField('無効', blank=True, null=True, default=None) # お店無効
+    closes_shop_date  = models.DateTimeField('休止・閉店', blank=True, null=True, default=None) # お店休止・閉店
+    soldout_takeaway_date = models.DateTimeField('テイクアウト売り切れ', blank=True, null=True, default=None) # テイクアウト売り切れ
+    soldout_delivery_date = models.DateTimeField('デリバリー売り切れ', blank=True, null=True, default=None) # デリバリー売り切れ
 
     created_date = models.DateTimeField('作成日', default=timezone.now)
     update_date  = models.DateTimeField('修正日', blank=True, null=True)
@@ -276,7 +304,7 @@ class ImageData(models.Model):
         verbose_name = _('画像')
         verbose_name_plural = _('画像')
 
-    shop = models.ForeignKey(Shop, verbose_name='Shop', related_name='image', on_delete=models.CASCADE)
+    shop = models.ForeignKey(Shop, verbose_name='店舗', related_name='image', on_delete=models.CASCADE)
 
     image_data = models.ImageField(_('画像'), upload_to=get_image_path,  default="/static/brownbags/images/noimage.png", blank=True, null=True, validators=[validate_file_extension])  # 画像
 
@@ -302,9 +330,10 @@ class ImageData(models.Model):
                                        options={'quality': 75})
 
     image_data_class = models.IntegerField("クラス", choices=IMAGE_DATA_CLASS, default=-1)
+
     image_data_order = models.IntegerField("順番", default=0)
 
-    expired_date = models.DateTimeField(blank=True, null=True)
+    expired_date = models.DateTimeField(blank=True, null=True, default=None)
 
     created_date = models.DateTimeField(default=timezone.now)
     update_date  = models.DateTimeField(blank=True, null=True)

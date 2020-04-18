@@ -3,9 +3,30 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //map();
-            //console.log("ons.getScriptPage().onInit : map-page");
+            map_init();
+            //console.log("map.html: onInit()");
+        };
+        ons.getScriptPage().onShow = function () {
+            //console.log("map.html: onShow()");
+        };
+        ons.getScriptPage().onHide = function () {
+            map_hide();
+            //console.log("map.html: onHide()");
+        };
+        ons.getScriptPage().onDestroy = function () {
+            //console.log("map.html: onDestroy()");
+        };
+
+        function updateListMap(data) {
+            map_show();
+            readShopListDone(data);
         }
+
+        // アクティブなタブが変わる前に発火します。
+        document.addEventListener('prechange', function(event) {
+            readShopList(updateListMap);
+         });
+
     </script>
 
     <style>

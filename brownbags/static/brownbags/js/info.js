@@ -1,42 +1,51 @@
 function info(self) {
-    var index = parseInt(self.data.index);
+    var index = self.data.index;
     var item = getShopItem(index);
+    var shop_id = item["shop_id"];
+
+    readShop(shop_id, info_done);
+}
+
+function info_done(data) {
+    var item = data["shop"];
 
     // 店名設定
     var name = item["name"];
-    self.querySelector('ons-toolbar .center').innerHTML = name;
-    self.querySelector('#shop_name').textContent = name;
+    //self.querySelector('ons-toolbar .center').innerHTML = name;
+    //self.querySelector('#shop_name').textContent = name;
+    $('ons-toolbar .center').html(name);
+    $('#shop_name').text(name);
 
     // 店舗画像
     $("#image_name").html(info_gallery("image_name", item["images"]["name"], name));
 
     // ジャンル
-    self.querySelector('#shop_genre').textContent = get_genre_sel_name(item["genre_sel"]);
+    $('#shop_genre').text(get_genre_sel_name(item["genre_sel"]));
 
     // 店舗概要
     if (!isEmpty(item["description"]))
-        self.querySelector('#shop_description').textContent = item["description"];
+        $('#shop_description').text(item["description"]);
 
     // メニュー情報
     $("#image_takeway").html(info_gallery("image_takeway", item["images"]["takeaway"], name));
 
     // テイクアウト（持ち帰り）
-    self.querySelector('#shop_takeaway_sel').textContent = get_takeaway_sel_name(item["takeaway_sel"]);
+    $('#shop_takeaway_sel').text(get_takeaway_sel_name(item["takeaway_sel"]));
 
     // テイクアウト（持ち帰り）メニュー
     if (!isEmpty(item["takeaway_menu"]))
-        self.querySelector('#shop_takeaway_menu').innerHTML = conv_br(item["takeaway_menu"]);
+        $('#shop_takeaway_menu').html(conv_br(item["takeaway_menu"]));
 
     // テイクアウトに関してのお知らせ
     if (!isEmpty(item["takeaway_note"]))
-        self.querySelector('#shop_takeaway_note').innerHTML = conv_br(item["takeaway_note"]);
+        $('#shop_takeaway_note').html(conv_br(item["takeaway_note"]));
 
     // デリバリーサービス（出前・配達）
-    self.querySelector('#shop_delivery').textContent = get_delivery(item);
+    $('#shop_delivery').text(get_delivery(item));
 
     // デリバリーサービス（出前・配達）関してのお知らせ
     if (!isEmpty(item["delivery_note"]))
-        self.querySelector('#shop_delivery_note').innerHTML = conv_br(item["delivery_note"]);
+        $('#shop_delivery_note').html(conv_br(item["delivery_note"]));
 
     // 電話番号
     var phone = item["phone"];
@@ -45,15 +54,15 @@ function info(self) {
 
     // 定休日・営業時間
     if (!isEmpty(item["open_day"]))
-        self.querySelector('#shop_open_day').innerHTML = conv_br(item["open_day"]);
+        $('#shop_open_day').html(conv_br(item["open_day"]));
 
     // 住所
     if (!isEmpty(item["addr_sel"]) && !isEmpty(item["addr"]))
-        self.querySelector('#shop_addr').textContent = item["addr_sel"] + item["addr"];
+        $('#shop_addr').text(item["addr_sel"] + item["addr"]);
     else if (!isEmpty(item["addr_sel"]) && isEmpty(item["addr"]))
-        self.querySelector('#shop_addr').textContent = item["addr_sel"];
+        $('#shop_addr').text(item["addr_sel"]);
     else if (isEmpty(item["addr_sel"]) && !isEmpty(item["addr"]))
-        self.querySelector('#shop_addr').textContent = item["addr"];
+        $('#shop_addr').text(item["addr"]);
 
     // Webサイト>
     var website = item["website"];
@@ -75,42 +84,44 @@ function info(self) {
         $("#shop_instagram").html('<a href="https://www.instagram.com/' + instagram + '" target="_blank" rel="noopener noreferrer">' + instagram + '</a>');
 
     if (!isEmpty(item["line"]))
-        self.querySelector('#shop_line').textContent = item["line"];
+        $('#shop_line').text(item["line"]);
     if (!isEmpty(item["sns_other"]))
-        self.querySelector('#shop_sns_other').textContent = item["sns_other"];
+        $('#shop_sns_other').text(item["sns_other"]);
 
     // 支払い方法
-    self.querySelector('#shop_payment').textContent = get_payment(item);
+    $('#shop_payment').text(get_payment(item));
 
     // 支払い方法に関してのお知らせ
     if (!isEmpty(item["payment_note"]))
-        self.querySelector('#shop_payment_note').innerHTML = conv_br(item["payment_note"]);
+        $('#shop_payment_note').html(conv_br(item["payment_note"]));
 
     // アクセス・交通手段
     if (!isEmpty(item["transportation"]))
-        self.querySelector('#shop_transportation').innerHTML = conv_br(item["transportation"]);
+        $('#shop_transportation').html(conv_br(item["transportation"]));
 
     // ベジタリアン
     if (!isEmpty(item["diet_note"]))
-        self.querySelector('#shop_diet_note').innerHTML = conv_br(item["diet_note"]);
+        $('#shop_diet_note').html(conv_br(item["diet_note"]));
 
     // アレルギー
     if (!isEmpty(item["allergy_note"]))
-        self.querySelector('#shop_allergy_note').innerHTML = conv_br(item["allergy_note"]);
+        $('#shop_allergy_note').html(conv_br(item["allergy_note"]));
 
     // covid19
     if (!isEmpty(item["covid19_note"]))
-        self.querySelector('#shop_covid19_note').innerHTML = conv_br(item["covid19_note"]);
+        $('#shop_covid19_note').html(conv_br(item["covid19_note"]));
 
     // メモ
     if (!isEmpty(item["note"]))
-        self.querySelector('#shop_note').innerHTML = conv_br(item["note"]);
+        $('#shop_note').html(conv_br(item["note"]));
 
     // マップ
     var lat = item["latitude"];
     var lon = item["longitude"];
-    map_info(lat, lon, name);
+
+    map_info_show(lat, lon, name);
 }
+
 function conv_br(str) {
     var text = str.replace(/\r?\n/g, '<br>');
     return text;
@@ -147,7 +158,6 @@ function info_gallery(selector, images_name, name) {
             theme_enable_play_button: false,		//show, hide the theme play button. The position in the theme is constant
 			theme_enable_hidepanel_button: false,	//show, hide the hidepanel button
 			theme_enable_text_panel: true,			//enable the panel text panel.
-
             slider_enable_zoom_panel: true,	         //true,false - enable the zoom buttons, works together with zoom control.
 
             gallery_width: "100%",
