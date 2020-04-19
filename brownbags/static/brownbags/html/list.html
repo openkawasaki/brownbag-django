@@ -93,11 +93,20 @@
         <ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
     </ons-list>
 
+    <!--
+    <ons-fab position="bottom right" onclick="fn.pushPage({'id':'/static/brownbags/html/grid.html', 'title':'店舗グリッド', 'index':'1'})">
+        <ons-fab  modifier="mini modifier2">
+            <ons-icon icon="fa-th"></ons-icon>
+        </ons-fab>
+    </ons-fab>
+    -->
+
     <script>
         ons.getScriptPage().onInit = function () {
             //console.log("list.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
+            //readShopList(updateList);
             //console.log("list.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
@@ -140,8 +149,9 @@
             list_filter();
         }
 
-        function updateList(data) {
-            readShopListDone(data);
+        //function updateList(data) {
+        function updateList() {
+            //readShopListDone(data);
 
             var infiniteList = document.getElementById('infinite-list');
 
@@ -161,7 +171,6 @@
 
         // アクティブなタブが変わる前に発火します。
         document.addEventListener('prechange', function(event) {
-            readShopList(updateList);
         });
 
     </script>

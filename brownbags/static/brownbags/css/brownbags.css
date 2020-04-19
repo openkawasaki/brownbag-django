@@ -2,3 +2,29 @@
 .slick-next:before {
     color: black  !important;
 }
+
+#masonry {
+    width:100%;
+    padding:0px;
+    border:1px solid #EEE;
+    overflow:auto;
+    margin:  0 auto; /* 中央寄せ */
+    height: 10000px !important;
+    /*height: 100%;*/
+}
+
+.grid {
+    width:200px;
+    margin:5px;
+    padding:5px;
+    float:left;
+    background:#424242;
+    color:#fff;
+    display:inline;
+}
+
+.centering_parent {
+    padding: 5px; /* 余白指定 */
+    background-color: #ddd; /* 背景色指定 */
+    /*height: 10000px !important;**/
+}

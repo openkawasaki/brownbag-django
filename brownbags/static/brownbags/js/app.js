@@ -42,6 +42,10 @@ function readShopList(done) {
 function readShopListDone(data) {
     //console.log("readShopListDone()");
     g_shop_list = data["shop"];
+    grid_show();
+    updateList();
+    map_init();
+    map_show();
 }
 
 function readShop(shop_id, done) {
@@ -89,10 +93,10 @@ document.addEventListener('prechange', function(event) {
 //--------------------------
 // initイベント <ons-page>がDOMにアタッチされる
 //--------------------------
-/*
 document.addEventListener("init", function(event) {
     var page = event.target;
     if (page.id === "home-page") {
+        readShopList(readShopListDone);
         console.log("home-page: init()");
     } else if (page.id === "list-page") {
         console.log("list-page: init()");
@@ -110,7 +114,6 @@ document.addEventListener("init", function(event) {
         //console.log(page.id);
     }
 });
-*/
 //--------------------------
 // destroyイベント <ons-page>がDOMからデアタッチされる直前
 //--------------------------

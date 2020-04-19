@@ -3,47 +3,55 @@
         <h2 class="title">よこはま かわさき BENTO MAP</h2>
         <div class="content">
             <div style="margin-bottom:20px;">
-                <p>
                     横浜市、川崎市、を中心にテイクアウト（持ち帰り）・デリバリーサービス（出前・配達）が可能な飲食店の情報をまとめています。
-                </p>
-            </div>
-            <div class="home_image_center">
-                <img src="/static/brownbags/images/ogp.png" width="80%">
             </div>
         </div>
     </ons-card>
-    <ons-card>
-        <div class="content">
-            ハッシュタグ
-            <ul style="list-style-type: circle;">
-                <li>#テイクアウト始めました</li>
-                <li>#横浜・川崎お弁当プロジェクト</li>
-                <li>#BrownBagProject</li>
-                <li>#StayHome</li>
-                <li>#wearestillopenjapan</li>
-                <li>#WAOJPN</li>
-            </ul>
-        </div>
-    </ons-card>
 
-    <ons-card>
-        <div class="content">
-            アクセスありがとうございます。
-            <ul style="list-style-type: square;">
-                <li>皆様からの情報提供を元に、身近な地元のお店の情報を追加/更新しています。</li>
-                <li>情報提供にご協力をお願いします！</li>
-                <li>※この活動はボランティアで行っています。</li>
-                <li>※掲載料は無料です</li>
-            </ul>
+    <div class="centering_parent">
+        <div id="masonry">
         </div>
-    </ons-card>
+    </div>
 
-    <ons-card>
-        <div class="content">
-            <b>＜プロジェクト＞</b>BrownBagプロジェクト<br>
-            <b>＜運営団体＞</b>オープン川崎/Code for Kawasaki
-        </div>
-    </ons-card>
+    <!--
+    <ons-fab position="bottom right">
+        <ons-fab  modifier="mini modifier2">
+            <ons-icon icon="fa-th"></ons-icon>
+        </ons-fab>
+    </ons-fab>
+    -->
+
+     <script>
+        ons.getScriptPage().onInit = function () {
+            console.log("home.html: onInit()");
+        };
+        ons.getScriptPage().onShow = function () {
+            console.log("home.html: onShow()");
+        };
+        ons.getScriptPage().onHide = function () {
+            console.log("home.html: onHide()");
+        };
+        ons.getScriptPage().onDestroy = function () {
+            console.log("home.html: onDestroy()");
+        };
+
+        function selectArea(event) {
+        }
+        function selectCategory(event) {
+        }
+        function selectGenre(event) {
+        }
+        function updateGrid(data) {
+            console.log("home.html: updateGrid");
+        }
+
+        // アクティブなタブが変わる前に発火します。
+        document.addEventListener('prechange', function(event) {
+            console.log("home.html: prechange");
+        });
+
+    </script>
+
 
     <style>
         .home_image_center {

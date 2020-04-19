@@ -3,14 +3,14 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            map_init();
+            //map_init();
             //console.log("map.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
             //console.log("map.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
-            map_hide();
+            //map_hide();
             //console.log("map.html: onHide()");
         };
         ons.getScriptPage().onDestroy = function () {
@@ -18,13 +18,13 @@
         };
 
         function updateListMap(data) {
-            map_show();
-            readShopListDone(data);
+            //map_show();
+            //readShopListDone(data);
         }
 
         // アクティブなタブが変わる前に発火します。
         document.addEventListener('prechange', function(event) {
-            readShopList(updateListMap);
+            //readShopList(updateListMap);
          });
 
     </script>

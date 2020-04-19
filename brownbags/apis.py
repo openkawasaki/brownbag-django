@@ -161,10 +161,17 @@ def shop_get_list(area_sel=None, genre_sel=None, category_sel=None):
             image_data = ImageData.objects.filter(shop_id=shop_id, image_data_class=IMAGE_DATA_CLASS[1][0]).order_by('image_data_order').first()
             if image_data is None:
                 url = '/static/brownbags/images/noimage.png'
+                small  = url
+                middle = url
+                big    = url
                 image_id = 0
             else:
                 url = image_data.image_data_thumbnail.url
+                small  = image_data.image_data_small.url
+                middle = image_data.image_data_middle.url
+                big    = image_data.image_data_big.url
                 image_id = image_data.pk
+
             data = {
                 "shop_id": shop_id,
                 "name": row[1],
@@ -173,7 +180,10 @@ def shop_get_list(area_sel=None, genre_sel=None, category_sel=None):
                 "latitude": row[4],
                 "longitude": row[5],
                 "image_id": image_id,
-                "src": url if url is not None else "",
+                "src"    : url if url is not None else "",
+                "small"  : small if small is not None else "",
+                "middle" : middle if middle is not None else "",
+                "big"    : big if big is not None else ""
             }
 
             shop_list.append(data)

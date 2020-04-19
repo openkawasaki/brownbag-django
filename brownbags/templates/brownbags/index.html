@@ -112,23 +112,30 @@
 <script type='text/javascript' src="{% static 'node_modules/blueimp-file-upload/js/jquery.fileupload-ui.js' %}"></script>
 
 {# Unite Gallery #}
-<link rel='stylesheet' href="{% static 'node_modules/unitegallery/dist/css/unite-gallery.css' %}" type='text/css' />
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/js/unitegallery.min.js' %}"></script>
-<link rel='stylesheet' href="{% static 'node_modules/unitegallery/dist/themes/default/ug-theme-default.css' %}" type='text/css' />
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/default/ug-theme-default.js' %}"></script>
+<link rel='stylesheet' href="{% static 'unitegallery/dist/css/unite-gallery.css' %}" type='text/css' />
+<script type='text/javascript' src="{% static 'unitegallery/dist/js/unitegallery.min.js' %}"></script>
+
+<link rel='stylesheet' href="{% static 'unitegallery/dist/themes/default/ug-theme-default.css' %}" type='text/css' />
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/default/ug-theme-default.js' %}"></script>
 
 {% comment %}
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/tiles/ug-theme-tiles.js' %}"></script>
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/carousel/ug-theme-carousel.js' %}"></script>
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/tilesgrid/ug-theme-tilesgrid.js' %}"></script>
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/grid/ug-theme-grid.js' %}"></script>
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/compact/ug-theme-compact.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/tilesgrid/ug-theme-tilesgrid.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/tiles/ug-theme-tiles.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/carousel/ug-theme-carousel.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/grid/ug-theme-grid.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/compact/ug-theme-compact.js' %}"></script>
 {% endcomment %}
 
 {% comment %}
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+{% endcomment %}
+
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
+{% comment %}
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 {% endcomment %}
 
 {% comment %}
@@ -141,6 +148,7 @@
 <script type="text/javascript" src="{% static 'brownbags/js/form.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/info.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/list.js' %}"></script>
+<script type="text/javascript" src="{% static 'brownbags/js/grid.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/map.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/brownbags.js' %}"></script>
 {% endcompress %}
