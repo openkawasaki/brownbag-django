@@ -1,0 +1,7 @@
+node_modules
+website
+/coverage
+/website
+*.log
+*.env
+*.DS_Store

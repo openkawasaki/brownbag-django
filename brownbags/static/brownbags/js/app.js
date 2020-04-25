@@ -42,10 +42,13 @@ function readShopList(done) {
 function readShopListDone(data) {
     //console.log("readShopListDone()");
     g_shop_list = data["shop"];
+
     grid_show();
+    /*
     updateList();
     map_init();
     map_show();
+    */
 }
 
 function readShop(shop_id, done) {
@@ -96,6 +99,7 @@ document.addEventListener('prechange', function(event) {
 document.addEventListener("init", function(event) {
     var page = event.target;
     if (page.id === "home-page") {
+        grid_init();
         readShopList(readShopListDone);
         console.log("home-page: init()");
     } else if (page.id === "list-page") {
@@ -103,6 +107,8 @@ document.addEventListener("init", function(event) {
     } else if (page.id === "map-page") {
         console.log("map-page: init()");
     } else if (page.id === "info-page") {
+        info_init();
+        info_show(page.data);
         console.log("info-page: init()");
     } else if (page.id === "form-page") {
         console.log("form-page: init()");
@@ -110,6 +116,8 @@ document.addEventListener("init", function(event) {
         console.log("form-edit-page: init()");
     } else if (page.id === "about-page") {
         console.log("about-page: init()");
+    } else if (page.id === "search-page") {
+        console.log("search-page: init()");
     } else {
         //console.log(page.id);
     }
@@ -134,6 +142,8 @@ document.addEventListener("destroy", function(event) {
         console.log("form-edit-page: destroy()");
     } else if (page.id === "about-page") {
         console.log("about-page: destroy()");
+    } else if (page.id === "search-page") {
+        console.log("search-page: destroy()");
     } else {
         //console.log(page.id);
     }
@@ -159,6 +169,8 @@ document.addEventListener("show", function(event) {
         console.log("form-edit-page: show()");
     } else if (page.id === "about-page") {
         console.log("about-page: show()");
+    } else if (page.id === "search-page") {
+        console.log("search-page: show()");
     } else {
         //console.log(page.id);
     }
@@ -184,6 +196,8 @@ document.addEventListener("hide", function(event) {
         console.log("form-edit-page: hide()");
     } else if (page.id === "about-page") {
         console.log("about-page: hide()");
+    } else if (page.id === "search-page") {
+        console.log("search-page: hide()");
     } else {
         //console.log(page.id);
     }

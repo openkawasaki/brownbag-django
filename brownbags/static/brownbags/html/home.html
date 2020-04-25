@@ -8,18 +8,128 @@
         </div>
     </ons-card>
 
-    <div class="centering_parent">
-        <div id="masonry">
-        </div>
-    </div>
+    <ons-carousel swipeable auto-scroll overscrollable class="home_carousel">
+      <ons-carousel-item>
+          <div class="home_carousel_item">
+              <img src="/static/brownbags/images/ogp.png" width="100%">
+          </div>
+      </ons-carousel-item>
+      <ons-carousel-item>
+          <div class="home_carousel_item">
+              <img src="/static/brownbags/images/ogp.png" width="100%">
+          </div>
+      </ons-carousel-item>
+      <ons-carousel-item>
+          <div class="home_carousel_item">
+              <img src="/static/brownbags/images/ogp.png" width="100%">
+          </div>
+      </ons-carousel-item>
+    </ons-carousel>
 
     <!--
+    <div class="list-btn">
+      <ul>
+        <li class="filter-genre"><a href="#"><button>ジャンル</button></a></li>
+        <li class="filter-area"><a href="#"><button>地域</button></a></li>
+        <li class="filter-group"><a href="#"><button>グループ</button></a></li>
+        <li class="filter-clear"><a href="#"><button>クリア</button></a></li>
+     </ul>
+    </div>
+    -->
+    <div class="list-btn">
+      <ul>
+          <li class="filter-genre-li">
+            <ons-list-header>ジャンル</ons-list-header>
+            <ons-select class="filter-genre" id="genre-input" style="width:100%" onchange="selectGenre(event)">
+                <option value="-1">ジャンルなし</option>
+                <option value="1">お弁当・お惣菜</option>
+                <option value="2">中華料理</option>
+                <option value="3">和食・日本料理・お寿司</option>
+                <option value="4">ピザ・パスタ</option>
+                <option value="5">洋食・西洋料理・とんかつ</option>
+                <option value="6">居酒屋・ダイニングバー・焼鳥</option>
+                <option value="7">アジア・エスニック・カレー</option>
+                <option value="8">ステーキ・ハンバーグ・焼肉・ホルモン</option>
+                <option value="9">創作料理・無国籍料理</option>
+                <option value="10">ラーメン</option>
+                <option value="11">カフェ・喫茶店</option>
+                <option value="12">バー・パブ・ラウンジ</option>
+                <option value="13">パン・サンドイッチ</option>
+                <option value="14">スイーツ</option>
+                <option value="15">スーパーマーケット・コンビニエンスストア</option>
+                <option value="0">その他</option>
+            </ons-select>
+          </li>
+          <li class="filter-area-li">
+              <ons-list-header>地域</ons-list-header>
+              <ons-select class="filter-area" id="area-input" style="width:100%"  onchange="selectArea(event)">
+                <option value="-1">地域の指定なし</option>
+                <option value="1">武蔵小杉・新丸子・元住吉</option>
+                <option value="2">武蔵新城・武蔵中原</option>
+                <option value="3">溝の口・梶ヶ谷・鷺沼</option>
+                <option value="4">登戸・稲田堤</option>
+                <option value="5">川崎・平間</option>
+                <option value="6">百合ヶ丘・新百合ヶ丘</option>
+                <option value="7">川崎市川崎区</option>
+                <option value="8">川崎市幸区</option>
+                <option value="9">川崎市中原区</option>
+                <option value="10">川崎市高津区</option>
+                <option value="11">川崎市宮前区</option>
+                <option value="12">川崎市多摩区</option>
+                <option value="13">川崎市麻生区</option>
+                <option value="14">横浜市青葉区</option>
+                <option value="15">横浜市都筑区</option>
+                <option value="16">横浜市港北区</option>
+                <option value="17">横浜市鶴見区</option>
+                <option value="18">横浜市緑区</option>
+                <option value="19">横浜市神奈川区</option>
+                <option value="20">横浜市瀬谷区</option>
+                <option value="21">横浜市旭区</option>
+                <option value="22">横浜市保土ケ谷区</option>
+                <option value="23">横浜市南区</option>
+                <option value="24">横浜市西区</option>
+                <option value="25">横浜市中区</option>
+                <option value="26">横浜市泉区</option>
+                <option value="27">横浜市戸塚区</option>
+                <option value="28">横浜市港南区</option>
+                <option value="29">横浜市磯子区</option>
+                <option value="30">横浜市栄区</option>
+                <option value="31">横浜市金沢区</option>
+                <option value="0">その他</option>
+              </ons-select>
+          </li>
+          <li class="filter-group-li">
+              <ons-list-header>グループ</ons-list-header>
+              <ons-select class="filter-group" id="group-input" style="width:100%"  onchange="selectGroup(event)">
+                  <option value="-1">指定なし</option>
+                  <option value="1">コスギカレー</option>
+              </ons-select>
+          </li>
+          <li class="filter-clear-li">
+              <ons-list-header>リセット</ons-list-header>
+              <ons-select class="filter-clear" id="clear-input" style="width:100%"  onchange="selectClear(event)">
+                  <option value="-1"></option>
+                  <option value="1">リセット</option>
+              </ons-select>
+          </li>
+　　　　　<!--
+         <li class="filter-clear"><a href="#"><button>クリア</button></a></li>
+          -->
+      </ul>
+    </div>
+
+
+
+    <div class="home_grid" id="home_grid">
+    </div>
+
+   <!--
     <ons-fab position="bottom right">
-        <ons-fab  modifier="mini modifier2">
-            <ons-icon icon="fa-th"></ons-icon>
+        <ons-fab  modifier="mini modifier2" onclick="fn.pushPage({'id':'/static/brownbags/html/search.html', 'title':'検索', 'index':'1'})">
+            <ons-icon icon="fa-search" ></ons-icon>
         </ons-fab>
     </ons-fab>
-    -->
+     -->
 
      <script>
         ons.getScriptPage().onInit = function () {
@@ -29,37 +139,53 @@
             console.log("home.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
+            //grid_hide();
             console.log("home.html: onHide()");
         };
         ons.getScriptPage().onDestroy = function () {
             console.log("home.html: onDestroy()");
         };
 
-        function selectArea(event) {
-        }
-        function selectCategory(event) {
-        }
-        function selectGenre(event) {
-        }
+        /*
         function updateGrid(data) {
             console.log("home.html: updateGrid");
         }
+        */
+        function selectGenre(event) {
+            var value = parseInt(event.target.value, 10);
 
-        // アクティブなタブが変わる前に発火します。
-        document.addEventListener('prechange', function(event) {
-            console.log("home.html: prechange");
-        });
+            home_grid.filter(function (item) {
+                var element = item.getElement();
+                var data_genre = element.getAttribute('data-genre');
 
+                var item_data = parseInt(data_genre, 10);
+                if (isNaN(item_data))
+                    item_data = -1;
+                return item_data === value;
+            });
+        }
+        function selectArea(event) {
+            var value = parseInt(event.target.value, 10);
+
+            home_grid.filter(function (item) {
+                var element = item.getElement();
+                var data_area = element.getAttribute('data-area');
+
+                var item_data = parseInt(data_area, 10);
+                if (isNaN(item_data))
+                    item_data = -1;
+                return item_data === value;
+            });
+        }
+        function selectGroup(event) {
+            var value = parseInt(event.target.value, 10);
+        }
+        function selectClear(event) {
+            home_grid.filter('.grid_item');
+        }
     </script>
 
-
     <style>
-        .home_image_center {
-            max-width: 60%;
-            margin: 0 auto;
-            text-align:center;
-            border: 1px;
-        }
     </style>
 
 </ons-page>

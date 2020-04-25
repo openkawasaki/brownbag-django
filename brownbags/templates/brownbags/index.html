@@ -20,7 +20,10 @@
     {% endcomment %}
     <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/onsenui.min.css' %}" type='text/css' />
     <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/onsen-css-components.min.css' %}" type='text/css' />
+    <!--
     <script type='text/javascript' src="{% static 'node_modules/onsenui/js/onsenui.min.js' %}"></script>
+    -->
+    <script type='text/javascript' src="{% static 'node_modules/onsenui/js/onsenui.js' %}"></script>
     <script type='text/javascript' src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
 
     <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/material-design-iconic-font/css/material-design-iconic-font.min.css' %}" type='text/css' />
@@ -132,15 +135,21 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 {% endcomment %}
 
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-
 {% comment %}
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 {% endcomment %}
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.3.1/web-animations.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+<script type='text/javascript' src="{% static 'muuri/dist/muuri.min.js' %}"></script>
 
 {% comment %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
 {% endcomment %}
+
 <script type='text/javascript' src="{% static 'node_modules/jquery-blockui/jquery.blockUI.js' %}"></script>
 
 {% compress js %}
@@ -149,6 +158,7 @@
 <script type="text/javascript" src="{% static 'brownbags/js/info.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/list.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/grid.js' %}"></script>
+<script type="text/javascript" src="{% static 'brownbags/js/search.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/map.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/brownbags.js' %}"></script>
 {% endcompress %}

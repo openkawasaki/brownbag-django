@@ -1,12 +1,18 @@
-function info(self) {
-    var index = self.data.index;
-    var item = getShopItem(index);
-    var shop_id = item["shop_id"];
-
-    readShop(shop_id, info_done);
+function info_init() {
+    map_info_init();
 }
 
-function info_done(data) {
+function info_show(param) {
+    var title = param["title"];
+    var index = parseInt(param["index"]);
+
+    var item = getShopItem(index);
+    var shop_id = item["shop_id"];
+    readShop(shop_id, info_show_done)
+}
+
+function info_show_done(data) {
+
     var item = data["shop"];
 
     // 店名設定
@@ -17,7 +23,7 @@ function info_done(data) {
     $('#shop_name').text(name);
 
     // 店舗画像
-    $("#image_name").html(info_gallery("image_name", item["images"]["name"], name));
+    //$("#image_name").html(info_gallery("image_name", item["images"]["name"], name));
 
     // ジャンル
     $('#shop_genre').text(get_genre_sel_name(item["genre_sel"]));

@@ -6,10 +6,48 @@
         <div class="center"></div>
     </ons-toolbar>
 
+    <!--
+    ons-carousel-itemを動的に表示させたい
+    https://teratail.com/questions/204966
+    -->
+    <ons-carousel swipeable overscrollable auto-scroll auto-refresh auto-scroll-ratio="0.3" ons-postchange="sctrl.carouselChange()" var="sim_carousel">
+    <ons-carousel-item style="background-color: gray;">
+        <img src="/static/brownbags/images/ogp.png" width="100%">
+    </ons-carousel-item>
+    <ons-carousel-item style="background-color: gray;">
+        <img src="/static/brownbags/images/ogp.png" width="100%">
+    </ons-carousel-item>
+    <ons-carousel-item style="background-color: gray;">
+        <img src="/static/brownbags/images/ogp.png" width="100%">
+    </ons-carousel-item>
+
+
+                        <ons-carousel-cover>
+                        <div class="cover-label" ng-show="sctrl.carouselNum == 0">
+                            <ons-icon icon="circle" ></ons-icon>
+                            <ons-icon icon="circle-thin"></ons-icon>
+                            <ons-icon icon="circle-thin"></ons-icon>
+                        </div>
+                        <div class="cover-label" ng-show="sctrl.carouselNum == 1">
+                            <ons-icon icon="circle-thin"></ons-icon>
+                            <ons-icon icon="circle" ></ons-icon>
+                            <ons-icon icon="circle-thin"></ons-icon>
+                        </div>
+                        <div class="cover-label" ng-show="sctrl.carouselNum == 2">
+                            <ons-icon icon="circle-thin"></ons-icon>
+                            <ons-icon icon="circle-thin"></ons-icon>
+                            <ons-icon icon="circle" ></ons-icon>
+                        </div>
+                    </ons-carousel-cover>
+
+    </ons-carousel>
+
+    <!--
     <ons-card>
         <div id="image_name" style="display:none;">
 		</div>
     </ons-card>
+    -->
 
     <ons-list-title>お店情報</ons-list-title>
     <ons-list>
@@ -133,21 +171,27 @@
     </ons-card>
 
     <script>
+
         ons.getScriptPage().onInit = function () {
-            map_info_init();
-            //console.log("info.html: onInit()");
+            ons.bootstrap();
+            console.log("info.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
-            info(this);
-            //console.log("info.html: onShow()");
+            console.log("info.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
             map_info_hide();
-            //console.log("info.html: onHide()");
+            console.log("info.html: onHide()");
         };
         ons.getScriptPage().onDestroy = function () {
-            //console.log("info.html: onDestroy()");
+            console.log("info.html: onDestroy()");
         };
+
+
+        this.carouselChange = function(){
+            // indexを取得してcarouselNumに設定
+            this.carouselNum = sim_carousel.getActiveIndex();
+        }
     </script>
 
     <style>
@@ -174,6 +218,32 @@
             border: 12px solid whitesmoke;
             border-radius: 100%;
         }
+
+
+        ons-carousel-item {
+          display: table;
+          text-align: center;
+        }
+
+        .item-label {
+          display: table-cell;
+          vertical-align: middle;
+          color: white;
+          line-height: 1;
+          font-size: 48px;
+          font-weight: bold;
+        }
+
+        .cover-label {
+          text-align: center;
+          position: absolute;
+          left: 0px;
+          width: 100%;
+          bottom: 10px;
+          color: white;
+        }
+
+
 
     </style>
 
