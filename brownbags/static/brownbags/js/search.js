@@ -1,3 +1,12 @@
+//---------------------------------------
+function search_int() {
+    make_selector(GENRE_CLASS,"search-genre");
+    make_selector(AREA_CLASS, "search-area");
+    make_selector(CATEGORY_CLASS, "search-category");
+    make_selector(GROUP_CLASS, "search-group");
+}
+
+//---------------------------------------
 var g_genre_sel    = null;
 var g_area_sel     = null;
 var g_category_sel = null;

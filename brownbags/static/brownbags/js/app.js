@@ -42,8 +42,7 @@ function readShopList(done) {
 function readShopListDone(data) {
     //console.log("readShopListDone()");
     g_shop_list = data["shop"];
-
-    grid_show();
+    home_show();
 }
 
 function readShop(shop_id, done) {

@@ -20,11 +20,18 @@ function carousel_init() {
 }
 
 
-function grid_init() {
+function home_init() {
+    carousel_init();
+
+    make_selector(GENRE_CLASS,"home-genre");
+    make_selector(AREA_CLASS, "home-area");
+    //make_selector(CATEGORY_CLASS, "home-category");
+    make_selector(GROUP_CLASS, "home-group");
 }
 
 var home_grid = null;
-function grid_show() {
+function home_show() {
+    home_hide();
 
     var grid_list = getShopItems();
 
@@ -80,7 +87,7 @@ function grid_show() {
     });
     */
 }
-function grid_hide() {
+function home_hide() {
     $("#home_grid").children().remove();
     home_grid = null;
 }

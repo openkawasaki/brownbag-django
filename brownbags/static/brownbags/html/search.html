@@ -21,82 +21,24 @@
         <ons-list-header>ジャンル</ons-list-header>
         <ons-list-item>
             <ons-select class="filter-genre" id="search-genre" style="width:100%">
-                <option value="-1">ジャンルなし</option>
-                <option value="1">お弁当・お惣菜</option>
-                <option value="2">中華料理</option>
-                <option value="3">和食・日本料理・お寿司</option>
-                <option value="4">ピザ・パスタ</option>
-                <option value="5">洋食・西洋料理・とんかつ</option>
-                <option value="6">居酒屋・ダイニングバー・焼鳥</option>
-                <option value="7">アジア・エスニック・カレー</option>
-                <option value="8">ステーキ・ハンバーグ・焼肉・ホルモン</option>
-                <option value="9">創作料理・無国籍料理</option>
-                <option value="10">ラーメン</option>
-                <option value="11">カフェ・喫茶店</option>
-                <option value="12">バー・パブ・ラウンジ</option>
-                <option value="13">パン・サンドイッチ</option>
-                <option value="14">スイーツ</option>
-                <option value="15">スーパーマーケット・コンビニエンスストア</option>
-                <option value="0">その他</option>
             </ons-select>
         </ons-list-item>
 
         <ons-list-header>地域</ons-list-header>
         <ons-list-item>
               <ons-select class="filter-area" id="search-area" style="width:100%">
-                <option value="-1">地域の指定なし</option>
-                <option value="1">武蔵小杉・新丸子・元住吉</option>
-                <option value="2">武蔵新城・武蔵中原</option>
-                <option value="3">溝の口・梶ヶ谷・鷺沼</option>
-                <option value="4">登戸・稲田堤</option>
-                <option value="5">川崎・平間</option>
-                <option value="6">百合ヶ丘・新百合ヶ丘</option>
-                <option value="7">川崎市川崎区</option>
-                <option value="8">川崎市幸区</option>
-                <option value="9">川崎市中原区</option>
-                <option value="10">川崎市高津区</option>
-                <option value="11">川崎市宮前区</option>
-                <option value="12">川崎市多摩区</option>
-                <option value="13">川崎市麻生区</option>
-                <option value="14">横浜市青葉区</option>
-                <option value="15">横浜市都筑区</option>
-                <option value="16">横浜市港北区</option>
-                <option value="17">横浜市鶴見区</option>
-                <option value="18">横浜市緑区</option>
-                <option value="19">横浜市神奈川区</option>
-                <option value="20">横浜市瀬谷区</option>
-                <option value="21">横浜市旭区</option>
-                <option value="22">横浜市保土ケ谷区</option>
-                <option value="23">横浜市南区</option>
-                <option value="24">横浜市西区</option>
-                <option value="25">横浜市中区</option>
-                <option value="26">横浜市泉区</option>
-                <option value="27">横浜市戸塚区</option>
-                <option value="28">横浜市港南区</option>
-                <option value="29">横浜市磯子区</option>
-                <option value="30">横浜市栄区</option>
-                <option value="31">横浜市金沢区</option>
-                <option value="0">その他</option>
               </ons-select>
         </ons-list-item>
 
         <ons-list-header>カテゴリー</ons-list-header>
         <ons-list-item>
               <ons-select class="filter-category" id="search-category" style="width:100%">
-                  <option value="-1">指定なし</option>
-                  <option value="1">テイクアウト</option>
-                  <option value="2">デリバリー</option>
-                  <option value="3">テイクアウト&デリバリー</option>
-                  <option value="0">その他</option>
               </ons-select>
         </ons-list-item>
 
         <ons-list-header>グループ</ons-list-header>
         <ons-list-item>
               <ons-select class="filter-group" id="search-group" style="width:100%">
-                  <option value="-1">指定なし</option>
-                  <option value="1">武蔵小杉カレーフェスティバル</option>
-                  <option value="0">その他</option>
               </ons-select>
         </ons-list-item>
 
@@ -109,6 +51,7 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
+            search_int();
             console.log("search.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
