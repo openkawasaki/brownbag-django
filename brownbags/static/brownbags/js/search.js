@@ -101,6 +101,23 @@ function clearFilterItems() {
     g_group_sel    = null;
 }
 
+function getItemList() {
+    if (listItems === null) {
+        return getShopItems();
+
+    } else {
+        var items = [];
+        for (var ii=0; ii<listItems.length; ii++) {
+            var no   = listItems[ii];
+            var item = getShopItem(no);
+            if (item !== null) {
+                items.push(item);
+            }
+        }
+        return items;
+    }
+}
+
 function countListItems() {
     if (listItems === null) {
         return getShopItemCount();
