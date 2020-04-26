@@ -85,34 +85,65 @@ function resetHomeFilter() {
         home_grid.filter('.grid_item');
     }
     /*
-    $("#home_grid").val("-1");
-    $("#home_area").val("-1");
-    $("#home_category").val("-1");
-    $("#home_group").val("-1");
+    $("#home-genre").val("-1");
+    $("#home-area").val("-1");
+    $("#home-category").val("-1");
+    $("#home-group").val("-1");
     */
     $(".select-input").val("-1");
 }
 
-function setHomeFilter(filter, value) {
-    home_grid.filter(function (item) {
-        var element = item.getElement();
-        var data_area = element.getAttribute(filter);
+function checkGridFilter(element, attribute, value) {
+    if (value === -1) {
+        return true;
+    }
 
-        var item_data = parseInt(data_area, 10);
-        if (isNaN(item_data))
-            item_data = -1;
-        return item_data === value;
-    });
+    var data_attr = parseInt(element.getAttribute(attribute), 10);
+    if (isNaN(data_attr))
+        return true;
+
+    if (value !== data_attr)
+        return false;
+
+    return true;
+}
+
+function setGridFilter(selector, filter, value) {
+    if (selector!== null) {
+        selector.filter(function (item) {
+            var genre_sel    = parseInt($("#home-genre").val());
+            var area_sel     = parseInt($("#home-area").val());
+            var category_sel = parseInt($("#home-category").val());
+            var group_sel    = parseInt($("#home-group").val());
+
+            var element = item.getElement();
+
+            if (!checkGridFilter(element, 'data-genre', genre_sel)){
+                return false;
+            }
+            if (!checkGridFilter(element, 'data-area', area_sel)){
+                return false;
+            }
+            if (!checkGridFilter(element, 'data-category', category_sel)){
+                return false;
+            }
+            if (!checkGridFilter(element, 'data-group', group_sel)){
+                return false;
+            }
+            return true;
+        });
+    }
+}
+
+function setHomeFilter(filter, value) {
+    setGridFilter(home_grid);
 }
 
 // ページをreloadする方法
-// reloadの基本的な使い方
 function doReload() {
-    // reloadメソッドによりページをリロード
     window.location.reload();
 }
 function doReloadNoCache() {
-
     // キャッシュを無視してサーバーからリロード
     window.location.reload(true);
 

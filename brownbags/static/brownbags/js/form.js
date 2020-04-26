@@ -340,6 +340,15 @@ function make_selector(select_class, selector) {
     }
 }
 
+function make_selector_type2(select_class, selector) {
+    for (var ii=0; ii<select_class.length; ii++) {
+        var id   = select_class[ii][0];
+        var name = select_class[ii][1];
+        var elem = `<option value="${id}">${name}</option>`;
+        $('#' + selector).append(elem);
+    }
+}
+
 function get_sel_name(select_class, selector) {
     for (var ii=0; ii<select_class.length; ii++) {
         if (select_class[ii][0] === selector) {
