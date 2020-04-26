@@ -70,21 +70,12 @@ function getListItemNames() {
     }
 }
 
-function setFilterName() {
-    // 検索条件
-    $('#filter_name').text(getListItemNames());
-}
+function setFilterItems() {
 
-function filterListItems() {
     g_genre_sel    = parseInt($('#search-genre').val());
     g_area_sel     = parseInt($('#search-area').val());
     g_category_sel = parseInt($('#search-category').val());
     g_group_sel    = parseInt($('#search-group').val());
-
-    console.log("g_genre_sel    = " + g_genre_sel);
-    console.log("g_area_sel     = " + g_area_sel);
-    console.log("g_category_sel = " + g_category_sel);
-    console.log("g_group_sel    = " + g_group_sel);
 
     var items = getShopItems();
 
@@ -99,22 +90,15 @@ function filterListItems() {
     item_nums = filterListItemsSelect("group_sel", g_group_sel, items, item_nums);
 
     listItems = item_nums;
-    updateList();
 }
 
-function resetListItems() {
+function clearFilterItems() {
     listItems      = null;
 
     g_genre_sel    = null;
     g_area_sel     = null;
     g_category_sel = null;
     g_group_sel    = null;
-
-    updateList();
-
-    setFilterName();
-
-    $(".select-input").val("-1");
 }
 
 function countListItems() {

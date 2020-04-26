@@ -45,8 +45,8 @@
     </ons-list>
 
       <p style="text-align: center">
-          <ons-button onclick="clickSearch()">検索</ons-button>
-          <ons-button onclick="clickReset()">リセット</ons-button>
+          <ons-button onclick="clickFilter()">フィルター設定</ons-button>
+          <ons-button onclick="clickFilterClear()">フィルタークリア</ons-button>
       </p>
 
     <script>
@@ -73,15 +73,15 @@
         }
         */
 
-        function clickSearch() {
-            console.log("search.html: search button");
-            filterListItems();
+        function clickFilter() {
+            //console.log("search.html: search button");
+            setFilterItems();
             document.querySelector('ons-navigator').popPage();
         }
 
-        function clickReset() {
-            console.log("search.html: reset button");
-            resetListItems();
+        function clickFilterClear() {
+            //console.log("search.html: reset button");
+            clearFilterItems();
             document.querySelector('ons-navigator').popPage();
         }
 

@@ -1,50 +1,19 @@
 <ons-page id="home-page">
-    <ons-card>
-        <div class="content">
-            <div style="margin-bottom:20px;">
-                    横浜市、川崎市、を中心にテイクアウト（持ち帰り）・デリバリーサービス（出前・配達）が可能な飲食店の情報をまとめています。
-            </div>
-        </div>
-    </ons-card>
-
-    <!--
-    <ons-carousel swipeable auto-scroll overscrollable class="home_carousel">
-    </ons-carousel>
-
-    <div class="list-btn">
-      <ul>
-          <li class="filter-genre-li">
-            <ons-list-header>ジャンル</ons-list-header>
-            <ons-select class="filter-genre" id="home-genre" style="width:100%"">
-            </ons-select>
-          </li>
-          <li class="filter-area-li">
-              <ons-list-header>地域</ons-list-header>
-              <ons-select class="filter-area" id="home-area" style="width:100%"">
-              </ons-select>
-          </li>
-          <li class="filter-category-li">
-              <ons-list-header>カテゴリ</ons-list-header>
-              <ons-select class="filter-category" id="home-category" style="width:100%"">
-              </ons-select>
-          </li>
-          <li class="filter-group-li">
-              <ons-list-header>区分</ons-list-header>
-              <ons-select class="filter-group" id="home-group" style="width:100%"">
-              </ons-select>
-          </li>
-      </ul>
-    </div>
-
+    <ons-list-header>検索条件</ons-list-header>
     <ons-list-item>
-        <div class="right">
-            <ons-button id="home-clear">クリア</ons-button>
-        </div>
+        <div class="left"  id="filter_home_name"></div>
     </ons-list-item>
-    -->
+
 
     <div class="home_grid" id="home_grid">
     </div>
+
+
+    <ons-fab position="bottom right">
+        <ons-fab  modifier="mini modifier2" onclick="fn.pushPage({'id':'/static/brownbags/html/search.html', 'title':'検索', 'index':'-1', 'param':'home'})">
+            <ons-icon icon="fa-search"></ons-icon>
+        </ons-fab>
+    </ons-fab>
 
     <script>
         ons.getScriptPage().onInit = function () {
@@ -63,23 +32,6 @@
         ons.getScriptPage().onDestroy = function () {
             //console.log("home.html: onDestroy()");
         };
-
-        $("#home-genre").change(function() {
-            setGridFilter();
-        });
-        $("#home-area").change(function() {
-            setGridFilter();
-        });
-        $("#home-category").change(function() {
-            setGridFilter();
-        });
-        $("#home-group").change(function() {
-            setGridFilter();
-        });
-        $('#home-clear').on('click touchstart', function(){
-            resetHomeFilter();
-        });
-
     </script>
 
     <style>

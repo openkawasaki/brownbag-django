@@ -1,10 +1,7 @@
 <ons-page id="list-page">
     <ons-list-header>検索条件</ons-list-header>
     <ons-list-item>
-        <div class="left"  id="filter_name"></div>
-        <div class="right">
-            <ons-button onclick="clickReset()">リセット</ons-button>
-        </div>
+        <div class="left"  id="filter_list_name"></div>
     </ons-list-item>
 
     <ons-list>
@@ -13,7 +10,7 @@
     </ons-list>
 
     <ons-fab position="bottom right">
-        <ons-fab  modifier="mini modifier2" onclick="fn.pushPage({'id':'/static/brownbags/html/search.html', 'title':'検索', 'index':'1'})">
+        <ons-fab  modifier="mini modifier2" onclick="fn.pushPage({'id':'/static/brownbags/html/search.html', 'title':'検索', 'index':'-1', 'param':'list'})">
             <ons-icon icon="fa-search"></ons-icon>
         </ons-fab>
     </ons-fab>
@@ -23,7 +20,6 @@
             //console.log("list.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
-            updateList();
             list_show();
             //console.log("list.html: onShow()");
         };
