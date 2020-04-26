@@ -6,7 +6,7 @@ function home_init() {
 function home_show() {
     home_hide();
 
-    var grid_list = getShopItems();
+    var grid_list = getItemList();
     if (grid_list !== null) {
         for (var ii=0; ii<grid_list.length; ii++) {
             var item = grid_list[ii];
