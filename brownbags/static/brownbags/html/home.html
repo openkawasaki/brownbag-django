@@ -8,22 +8,42 @@
         </div>
     </ons-card>
 
+    <!--
+    <ons-card>
+        <div id="image_name" style="display:none;">
+		</div>
+    </ons-card>
+    -->
+
     <ons-carousel swipeable auto-scroll overscrollable class="home_carousel">
-      <ons-carousel-item>
+        <!--
+        <ons-carousel-item>
           <div class="home_carousel_item">
               <img src="/static/brownbags/images/ogp.png" width="100%">
           </div>
-      </ons-carousel-item>
-      <ons-carousel-item>
-          <div class="home_carousel_item">
-              <img src="/static/brownbags/images/ogp.png" width="100%">
-          </div>
-      </ons-carousel-item>
-      <ons-carousel-item>
-          <div class="home_carousel_item">
-              <img src="/static/brownbags/images/ogp.png" width="100%">
-          </div>
-      </ons-carousel-item>
+        </ons-carousel-item>
+        -->
+
+        <!--
+        <ons-carousel-cover>
+            <div class="cover-label" ng-show="sctrl.carouselNum == 0">
+                <ons-icon icon="circle" ></ons-icon>
+                <ons-icon icon="circle-thin"></ons-icon>
+                <ons-icon icon="circle-thin"></ons-icon>
+            </div>
+            <div class="cover-label" ng-show="sctrl.carouselNum == 1">
+                <ons-icon icon="circle-thin"></ons-icon>
+                <ons-icon icon="circle" ></ons-icon>
+                <ons-icon icon="circle-thin"></ons-icon>
+            </div>
+            <div class="cover-label" ng-show="sctrl.carouselNum == 2">
+                <ons-icon icon="circle-thin"></ons-icon>
+                <ons-icon icon="circle-thin"></ons-icon>
+                <ons-icon icon="circle" ></ons-icon>
+            </div>
+        </ons-carousel-cover>
+        -->
+
     </ons-carousel>
 
     <!--
@@ -133,6 +153,9 @@
 
      <script>
         ons.getScriptPage().onInit = function () {
+            carousel_init();
+            grid_init();
+            readShopList(readShopListDone);
             console.log("home.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {

@@ -296,6 +296,13 @@ var CATEGORY_CLASS = [
     [-1,'指定なし'],
 ];
 
+// グループ
+var GROUP_CLASS = [
+    [0, 'その他'],
+    [1, '武蔵小杉カレーフェスティバル'],
+    [-1,'指定なし'],
+];
+
 // テイクアウト（持ち帰り）
 var TAKEAWAY_CLASS = [
     [0, 'その他'],
@@ -346,6 +353,15 @@ function get_category_sel_name(category_sel) {
     for (var ii=0; ii<CATEGORY_CLASS.length; ii++) {
         if (CATEGORY_CLASS[ii][0] === category_sel) {
             return CATEGORY_CLASS[ii][1];
+        }
+    }
+    return "";
+}
+
+function get_group_sel_name(group_sel) {
+    for (var ii=0; ii<GROUP_CLASS.length; ii++) {
+        if (GROUP_CLASS[ii][0] === group_sel) {
+            return GROUP_CLASS[ii][1];
         }
     }
     return "";

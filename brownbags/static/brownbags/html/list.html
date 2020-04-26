@@ -1,4 +1,11 @@
 <ons-page id="list-page">
+    <ons-list-header>検索条件</ons-list-header>
+    <ons-list-item>
+        <div class="left"  id="filter_name"></div>
+        <div class="right">
+            <ons-button onclick="clickReset()">リセット</ons-button>
+        </div>
+    </ons-list-item>
 
     <ons-list>
         <ons-list-header>店舗</ons-list-header>
@@ -13,42 +20,32 @@
 
     <script>
         ons.getScriptPage().onInit = function () {
-            //console.log("list.html: onInit()");
+            console.log("list.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
-            //readShopList(updateList);
-            //console.log("list.html: onShow()");
+            updateList();
+            list_show();
+            console.log("list.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
-            //console.log("list.html: onHide()");
+            console.log("list.html: onHide()");
         };
         ons.getScriptPage().onDestroy = function () {
-            //console.log("list.html: onDestroy()");
+            console.log("list.html: onDestroy()");
         };
 
-        //function updateList(data) {
         function updateList() {
-            //readShopListDone(data);
-
             var infiniteList = document.getElementById('infinite-list');
-
             infiniteList.delegate = {
                 createItemContent: function(index) {
-                    //return ons.createElement('<ons-list-item>Item ' + index + '</ons-list-item>');
-                    return createItem(index);
+                    return createListItems(index);
                 },
                 countItems: function() {
-                    return getShopItemCount();
+                    return countListItems();
                 },
             };
-
             infiniteList.refresh();
-            ons.notification.toast("リスト更新", { timeout: 1000, animation: 'fall' });
         }
-
-        // アクティブなタブが変わる前に発火します。
-        document.addEventListener('prechange', function(event) {
-        });
 
     </script>
 

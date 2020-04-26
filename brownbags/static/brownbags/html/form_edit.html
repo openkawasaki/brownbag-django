@@ -417,7 +417,9 @@
     <script>
         var send_type = 0;
         ons.getScriptPage().onInit = function () {
-            var title = this.data.title;
+           console.log("form_edit.html: onInit()");
+
+           var title = this.data.title;
             this.querySelector('ons-toolbar .center').innerHTML = title;
 
             send_type = parseInt(this.data.index);

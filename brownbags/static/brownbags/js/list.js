@@ -1,14 +1,5 @@
-function list_filter() {
-    var area_sel     = $('#area-input').val();
-    var category_sel = $('#category-input').val();
-    var genre_sel    = $('#genre-input').val();
-
-    /*
-    console.log("area_sel     = " + area_sel);
-    console.log("category_sel = " + category_sel);
-    console.log("genre_sel    = " + genre_sel);
-    */
-    readShopListPrams(area_sel, category_sel, genre_sel, updateList);
+function list_show() {
+    setFilterName();
 }
 
 function getItem(index) {

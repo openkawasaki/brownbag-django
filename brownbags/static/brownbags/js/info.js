@@ -1,7 +1,7 @@
+/*
 function info_init() {
-    map_info_init();
 }
-
+*/
 function info_show(param) {
     var title = param["title"];
     var index = parseInt(param["index"]);
@@ -19,11 +19,11 @@ function info_show_done(data) {
     var name = item["name"];
     //self.querySelector('ons-toolbar .center').innerHTML = name;
     //self.querySelector('#shop_name').textContent = name;
-    $('ons-toolbar .center').html(name);
+    //$('ons-toolbar .center').html(name);
     $('#shop_name').text(name);
 
     // 店舗画像
-    //$("#image_name").html(info_gallery("image_name", item["images"]["name"], name));
+    $("#image_name").html(info_gallery("image_name", item["images"]["name"], name));
 
     // ジャンル
     $('#shop_genre').text(get_genre_sel_name(item["genre_sel"]));
@@ -37,6 +37,9 @@ function info_show_done(data) {
 
     // カテゴリ
     $('#shop_category').text(get_category_sel_name(item["category_sel"]));
+
+     // グループ
+    $('#shop_group').text(get_group_sel_name(item["group_sel"]));
 
     // メニュー情報
     $("#image_takeway").html(info_gallery("image_takeway", item["images"]["takeaway"], name));
@@ -172,8 +175,8 @@ function info_gallery(selector, images_name, name) {
 			theme_enable_text_panel: true,			//enable the panel text panel.
             slider_enable_zoom_panel: true,	         //true,false - enable the zoom buttons, works together with zoom control.
 
-            gallery_width: "100%",
-            //gallery_height: "400px",
+            //gallery_width: "100%",
+            gallery_height: "250px",
         });
 	});
 }

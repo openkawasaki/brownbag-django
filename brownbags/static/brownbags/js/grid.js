@@ -1,5 +1,28 @@
+function carousel_init() {
+
+    var data_list = [
+        {image: "/static/brownbags/images/ogp.png"},
+        {image: "/static/brownbags/images/home1.png"},
+        {image: "/static/brownbags/images/home2.png"},
+    ];
+
+    for (var ii=0; ii<data_list.length; ii++) {
+        var item = data_list[ii];
+
+        var elem = `<ons-carousel-item>
+                        <div class="home_carousel_item">
+                            <img src='${item.image}' width="100%">
+                        </div>
+                    </ons-carousel-item>`;
+
+        $('.home_carousel').append(elem);
+    }
+}
+
+
 function grid_init() {
 }
+
 var home_grid = null;
 function grid_show() {
 
