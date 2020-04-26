@@ -109,7 +109,7 @@ function checkGridFilter(element, attribute, value) {
 
 function setGridFilter() {
     if (home_grid!== null) {
-        debuglog("setGridFilter()");
+        debuglog("選択変更しました。");
 
         home_grid.filter(function (item) {
             var genre_sel    = parseInt($("#home-genre").val());
