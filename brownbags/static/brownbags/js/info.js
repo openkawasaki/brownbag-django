@@ -175,7 +175,7 @@ function info_gallery(selector, images_name, name) {
 			theme_enable_text_panel: true,			//enable the panel text panel.
             slider_enable_zoom_panel: true,	         //true,false - enable the zoom buttons, works together with zoom control.
 
-            //gallery_width: "100%",
+            gallery_width: "100%",
             gallery_height: "250px",
         });
 	});

@@ -85,13 +85,11 @@ function resetHomeFilter() {
     if (home_grid !== null){
         home_grid.filter('.grid_item');
     }
-    /*
     $("#home-genre").val("-1");
     $("#home-area").val("-1");
     $("#home-category").val("-1");
     $("#home-group").val("-1");
-    */
-    $(".select-input").val("-1");
+    //$(".select-input").val("-1");
 }
 
 function checkGridFilter(element, attribute, value) {
@@ -137,6 +135,7 @@ function setGridFilter(selector, filter, value) {
 }
 
 function setHomeFilter(filter, value) {
+    console.log("setHomeFilter() : filter=" + filter + " : value=" + value);
     setGridFilter(home_grid);
 }
 
