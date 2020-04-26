@@ -162,6 +162,8 @@ function map_info_show(lat, lon, name) {
         markers_shop[0] = L.marker([lat, lon], {icon: markerIcon}).addTo(map_shop)
             .bindPopup(name)
             .openPopup();
+
+        map_shop.panTo(new L.LatLng(lat, lon));
     }
 }
 

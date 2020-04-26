@@ -138,39 +138,35 @@
     <script>
         ons.getScriptPage().onInit = function () {
             //ons.bootstrap();
-            console.log("info.html: onInit()");
+            //console.log("info.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
             map_info_init();
             info_show(this.data);
-            console.log("info.html: onShow()");
+            //console.log("info.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
             map_info_hide();
-            console.log("info.html: onHide()");
+            //console.log("info.html: onHide()");
         };
         ons.getScriptPage().onDestroy = function () {
-            console.log("info.html: onDestroy()");
+            //console.log("info.html: onDestroy()");
         };
 
+        /*
         this.carouselChange = function(){
             // indexを取得してcarouselNumに設定
             this.carouselNum = sim_carousel.getActiveIndex();
         }
+        */
     </script>
 
     <style>
         #info_map {
             z-index: 0;
             width: 100%;
-            height: 400px;
+            height: 250px;
         }
-
-        ons-carousel-item {
-          display: table;
-          text-align: center;
-        }
-
     </style>
 
 </ons-page>
