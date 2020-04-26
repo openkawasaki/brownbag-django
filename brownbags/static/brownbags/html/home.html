@@ -17,22 +17,22 @@
       <ul>
           <li class="filter-genre-li">
             <ons-list-header>ジャンル</ons-list-header>
-            <ons-select class="filter-genre" id="home-genre" style="width:100%" onchange="selectGenre(event)">
+            <ons-select class="filter-genre" id="home-genre" style="width:100%"">
             </ons-select>
           </li>
           <li class="filter-area-li">
               <ons-list-header>地域</ons-list-header>
-              <ons-select class="filter-area" id="home-area" style="width:100%"  onchange="selectArea(event)">
+              <ons-select class="filter-area" id="home-area" style="width:100%"">
               </ons-select>
           </li>
           <li class="filter-category-li">
               <ons-list-header>カテゴリ</ons-list-header>
-              <ons-select class="filter-category" id="home-category" style="width:100%"  onchange="selectCategory(event)">
+              <ons-select class="filter-category" id="home-category" style="width:100%"">
               </ons-select>
           </li>
           <li class="filter-group-li">
               <ons-list-header>区分</ons-list-header>
-              <ons-select class="filter-group" id="home-group" style="width:100%"  onchange="selectGroup(event)">
+              <ons-select class="filter-group" id="home-group" style="width:100%"">
               </ons-select>
           </li>
       </ul>
@@ -40,7 +40,7 @@
 
     <ons-list-item>
         <div class="right">
-            <ons-button onclick="selectClear()">クリア</ons-button>
+            <ons-button id="home-clear">クリア</ons-button>
         </div>
     </ons-list-item>
 
@@ -65,25 +65,22 @@
             //console.log("home.html: onDestroy()");
         };
 
-        function selectGenre(event) {
-            var value = parseInt(event.target.value, 10);
-            setHomeFilter('data-genre', value);
-        }
-        function selectArea(event) {
-            var value = parseInt(event.target.value, 10);
-            setHomeFilter('data-area', value);
-        }
-        function selectCategory(event) {
-            var value = parseInt(event.target.value, 10);
-            setHomeFilter('data-category', value);
-        }
-        function selectGroup(event) {
-            var value = parseInt(event.target.value, 10);
-            setHomeFilter('data-group', value);
-        }
-        function selectClear() {
+        $("#home-genre").change(function() {
+            setGridFilter();
+        });
+        $("#home-area").change(function() {
+            setGridFilter();
+        });
+        $("#home-category").change(function() {
+            setGridFilter();
+        });
+        $("#home-group").change(function() {
+            setGridFilter();
+        });
+        $('#home-clear').on('click touchstart', function(){
             resetHomeFilter();
-        }
+        });
+
     </script>
 
     <style>
