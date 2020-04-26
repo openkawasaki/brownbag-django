@@ -3,55 +3,90 @@
         <h2 class="title">よこはま かわさき BENTO MAP</h2>
         <div class="content">
             <div style="margin-bottom:20px;">
-                <p>
                     横浜市、川崎市、を中心にテイクアウト（持ち帰り）・デリバリーサービス（出前・配達）が可能な飲食店の情報をまとめています。
-                </p>
-            </div>
-            <div class="home_image_center">
-                <img src="/static/brownbags/images/ogp.png" width="80%">
             </div>
         </div>
     </ons-card>
-    <ons-card>
-        <div class="content">
-            ハッシュタグ
-            <ul style="list-style-type: circle;">
-                <li>#テイクアウト始めました</li>
-                <li>#横浜・川崎お弁当プロジェクト</li>
-                <li>#BrownBagProject</li>
-                <li>#StayHome</li>
-                <li>#wearestillopenjapan</li>
-                <li>#WAOJPN</li>
-            </ul>
-        </div>
-    </ons-card>
 
-    <ons-card>
-        <div class="content">
-            アクセスありがとうございます。
-            <ul style="list-style-type: square;">
-                <li>皆様からの情報提供を元に、身近な地元のお店の情報を追加/更新しています。</li>
-                <li>情報提供にご協力をお願いします！</li>
-                <li>※この活動はボランティアで行っています。</li>
-                <li>※掲載料は無料です</li>
-            </ul>
-        </div>
-    </ons-card>
+    <!--
+    <ons-carousel swipeable auto-scroll overscrollable class="home_carousel">
+    </ons-carousel>
+    -->
 
-    <ons-card>
-        <div class="content">
-            <b>＜プロジェクト＞</b>BrownBagプロジェクト<br>
-            <b>＜運営団体＞</b>オープン川崎/Code for Kawasaki
+    <div class="list-btn">
+      <ul>
+          <li class="filter-genre-li">
+            <ons-list-header>ジャンル</ons-list-header>
+            <ons-select class="filter-genre" id="home-genre" style="width:100%" onchange="selectGenre(event)">
+            </ons-select>
+          </li>
+          <li class="filter-area-li">
+              <ons-list-header>地域</ons-list-header>
+              <ons-select class="filter-area" id="home-area" style="width:100%"  onchange="selectArea(event)">
+              </ons-select>
+          </li>
+          <li class="filter-category-li">
+              <ons-list-header>カテゴリ</ons-list-header>
+              <ons-select class="filter-category" id="home-category" style="width:100%"  onchange="selectCategory(event)">
+              </ons-select>
+          </li>
+          <li class="filter-group-li">
+              <ons-list-header>区分</ons-list-header>
+              <ons-select class="filter-group" id="home-group" style="width:100%"  onchange="selectGroup(event)">
+              </ons-select>
+          </li>
+      </ul>
+    </div>
+
+    <ons-list-item>
+        <div class="right">
+            <ons-button onclick="selectClear()">クリア</ons-button>
         </div>
-    </ons-card>
+    </ons-list-item>
+
+    <div class="home_grid" id="home_grid">
+    </div>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            readShopList(readShopListDone);
+            home_init();
+            console.log("home.html: onInit()");
+        };
+        ons.getScriptPage().onShow = function () {
+            home_show();
+            console.log("home.html: onShow()");
+        };
+        ons.getScriptPage().onHide = function () {
+            home_hide();
+            console.log("home.html: onHide()");
+        };
+        ons.getScriptPage().onDestroy = function () {
+            console.log("home.html: onDestroy()");
+        };
+
+        function selectGenre(event) {
+            var value = parseInt(event.target.value, 10);
+            setHomeFilter('data-genre', value);
+        }
+        function selectArea(event) {
+            var value = parseInt(event.target.value, 10);
+            setHomeFilter('data-area', value);
+        }
+        function selectCategory(event) {
+            var value = parseInt(event.target.value, 10);
+            setHomeFilter('data-category', value);
+        }
+        function selectGroup(event) {
+            var value = parseInt(event.target.value, 10);
+            setHomeFilter('data-group', value);
+        }
+        function selectClear() {
+            resetHomeFilter();
+        }
+    </script>
 
     <style>
-        .home_image_center {
-            max-width: 60%;
-            margin: 0 auto;
-            text-align:center;
-            border: 1px;
-        }
     </style>
 
 </ons-page>

@@ -42,6 +42,7 @@ function readShopList(done) {
 function readShopListDone(data) {
     //console.log("readShopListDone()");
     g_shop_list = data["shop"];
+    home_show();
 }
 
 function readShop(shop_id, done) {
@@ -78,13 +79,12 @@ window.fn.pushPage = function (page, anim) {
 //--------------------------
 // アクティブなタブが変わる前に発火します。
 //--------------------------
+/*
 document.addEventListener('prechange', function(event) {
-    //console.log("prechange()");
-
     // ラベル設定
-    document.querySelector('ons-toolbar .center')
-        .innerHTML = event.tabItem.getAttribute('label');
+    // document.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
 });
+*/
 
 //--------------------------
 // initイベント <ons-page>がDOMにアタッチされる
@@ -93,19 +93,21 @@ document.addEventListener('prechange', function(event) {
 document.addEventListener("init", function(event) {
     var page = event.target;
     if (page.id === "home-page") {
-        console.log("home-page: init()");
+        //console.log("home-page: init()");
     } else if (page.id === "list-page") {
-        console.log("list-page: init()");
+        //console.log("list-page: init()");
     } else if (page.id === "map-page") {
-        console.log("map-page: init()");
+        //console.log("map-page: init()");
     } else if (page.id === "info-page") {
-        console.log("info-page: init()");
+        //console.log("info-page: init()");
     } else if (page.id === "form-page") {
-        console.log("form-page: init()");
+        //console.log("form-page: init()");
     } else if (page.id === "form-edit-page") {
-        console.log("form-edit-page: init()");
+        //console.log("form-edit-page: init()");
     } else if (page.id === "about-page") {
-        console.log("about-page: init()");
+        //console.log("about-page: init()");
+    } else if (page.id === "search-page") {
+        //console.log("search-page: init()");
     } else {
         //console.log(page.id);
     }
@@ -118,24 +120,27 @@ document.addEventListener("init", function(event) {
 document.addEventListener("destroy", function(event) {
     var page = event.target;
     if (page.id === "home-page") {
-        console.log("home-page: destroy()");
+        //console.log("home-page: destroy()");
     } else if (page.id === "list-page") {
-        console.log("list-page: destroy()");
+        //console.log("list-page: destroy()");
     } else if (page.id === "map-page") {
-        console.log("map-page: destroy()");
+        //console.log("map-page: destroy()");
     } else if (page.id === "info-page") {
-        console.log("info-page: destroy()");
+        //console.log("info-page: destroy()");
     } else if (page.id === "form-page") {
-        console.log("form-page: destroy()");
+        //console.log("form-page: destroy()");
     } else if (page.id === "form-edit-page") {
-        console.log("form-edit-page: destroy()");
+        //console.log("form-edit-page: destroy()");
     } else if (page.id === "about-page") {
-        console.log("about-page: destroy()");
+        //console.log("about-page: destroy()");
+    } else if (page.id === "search-page") {
+        //console.log("search-page: destroy()");
     } else {
         //console.log(page.id);
     }
 });
 */
+
 //--------------------------
 // showイベント <ons-page>が画面に現れるたび
 //--------------------------
@@ -143,19 +148,21 @@ document.addEventListener("destroy", function(event) {
 document.addEventListener("show", function(event) {
     var page = event.target;
     if (page.id === "home-page") {
-        console.log("home-page: show()");
+        //console.log("home-page: show()");
     } else if (page.id === "list-page") {
-        console.log("list-page: show()");
+        //console.log("list-page: show()");
     } else if (page.id === "map-page") {
-        console.log("map-page: show()");
+        //console.log("map-page: show()");
     } else if (page.id === "info-page") {
-        console.log("info-page: show()");
+        //console.log("info-page: show()");
     } else if (page.id === "form-page") {
-        console.log("form-page: show()");
+        //console.log("form-page: show()");
     } else if (page.id === "form-edit-page") {
-        console.log("form-edit-page: show()");
+        //console.log("form-edit-page: show()");
     } else if (page.id === "about-page") {
-        console.log("about-page: show()");
+        //console.log("about-page: show()");
+    } else if (page.id === "search-page") {
+        //console.log("search-page: show()");
     } else {
         //console.log(page.id);
     }
@@ -168,19 +175,21 @@ document.addEventListener("show", function(event) {
 document.addEventListener("hide", function(event) {
     var page = event.target;
     if (page.id === "home-page") {
-        console.log("home-page: hide()");
+        //console.log("home-page: hide()");
     } else if (page.id === "list-page") {
-        console.log("list-page: hide()");
+        //console.log("list-page: hide()");
     } else if (page.id === "map-page") {
-        console.log("map-page: hide()");
+        //console.log("map-page: hide()");
     } else if (page.id === "info-page") {
-        console.log("info-page: hide()");
+        //console.log("info-page: hide()");
     } else if (page.id === "form-page") {
-        console.log("form-page: hide()");
+        //console.log("form-page: hide()");
     } else if (page.id === "form-edit-page") {
-        console.log("form-edit-page: hide()");
+        //console.log("form-edit-page: hide()");
     } else if (page.id === "about-page") {
-        console.log("about-page: hide()");
+        //console.log("about-page: hide()");
+    } else if (page.id === "search-page") {
+        //console.log("search-page: hide()");
     } else {
         //console.log(page.id);
     }

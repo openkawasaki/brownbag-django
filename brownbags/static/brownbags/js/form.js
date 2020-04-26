@@ -231,7 +231,7 @@ function form_read_done(data) {
 
 // ジャンル
 var GENRE_CLASS = [
-    [0, 'その他'],
+    [-1, 'ジャンルなし'],
     [1, 'お弁当・お惣菜'],
     [2, '中華料理'],
     [3, '和食・日本料理・お寿司'],
@@ -247,12 +247,12 @@ var GENRE_CLASS = [
     [13, 'パン・サンドイッチ'],
     [14, 'スイーツ'],
     [15, 'スーパーマーケット・コンビニエンスストア'],
-    [-1, 'ジャンルなし'],
+    [0, 'その他'],
 ];
 
 //  地域
 var AREA_CLASS = [
-    [0, 'その他'],
+    [-1,'地域の指定なし'],
     [1, '武蔵小杉・新丸子・元住吉'],
     [2, '武蔵新城・武蔵中原'],
     [3, '溝の口・梶ヶ谷・鷺沼'],
@@ -284,81 +284,80 @@ var AREA_CLASS = [
     [29, '横浜市磯子区'],
     [30, '横浜市栄区'],
     [31, '横浜市金沢区'],
-    [-1,'地域の指定なし'],
+    [0, 'その他'],
 ];
 
 // カテゴリー
 var CATEGORY_CLASS = [
-    [0, 'その他'],
+    [-1,'指定なし'],
     [1, 'テイクアウト（持ち帰り）'],
     [2, 'デリバリーサービス（出前・配達）'],
     [3, 'テイクアウト & デリバリー'],
+    [0, 'その他'],
+];
+
+// グループ
+var GROUP_CLASS = [
     [-1,'指定なし'],
+    [1, '武蔵小杉カレーフェスティバル'],
+    [0, 'その他'],
 ];
 
 // テイクアウト（持ち帰り）
 var TAKEAWAY_CLASS = [
-    [0, 'その他'],
+    [-1,'指定なし'],
     [1, '対応している'],
     [2, '対応してない'],
     [3, '準備中'],
-    [-1,'指定なし'],
+    [0, 'その他'],
 ];
 
 // デリバリー
 var DELIVERY_CLASS = [
-    [0, 'その他'],
+    [-1,'指定なし'],
     [1, '出前館'],
     [2, 'UberEats（ウーバーイーツ）'],
     [3, '自店で配達・出前をしている'],
-    [-1,'指定なし'],
+    [0, 'その他'],
 ];
 
 // 支払い方法
 var PAYMENT_CLASS = [
-    [0, 'その他'],
+    [-1,'指定なし'],
     [1, '現金'],
     [2, 'クレジットカード'],
     [3, 'QRコード決済 (PayPay, LINE Pay等)'],
     [4, '電子マネー (Suica、PASMO等)'],
-    [-1,'指定なし'],
+    [0, 'その他'],
 ];
 
-function get_genre_sel_name(genre_sel) {
-    for (var ii=0; ii<GENRE_CLASS.length; ii++) {
-        if (GENRE_CLASS[ii][0] === genre_sel) {
-            return GENRE_CLASS[ii][1];
+function make_selector(select_class, selector) {
+    for (var ii=0; ii<select_class.length; ii++) {
+        var id   = select_class[ii][0];
+        var name = select_class[ii][1];
+        var elem = `<option value="${id}">${name}</option>`;
+        $('#' + selector).children().append(elem);
+    }
+}
+
+function make_selector_type2(select_class, selector) {
+    for (var ii=0; ii<select_class.length; ii++) {
+        var id   = select_class[ii][0];
+        var name = select_class[ii][1];
+        var elem = `<option value="${id}">${name}</option>`;
+        $('#' + selector).append(elem);
+    }
+}
+
+function get_sel_name(select_class, selector) {
+    for (var ii=0; ii<select_class.length; ii++) {
+        if (select_class[ii][0] === selector) {
+            return select_class[ii][1];
         }
     }
     return "";
 }
 
-function get_area_sel_name(area_sel) {
-    for (var ii=0; ii<AREA_CLASS.length; ii++) {
-        if (AREA_CLASS[ii][0] === area_sel) {
-            return AREA_CLASS[ii][1];
-        }
-    }
-    return "";
-}
-
-function get_category_sel_name(category_sel) {
-    for (var ii=0; ii<CATEGORY_CLASS.length; ii++) {
-        if (CATEGORY_CLASS[ii][0] === category_sel) {
-            return CATEGORY_CLASS[ii][1];
-        }
-    }
-    return "";
-}
-
-function get_takeaway_sel_name(takeaway_sel) {
-    for (var ii=0; ii<TAKEAWAY_CLASS.length; ii++) {
-        if (TAKEAWAY_CLASS[ii][0] === takeaway_sel) {
-            return TAKEAWAY_CLASS[ii][1];
-        }
-    }
-    return "";
-}
 var ImageSize = {
     src : 0,
     thumbnail : 1,

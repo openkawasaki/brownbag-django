@@ -1,0 +1,93 @@
+<ons-page id="search-page">
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button>戻る</ons-back-button>
+        </div>
+        <div class="center">検索</div>
+    </ons-toolbar>
+
+    <!--
+    <p style="text-align: center; margin-top: 10px;">
+        <ons-search-input
+                placeholder="検索"
+                onchange="search(this.value)"
+                width="100%"
+                >
+        </ons-search-input>
+    </p>
+    -->
+
+    <ons-list>
+        <ons-list-header>ジャンル</ons-list-header>
+        <ons-list-item>
+            <ons-select class="filter-genre" id="search-genre" style="width:100%">
+            </ons-select>
+        </ons-list-item>
+
+        <ons-list-header>地域</ons-list-header>
+        <ons-list-item>
+              <ons-select class="filter-area" id="search-area" style="width:100%">
+              </ons-select>
+        </ons-list-item>
+
+        <ons-list-header>カテゴリー</ons-list-header>
+        <ons-list-item>
+              <ons-select class="filter-category" id="search-category" style="width:100%">
+              </ons-select>
+        </ons-list-item>
+
+        <ons-list-header>グループ</ons-list-header>
+        <ons-list-item>
+              <ons-select class="filter-group" id="search-group" style="width:100%">
+              </ons-select>
+        </ons-list-item>
+
+    </ons-list>
+
+      <p style="text-align: center">
+          <ons-button onclick="clickSearch()">検索</ons-button>
+          <ons-button onclick="clickReset()">リセット</ons-button>
+      </p>
+
+    <script>
+        ons.getScriptPage().onInit = function () {
+            search_int();
+            console.log("search.html: onInit()");
+        };
+        ons.getScriptPage().onShow = function () {
+            setListItems();
+            console.log("search.html: onShow()");
+        };
+        ons.getScriptPage().onHide = function () {
+            console.log("search.html: onHide()");
+        };
+        ons.getScriptPage().onDestroy = function () {
+            console.log("search.html: onDestroy()");
+        };
+
+        /*
+        function search(value) {
+            var text = '検索文字: ' + value;
+            ons.notification.alert(text);
+            ons.notification.toast(text, { timeout: 1000, animation: 'fall' });
+        }
+        */
+
+        function clickSearch() {
+            console.log("search.html: search button");
+            filterListItems();
+            document.querySelector('ons-navigator').popPage();
+        }
+
+        function clickReset() {
+            console.log("search.html: reset button");
+            resetListItems();
+            document.querySelector('ons-navigator').popPage();
+        }
+
+    </script>
+
+    <style>
+    </style>
+
+</ons-page>

@@ -118,6 +118,13 @@ TAKEAWAY_CLASS= (
     (-1,'指定なし'),
 )
 
+# グループ(区分)
+GROUP_CLASS= (
+    (0, 'その他'),
+    (1, '武蔵小杉カレーフェスティバル'),
+    (-1,'指定なし'),
+)
+
 #-------------------------------------------------------
 class Shop(models.Model):
     """
@@ -137,6 +144,7 @@ class Shop(models.Model):
     name = models.CharField('店名', max_length=512, blank=False, null=True, default=None, unique=True)
 
     genre_sel = models.IntegerField("ジャンル", choices=GENRE_CLASS, default=-1)
+    group_sel = models.IntegerField("グループ", choices=GROUP_CLASS, default=-1)
 
     description = models.CharField('店舗概要', max_length=256, blank=True, null=True, default=None)
     addr_sel    = models.CharField('都道府県', max_length=256, blank=True, null=True, default=None)

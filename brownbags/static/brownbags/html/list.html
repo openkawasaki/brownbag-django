@@ -1,168 +1,38 @@
 <ons-page id="list-page">
-    <!--
-    <p style="text-align: center; margin-top: 10px;">
-        <ons-search-input
-                placeholder="検索"
-                onchange="search(this.value)"
-        ></ons-search-input>
-    </p>
-    -->
-    <ons-list>
-        <ons-list-header>地域</ons-list-header>
-        <ons-list-item>
-            <div class="center">
-                <ons-select id="area-input" style="width:100%" onchange="selectArea(event)">
-                    <option value="-1">地域の指定なし</option>
-                    <option value="1">武蔵小杉・新丸子・元住吉</option>
-                    <option value="2">武蔵新城・武蔵中原</option>
-                    <option value="3">溝の口・梶ヶ谷・鷺沼</option>
-                    <option value="4">登戸・稲田堤</option>
-                    <option value="5">川崎・平間</option>
-                    <option value="6">百合ヶ丘・新百合ヶ丘</option>
-                    <option value="7">川崎市川崎区</option>
-                    <option value="8">川崎市幸区</option>
-                    <option value="9">川崎市中原区</option>
-                    <option value="10">川崎市高津区</option>
-                    <option value="11">川崎市宮前区</option>
-                    <option value="12">川崎市多摩区</option>
-                    <option value="13">川崎市麻生区</option>
-                    <option value="14">横浜市青葉区</option>
-                    <option value="15">横浜市都筑区</option>
-                    <option value="16">横浜市港北区</option>
-                    <option value="17">横浜市鶴見区</option>
-                    <option value="18">横浜市緑区</option>
-                    <option value="19">横浜市神奈川区</option>
-                    <option value="20">横浜市瀬谷区</option>
-                    <option value="21">横浜市旭区</option>
-                    <option value="22">横浜市保土ケ谷区</option>
-                    <option value="23">横浜市南区</option>
-                    <option value="24">横浜市西区</option>
-                    <option value="25">横浜市中区</option>
-                    <option value="26">横浜市泉区</option>
-                    <option value="27">横浜市戸塚区</option>
-                    <option value="28">横浜市港南区</option>
-                    <option value="29">横浜市磯子区</option>
-                    <option value="30">横浜市栄区</option>
-                    <option value="31">横浜市金沢区</option>
-                <option value="0">その他</option>
-                </ons-select>
-            </div>
-        </ons-list-item>
-
-        <ons-list-header>カテゴリー</ons-list-header>
-        <ons-list-item>
-            <div class="center">
-                <ons-select id="category-input" style="width:100%" onchange="selectCategory(event)">
-                    <option value="-1">指定なし</option>
-                    <option value="1">テイクアウト（持ち帰り）</option>
-                    <option value="2">デリバリー（出前・配達）</option>
-                    <option value="3">テイクアウト&デリバリー</option>
-                    <option value="0">その他</option>
-                </ons-select>
-            </div>
-        </ons-list-item>
-
-        <ons-list-header>ジャンル</ons-list-header>
-        <ons-list-item>
-            <div class="center">
-                <ons-select id="genre-input" style="width:100%" onchange="selectGenre(event)" >
-                    <option value="-1">ジャンルなし</option>
-                    <option value="1">お弁当・お惣菜</option>
-                    <option value="2">中華料理</option>
-                    <option value="3">和食・日本料理・お寿司</option>
-                    <option value="4">ピザ・パスタ</option>
-                    <option value="5">洋食・西洋料理・とんかつ</option>
-                    <option value="6">居酒屋・ダイニングバー・焼鳥</option>
-                    <option value="7">アジア・エスニック・カレー</option>
-                    <option value="8">ステーキ・ハンバーグ・焼肉・ホルモン</option>
-                    <option value="9">創作料理・無国籍料理</option>
-                    <option value="10">ラーメン</option>
-                    <option value="11">カフェ・喫茶店</option>
-                    <option value="12">バー・パブ・ラウンジ</option>
-                    <option value="13">パン・サンドイッチ</option>
-                    <option value="14">スイーツ</option>
-                    <option value="15">スーパーマーケット・コンビニエンスストア</option>
-                    <option value="0">その他</option>
-                </ons-select>
-            </div>
-        </ons-list-item>
-    </ons-list>
+    <ons-list-header>検索条件</ons-list-header>
+    <ons-list-item>
+        <div class="left"  id="filter_name"></div>
+        <div class="right">
+            <ons-button onclick="clickReset()">リセット</ons-button>
+        </div>
+    </ons-list-item>
 
     <ons-list>
         <ons-list-header>店舗</ons-list-header>
         <ons-lazy-repeat id="infinite-list"></ons-lazy-repeat>
     </ons-list>
 
+    <ons-fab position="bottom right">
+        <ons-fab  modifier="mini modifier2" onclick="fn.pushPage({'id':'/static/brownbags/html/search.html', 'title':'検索', 'index':'1'})">
+            <ons-icon icon="fa-search"></ons-icon>
+        </ons-fab>
+    </ons-fab>
+
     <script>
         ons.getScriptPage().onInit = function () {
-            //console.log("list.html: onInit()");
+            console.log("list.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
-            //console.log("list.html: onShow()");
+            updateList();
+            list_show();
+            console.log("list.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
-            //console.log("list.html: onHide()");
+            console.log("list.html: onHide()");
         };
         ons.getScriptPage().onDestroy = function () {
-            //console.log("list.html: onDestroy()");
+            console.log("list.html: onDestroy()");
         };
-
-        function search(value) {
-            /*
-            var text = '検索文字: ' + value;
-            ons.notification.alert(text);
-            ons.notification.toast(text, { timeout: 1000, animation: 'fall' });
-            */
-        }
-        function selectArea(event) {
-            /*
-            var value = event.target.value;
-            console.log("selectArea = " + value);
-            ons.notification.toast("現在開発中です。少しお待ちください", {timeout: 1000, animation: 'fall'});
-            */
-            list_filter();
-        }
-        function selectCategory(event) {
-            /*
-            var value = event.target.value;
-            console.log("selectCategory = " + value);
-            ons.notification.toast("現在開発中です。少しお待ちください", { timeout: 1000, animation: 'fall' });
-            */
-            list_filter();
-        }
-
-        function selectGenre(event) {
-            /*
-            var value = event.target.value;
-            console.log("selectGenre = " + value);
-            ons.notification.toast("現在開発中です。少しお待ちください", { timeout: 1000, animation: 'fall' });
-            */
-            list_filter();
-        }
-
-        function updateList(data) {
-            readShopListDone(data);
-
-            var infiniteList = document.getElementById('infinite-list');
-
-            infiniteList.delegate = {
-                createItemContent: function(index) {
-                    //return ons.createElement('<ons-list-item>Item ' + index + '</ons-list-item>');
-                    return createItem(index);
-                },
-                countItems: function() {
-                    return getShopItemCount();
-                },
-            };
-
-            infiniteList.refresh();
-            ons.notification.toast("リスト更新", { timeout: 1000, animation: 'fall' });
-        }
-
-        // アクティブなタブが変わる前に発火します。
-        document.addEventListener('prechange', function(event) {
-            readShopList(updateList);
-        });
 
     </script>
 

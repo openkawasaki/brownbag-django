@@ -73,7 +73,7 @@ function map_show() {
             var lat   = items[ii]["latitude"];
             var name  = items[ii]["name"];
             var phone = items[ii]["phone"];
-            var genre = get_genre_sel_name(items[ii]["genre_sel"]);
+            var genre = get_sel_name(GENRE_CLASS, items[ii]["genre_sel"]);
 
             if (lat !== 0.0 && lon !== 0.0) {
                 // 上記で作成したアイコンを使用してマーカーを作成する

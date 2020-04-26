@@ -26,6 +26,7 @@ from brownbags.models import GENRE_CLASS
 from brownbags.models import AREA_CLASS
 from brownbags.models import CATEGORY_CLASS
 from brownbags.models import TAKEAWAY_CLASS
+from brownbags.models import GROUP_CLASS
 
 #---------------------------------------------
 class shop_list(APIView):
@@ -40,6 +41,7 @@ class shop_list(APIView):
             area_sel     = int(request.GET.get('area_sel', -1))
             genre_sel    = int(request.GET.get('genre_sel', -1))
             category_sel = int(request.GET.get('category_sel', -1))
+            group_sel    = int(request.GET.get('group_sel', -1))
 
             if area_sel == AREA_CLASS[32][0]: # 地域: AREA_CLASS (地域の指定なし)
                 area_sel = None
@@ -47,8 +49,10 @@ class shop_list(APIView):
                 genre_sel = None
             if category_sel == CATEGORY_CLASS[4][0]: # カテゴリー: CATEGORY_CLASS (指定なし)
                 category_sel = None
+            if group_sel == GROUP_CLASS[2][0]: # カテゴリー: GROUP_CLASS (指定なし)
+                group_sel = None
 
-            shop_list = shop_get_list(area_sel, genre_sel, category_sel)
+            shop_list = shop_get_list(area_sel, genre_sel, category_sel, group_sel)
 
             result   = { "shop": shop_list }
             response = Response(result, status=status.HTTP_200_OK)
@@ -146,14 +150,14 @@ def get_queryset(area_sel=None, genre_sel=None, category_sel=None):
     return condition_area_sel & condition_genre_sel & condition_category
 
 #---------------------------------------------
-def shop_get_list(area_sel=None, genre_sel=None, category_sel=None):
+def shop_get_list(area_sel=None, genre_sel=None, category_sel=None, group_sel=None):
 
     try:
         if area_sel is None and genre_sel is None and category_sel is None:
-            shops = Shop.objects.all().values_list('id','name', 'phone', 'genre_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
+            shops = Shop.objects.all().values_list('id','name', 'phone', 'area_sel', 'genre_sel', 'category_sel', 'group_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
         else:
             condition = get_queryset(area_sel, genre_sel, category_sel)
-            shops = Shop.objects.filter(condition).values_list('id','name', 'phone', 'genre_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
+            shops = Shop.objects.filter(condition).values_list('id','name','phone', 'area_sel', 'genre_sel', 'category_sel', 'group_sel', 'latitude', 'longitude', flat=False).order_by('id').distinct('id')
 
         shop_list = []
         for row in shops:
@@ -161,19 +165,32 @@ def shop_get_list(area_sel=None, genre_sel=None, category_sel=None):
             image_data = ImageData.objects.filter(shop_id=shop_id, image_data_class=IMAGE_DATA_CLASS[1][0]).order_by('image_data_order').first()
             if image_data is None:
                 url = '/static/brownbags/images/noimage.png'
+                small  = url
+                middle = url
+                big    = url
                 image_id = 0
             else:
                 url = image_data.image_data_thumbnail.url
+                small  = image_data.image_data_small.url
+                middle = image_data.image_data_middle.url
+                big    = image_data.image_data_big.url
                 image_id = image_data.pk
+
             data = {
                 "shop_id": shop_id,
                 "name": row[1],
                 "phone": row[2] if row[2] is not None else "",
-                "genre_sel": row[3],
-                "latitude": row[4],
-                "longitude": row[5],
+                "area_sel":row[3],
+                "genre_sel": row[4],
+                "category_sel":row[5],
+                "group_sel":row[6],
+                "latitude": row[7],
+                "longitude": row[8],
                 "image_id": image_id,
-                "src": url if url is not None else "",
+                "src"    : url if url is not None else "",
+                "small"  : small if small is not None else "",
+                "middle" : middle if middle is not None else "",
+                "big"    : big if big is not None else "",
             }
 
             shop_list.append(data)

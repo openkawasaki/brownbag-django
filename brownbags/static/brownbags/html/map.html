@@ -4,29 +4,33 @@
     <script>
         ons.getScriptPage().onInit = function () {
             map_init();
-            //console.log("map.html: onInit()");
+            console.log("map.html: onInit()");
         };
         ons.getScriptPage().onShow = function () {
-            //console.log("map.html: onShow()");
+            map_show();
+            console.log("map.html: onShow()");
         };
         ons.getScriptPage().onHide = function () {
-            map_hide();
-            //console.log("map.html: onHide()");
+            //map_hide();
+            console.log("map.html: onHide()");
         };
         ons.getScriptPage().onDestroy = function () {
-            //console.log("map.html: onDestroy()");
+            console.log("map.html: onDestroy()");
         };
 
+        /*
         function updateListMap(data) {
-            map_show();
-            readShopListDone(data);
+            //map_show();
+            //readShopListDone(data);
         }
+        */
 
         // アクティブなタブが変わる前に発火します。
+        /*
         document.addEventListener('prechange', function(event) {
-            readShopList(updateListMap);
+            //readShopList(updateListMap);
          });
-
+         */
     </script>
 
     <style>

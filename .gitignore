@@ -148,3 +148,4 @@ dist/
 media/
 node_modules/
 package-lock.json
+memo/

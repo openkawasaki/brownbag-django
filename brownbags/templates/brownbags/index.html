@@ -20,6 +20,9 @@
     {% endcomment %}
     <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/onsenui.min.css' %}" type='text/css' />
     <link rel='stylesheet' href="{% static 'node_modules/onsenui/css/onsen-css-components.min.css' %}" type='text/css' />
+    <!--
+    <script type='text/javascript' src="{% static 'node_modules/onsenui/js/onsenui.min.js' %}"></script>
+    -->
     <script type='text/javascript' src="{% static 'node_modules/onsenui/js/onsenui.min.js' %}"></script>
     <script type='text/javascript' src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
 
@@ -112,17 +115,18 @@
 <script type='text/javascript' src="{% static 'node_modules/blueimp-file-upload/js/jquery.fileupload-ui.js' %}"></script>
 
 {# Unite Gallery #}
-<link rel='stylesheet' href="{% static 'node_modules/unitegallery/dist/css/unite-gallery.css' %}" type='text/css' />
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/js/unitegallery.min.js' %}"></script>
-<link rel='stylesheet' href="{% static 'node_modules/unitegallery/dist/themes/default/ug-theme-default.css' %}" type='text/css' />
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/default/ug-theme-default.js' %}"></script>
+<link rel='stylesheet' href="{% static 'unitegallery/dist/css/unite-gallery.css' %}" type='text/css' />
+<script type='text/javascript' src="{% static 'unitegallery/dist/js/unitegallery.min.js' %}"></script>
+
+<link rel='stylesheet' href="{% static 'unitegallery/dist/themes/default/ug-theme-default.css' %}" type='text/css' />
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/default/ug-theme-default.js' %}"></script>
 
 {% comment %}
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/tiles/ug-theme-tiles.js' %}"></script>
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/carousel/ug-theme-carousel.js' %}"></script>
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/tilesgrid/ug-theme-tilesgrid.js' %}"></script>
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/grid/ug-theme-grid.js' %}"></script>
-<script type='text/javascript' src="{% static 'node_modules/unitegallery/dist/themes/compact/ug-theme-compact.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/tilesgrid/ug-theme-tilesgrid.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/tiles/ug-theme-tiles.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/carousel/ug-theme-carousel.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/grid/ug-theme-grid.js' %}"></script>
+<script type='text/javascript' src="{% static 'unitegallery/dist/themes/compact/ug-theme-compact.js' %}"></script>
 {% endcomment %}
 
 {% comment %}
@@ -132,8 +136,23 @@
 {% endcomment %}
 
 {% comment %}
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+{% endcomment %}
+
+{% comment %}
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+{% endcomment %}
+
+{% comment %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web-animations/2.3.1/web-animations.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+{% endcomment %}
+<script type='text/javascript' src="{% static 'muuri/dist/muuri.min.js' %}"></script>
+
+{% comment %}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
 {% endcomment %}
+
 <script type='text/javascript' src="{% static 'node_modules/jquery-blockui/jquery.blockUI.js' %}"></script>
 
 {% compress js %}
@@ -141,6 +160,8 @@
 <script type="text/javascript" src="{% static 'brownbags/js/form.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/info.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/list.js' %}"></script>
+<script type="text/javascript" src="{% static 'brownbags/js/home.js' %}"></script>
+<script type="text/javascript" src="{% static 'brownbags/js/search.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/map.js' %}"></script>
 <script type="text/javascript" src="{% static 'brownbags/js/brownbags.js' %}"></script>
 {% endcompress %}
