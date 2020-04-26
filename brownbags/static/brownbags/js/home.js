@@ -135,9 +135,15 @@ function setGridFilter(selector, filter, value) {
 }
 
 function setHomeFilter(filter, value) {
-    console.log("setHomeFilter() : filter=" + filter + " : value=" + value);
+    debuglog("setHomeFilter() : filter=" + filter + " : value=" + value);
+
     setGridFilter(home_grid);
 }
+
+function debuglog(text) {
+    ons.notification.toast(text, { timeout: 1000, animation: 'fall' });
+}
+
 
 // ページをreloadする方法
 function doReload() {
