@@ -4,10 +4,7 @@ function info_init() {
 */
 function info_show(param) {
     var title = param["title"];
-    var index = parseInt(param["index"]);
-
-    var item = getShopItem(index);
-    var shop_id = item["shop_id"];
+    var shop_id = parseInt(param["index"]);
     readShop(shop_id, info_show_done)
 }
 

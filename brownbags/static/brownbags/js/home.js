@@ -12,6 +12,7 @@ function home_show() {
             var item = grid_list[ii];
             var name = item["name"];
 
+            var shop_id      = item["shop_id"];
             var genre_sel    = item["genre_sel"];
             var area_sel     = item["area_sel"];
             var category_sel = item["category_sel"];
@@ -31,7 +32,7 @@ function home_show() {
 
             var elem = `<div class="grid_item"
                            data-genre="${genre_sel}" data-area="${area_sel}" data-category="${category_sel}" data-group="${group_sel}" 
-                           onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${name}', 'index':'${ii}', 'param':''})">
+                           onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${name}', 'index':'${shop_id}', 'param':''})">
                            <div class="grid_item_content">                        
                                <img src="${image_src}" alt="${name}" style="width: 100%">
                                <ul style="list-style-type: none">
