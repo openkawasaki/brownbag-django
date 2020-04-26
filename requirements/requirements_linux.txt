@@ -6,15 +6,14 @@ boto3==1.12.39
 botocore==1.15.39
 certbot==0.27.0
 certifi==2020.4.5.1
+cffi==1.14.0
 chardet==3.0.4
 colorama==0.4.3
-command-not-found==0.3
 ConfigArgParse==0.11.0
 configobj==5.0.6
 cryptography==2.1.4
 defusedxml==0.6.0
 diff-match-patch==20181111
-distro-info===0.18ubuntu0.18.04.1
 dj-database-url==0.5.0
 Django==3.0.5
 django-appconf==1.0.4
@@ -39,7 +38,6 @@ jmespath==0.9.5
 josepy==1.1.0
 keyring==10.6.0
 keyrings.alt==3.0
-language-selector==0.1
 MarkupPy==1.14
 mock==2.0.0
 netifaces==0.10.4
@@ -51,11 +49,10 @@ pilkit==2.0
 Pillow==7.1.1
 psycopg2-binary==2.8.5
 pyasn1==0.4.8
+pycparser==2.20
 pycrypto==2.6.1
-pygobject==3.26.1
 pyOpenSSL==17.5.0
 pyRFC3339==1.0
-python-apt==1.6.5+ubuntu0.2
 python-dateutil==2.8.1
 pytz==2019.3
 pyxdg==0.25
@@ -69,9 +66,7 @@ s3transfer==0.3.3
 SecretStorage==2.3.1
 six==1.14.0
 sqlparse==0.3.1
-ssh-import-id==5.7
 tablib==1.1.0
-ufw==0.36
 urllib3==1.25.8
 xlrd==1.2.0
 xlwt==1.3.0
