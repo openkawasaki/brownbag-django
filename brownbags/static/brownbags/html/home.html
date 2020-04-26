@@ -9,53 +9,10 @@
     </ons-card>
 
     <!--
-    <ons-card>
-        <div id="image_name" style="display:none;">
-		</div>
-    </ons-card>
-    -->
-
     <ons-carousel swipeable auto-scroll overscrollable class="home_carousel">
-        <!--
-        <ons-carousel-item>
-          <div class="home_carousel_item">
-              <img src="/static/brownbags/images/ogp.png" width="100%">
-          </div>
-        </ons-carousel-item>
-        -->
-
-        <!--
-        <ons-carousel-cover>
-            <div class="cover-label" ng-show="sctrl.carouselNum == 0">
-                <ons-icon icon="circle" ></ons-icon>
-                <ons-icon icon="circle-thin"></ons-icon>
-                <ons-icon icon="circle-thin"></ons-icon>
-            </div>
-            <div class="cover-label" ng-show="sctrl.carouselNum == 1">
-                <ons-icon icon="circle-thin"></ons-icon>
-                <ons-icon icon="circle" ></ons-icon>
-                <ons-icon icon="circle-thin"></ons-icon>
-            </div>
-            <div class="cover-label" ng-show="sctrl.carouselNum == 2">
-                <ons-icon icon="circle-thin"></ons-icon>
-                <ons-icon icon="circle-thin"></ons-icon>
-                <ons-icon icon="circle" ></ons-icon>
-            </div>
-        </ons-carousel-cover>
-        -->
-
     </ons-carousel>
-
-    <!--
-    <div class="list-btn">
-      <ul>
-        <li class="filter-genre"><a href="#"><button>ジャンル</button></a></li>
-        <li class="filter-area"><a href="#"><button>地域</button></a></li>
-        <li class="filter-group"><a href="#"><button>グループ</button></a></li>
-        <li class="filter-clear"><a href="#"><button>クリア</button></a></li>
-     </ul>
-    </div>
     -->
+
     <div class="list-btn">
       <ul>
           <li class="filter-genre-li">
@@ -90,7 +47,7 @@
     <div class="home_grid" id="home_grid">
     </div>
 
-     <script>
+    <script>
         ons.getScriptPage().onInit = function () {
             readShopList(readShopListDone);
             home_init();

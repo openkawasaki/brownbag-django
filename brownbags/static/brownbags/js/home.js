@@ -1,7 +1,8 @@
+/*
 function carousel_init() {
-
     var data_list = [
-        {image: "/static/brownbags/images/ogp.png"},
+        {image: "/static/brownbags/images/lunchbox.jpg"},
+        {image: "/static/brownbags/images/home0.png"},
         {image: "/static/brownbags/images/home1.png"},
         {image: "/static/brownbags/images/home2.png"},
     ];
@@ -11,17 +12,17 @@ function carousel_init() {
 
         var elem = `<ons-carousel-item>
                         <div class="home_carousel_item">
-                            <img src='${item.image}' width="100%">
+                            <img src='${item.image}'>
                         </div>
                     </ons-carousel-item>`;
 
         $('.home_carousel').append(elem);
     }
 }
+*/
 
 function home_init() {
-    carousel_init();
-
+    /*carousel_init();*/
     make_selector(GENRE_CLASS,"home-genre");
     make_selector(AREA_CLASS, "home-area");
     make_selector(CATEGORY_CLASS, "home-category");
@@ -55,17 +56,17 @@ function home_show() {
                 image_src = item["big"];
             }
 
-            var elem = `<ons-card class="grid_item"
-                                data-genre="${genre_sel}" data-area="${area_sel}" data-category="${category_sel}" data-group="${group_sel}" 
-                                onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${name}', 'index':'${ii}'})">
-                                <img src="${image_src}" alt="${name}" style="width: 100%">
-                                <div class="content">
-                                  <ons-list>
-                                    <ons-list-item>${name}</ons-list-item>
-                                    <ons-list-item>${genre}</ons-list-item>
-                                  </ons-list>
-                                </div>
-                            </ons-card>`;
+            var elem = `<div class="grid_item"
+                           data-genre="${genre_sel}" data-area="${area_sel}" data-category="${category_sel}" data-group="${group_sel}" 
+                           onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${name}', 'index':'${ii}'})">
+                           <div class="grid_item_content">                        
+                               <img src="${image_src}" alt="${name}" style="width: 100%">
+                               <ul style="list-style-type: none">
+                                  <li>${name}</li>
+                                  <li>ジャンル：${genre}</li>
+                               </ul>
+                           </div>
+                         </div>`;
 
             $('.home_grid').append(elem);
         }
