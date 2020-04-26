@@ -107,9 +107,11 @@ function checkGridFilter(element, attribute, value) {
     return true;
 }
 
-function setGridFilter(selector, filter, value) {
-    if (selector!== null) {
-        selector.filter(function (item) {
+function setGridFilter() {
+    if (home_grid!== null) {
+        debuglog("setGridFilter()");
+
+        home_grid.filter(function (item) {
             var genre_sel    = parseInt($("#home-genre").val());
             var area_sel     = parseInt($("#home-area").val());
             var category_sel = parseInt($("#home-category").val());
@@ -132,12 +134,6 @@ function setGridFilter(selector, filter, value) {
             return true;
         });
     }
-}
-
-function setHomeFilter(filter, value) {
-    debuglog("setHomeFilter() : filter=" + filter + " : value=" + value);
-
-    setGridFilter(home_grid);
 }
 
 function debuglog(text) {
