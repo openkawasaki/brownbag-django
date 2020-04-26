@@ -65,13 +65,13 @@
             console.log("search.html: onDestroy()");
         };
 
+        /*
         function search(value) {
-            /*
             var text = '検索文字: ' + value;
             ons.notification.alert(text);
             ons.notification.toast(text, { timeout: 1000, animation: 'fall' });
-            */
         }
+        */
 
         function clickSearch() {
             console.log("search.html: search button");
@@ -84,12 +84,7 @@
             resetListItems();
             document.querySelector('ons-navigator').popPage();
         }
-        // アクティブなタブが変わる前に発火します。
-        /*
-        document.addEventListener('prechange', function(event) {
-            console.log("search.html: prechange");
-        });
-         */
+
     </script>
 
     <style>

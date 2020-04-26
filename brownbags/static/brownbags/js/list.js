@@ -2,6 +2,25 @@ function list_show() {
     setFilterName();
 }
 
+function updateList() {
+    var infiniteList = document.getElementById('infinite-list');
+    infiniteList.delegate = {
+        createItemContent: function(index) {
+            return createListItems(index);
+        },
+        countItems: function() {
+            return countListItems();
+        },
+        /*
+        calculateItemHeight: function(index) {
+            var height = 200;
+            return height; // Return the height of an item in pixels.
+        },
+         */
+    };
+    infiniteList.refresh();
+}
+
 function getItem(index) {
     var item = getShopItem(index);
     if (!item) {
@@ -11,7 +30,7 @@ function getItem(index) {
     var shop_id  = item["shop_id"];
     var name     = item["name"];
     var phone    = item["phone"];
-    var genre    = get_genre_sel_name(item["genre_sel"]);
+    var genre    = get_sel_name(GENRE_CLASS, item["genre_sel"]);
 
     var image_id = item["image_id"];
     var imageurl = "";

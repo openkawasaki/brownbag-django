@@ -26,26 +26,26 @@ function info_show_done(data) {
     $("#image_name").html(info_gallery("image_name", item["images"]["name"], name));
 
     // ジャンル
-    $('#shop_genre').text(get_genre_sel_name(item["genre_sel"]));
+    $('#shop_genre').text(get_sel_name(GENRE_CLASS, item["genre_sel"]));
 
     // 店舗概要
     if (!isEmpty(item["description"]))
         $('#shop_description').text(item["description"]);
 
     // 店舗の地域
-    $('#shop_area').text(get_area_sel_name(item["area_sel"]));
+    $('#shop_area').text(get_sel_name(AREA_CLASS, item["area_sel"]));
 
     // カテゴリ
-    $('#shop_category').text(get_category_sel_name(item["category_sel"]));
+    $('#shop_category').text(get_sel_name(CATEGORY_CLASS, item["category_sel"]));
 
      // グループ
-    $('#shop_group').text(get_group_sel_name(item["group_sel"]));
+    $('#shop_group').text(get_sel_name(GROUP_CLASS, item["group_sel"]));
 
     // メニュー情報
     $("#image_takeway").html(info_gallery("image_takeway", item["images"]["takeaway"], name));
 
     // テイクアウト（持ち帰り）
-    $('#shop_takeaway_sel').text(get_takeaway_sel_name(item["takeaway_sel"]));
+    $('#shop_takeaway_sel').text(get_sel_name(TAKEAWAY_CLASS, item["takeaway_sel"]));
 
     // テイクアウト（持ち帰り）メニュー
     if (!isEmpty(item["takeaway_menu"]))

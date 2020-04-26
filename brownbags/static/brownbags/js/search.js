@@ -51,16 +51,16 @@ function getListItemNames() {
     var name = [];
 
     if (g_genre_sel !== null && g_genre_sel !== -1) {
-        name.push(get_genre_sel_name(g_genre_sel));
+        name.push(get_sel_name(GENRE_CLASS, g_genre_sel));
     }
     if (g_area_sel !== null && g_area_sel !== -1) {
-        name.push(get_area_sel_name(g_area_sel));
+        name.push(get_sel_name(AREA_CLASS, g_area_sel));
     }
     if (g_category_sel !== null && g_category_sel !== -1) {
-        name.push(get_category_sel_name(g_category_sel));
+        name.push(get_sel_name(CATEGORY_CLASS, g_category_sel));
     }
     if (g_group_sel !== null && g_group_sel !== -1) {
-        name.push(get_group_sel_name(g_group_sel));
+        name.push(get_sel_name(GROUP_CLASS, g_group_sel));
     }
 
     if (name.length === 0) {
@@ -113,6 +113,8 @@ function resetListItems() {
     updateList();
 
     setFilterName();
+
+    $(".select-input").val("-1");
 }
 
 function countListItems() {

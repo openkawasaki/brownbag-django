@@ -34,19 +34,6 @@
             console.log("list.html: onDestroy()");
         };
 
-        function updateList() {
-            var infiniteList = document.getElementById('infinite-list');
-            infiniteList.delegate = {
-                createItemContent: function(index) {
-                    return createListItems(index);
-                },
-                countItems: function() {
-                    return countListItems();
-                },
-            };
-            infiniteList.refresh();
-        }
-
     </script>
 
 </ons-page>

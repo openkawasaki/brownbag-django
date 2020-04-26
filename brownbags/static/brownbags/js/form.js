@@ -340,50 +340,15 @@ function make_selector(select_class, selector) {
     }
 }
 
-function get_genre_sel_name(genre_sel) {
-    for (var ii=0; ii<GENRE_CLASS.length; ii++) {
-        if (GENRE_CLASS[ii][0] === genre_sel) {
-            return GENRE_CLASS[ii][1];
+function get_sel_name(select_class, selector) {
+    for (var ii=0; ii<select_class.length; ii++) {
+        if (select_class[ii][0] === selector) {
+            return select_class[ii][1];
         }
     }
     return "";
 }
 
-function get_area_sel_name(area_sel) {
-    for (var ii=0; ii<AREA_CLASS.length; ii++) {
-        if (AREA_CLASS[ii][0] === area_sel) {
-            return AREA_CLASS[ii][1];
-        }
-    }
-    return "";
-}
-
-function get_category_sel_name(category_sel) {
-    for (var ii=0; ii<CATEGORY_CLASS.length; ii++) {
-        if (CATEGORY_CLASS[ii][0] === category_sel) {
-            return CATEGORY_CLASS[ii][1];
-        }
-    }
-    return "";
-}
-
-function get_group_sel_name(group_sel) {
-    for (var ii=0; ii<GROUP_CLASS.length; ii++) {
-        if (GROUP_CLASS[ii][0] === group_sel) {
-            return GROUP_CLASS[ii][1];
-        }
-    }
-    return "";
-}
-
-function get_takeaway_sel_name(takeaway_sel) {
-    for (var ii=0; ii<TAKEAWAY_CLASS.length; ii++) {
-        if (TAKEAWAY_CLASS[ii][0] === takeaway_sel) {
-            return TAKEAWAY_CLASS[ii][1];
-        }
-    }
-    return "";
-}
 var ImageSize = {
     src : 0,
     thumbnail : 1,

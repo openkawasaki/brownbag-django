@@ -68,36 +68,27 @@
               <ons-select class="filter-area" id="home-area" style="width:100%"  onchange="selectArea(event)">
               </ons-select>
           </li>
+          <li class="filter-category-li">
+              <ons-list-header>カテゴリ</ons-list-header>
+              <ons-select class="filter-category" id="home-category" style="width:100%"  onchange="selectCategory(event)">
+              </ons-select>
+          </li>
           <li class="filter-group-li">
-              <ons-list-header>グループ</ons-list-header>
+              <ons-list-header>区分</ons-list-header>
               <ons-select class="filter-group" id="home-group" style="width:100%"  onchange="selectGroup(event)">
               </ons-select>
           </li>
-          <li class="filter-clear-li">
-              <ons-list-header>リセット</ons-list-header>
-              <ons-select class="filter-clear" id="home-clear" style="width:100%"  onchange="selectClear(event)">
-                  <option value="-1"></option>
-                  <option value="1">リセット</option>
-              </ons-select>
-          </li>
-　　　　　<!--
-         <li class="filter-clear"><a href="#"><button>クリア</button></a></li>
-          -->
       </ul>
     </div>
 
-
+    <ons-list-item>
+        <div class="right">
+            <ons-button onclick="selectClear()">クリア</ons-button>
+        </div>
+    </ons-list-item>
 
     <div class="home_grid" id="home_grid">
     </div>
-
-   <!--
-    <ons-fab position="bottom right">
-        <ons-fab  modifier="mini modifier2" onclick="fn.pushPage({'id':'/static/brownbags/html/search.html', 'title':'検索', 'index':'1'})">
-            <ons-icon icon="fa-search" ></ons-icon>
-        </ons-fab>
-    </ons-fab>
-     -->
 
      <script>
         ons.getScriptPage().onInit = function () {
@@ -117,42 +108,24 @@
             console.log("home.html: onDestroy()");
         };
 
-        /*
-        function updateGrid(data) {
-            console.log("home.html: updateGrid");
-        }
-        */
         function selectGenre(event) {
             var value = parseInt(event.target.value, 10);
-
-            home_grid.filter(function (item) {
-                var element = item.getElement();
-                var data_genre = element.getAttribute('data-genre');
-
-                var item_data = parseInt(data_genre, 10);
-                if (isNaN(item_data))
-                    item_data = -1;
-                return item_data === value;
-            });
+            setHomeFilter('data-genre', value);
         }
         function selectArea(event) {
             var value = parseInt(event.target.value, 10);
-
-            home_grid.filter(function (item) {
-                var element = item.getElement();
-                var data_area = element.getAttribute('data-area');
-
-                var item_data = parseInt(data_area, 10);
-                if (isNaN(item_data))
-                    item_data = -1;
-                return item_data === value;
-            });
+            setHomeFilter('data-area', value);
+        }
+        function selectCategory(event) {
+            var value = parseInt(event.target.value, 10);
+            setHomeFilter('data-category', value);
         }
         function selectGroup(event) {
             var value = parseInt(event.target.value, 10);
+            setHomeFilter('data-group', value);
         }
-        function selectClear(event) {
-            home_grid.filter('.grid_item');
+        function selectClear() {
+            resetHomeFilter();
         }
     </script>
 

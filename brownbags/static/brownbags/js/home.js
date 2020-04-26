@@ -19,13 +19,12 @@ function carousel_init() {
     }
 }
 
-
 function home_init() {
     carousel_init();
 
     make_selector(GENRE_CLASS,"home-genre");
     make_selector(AREA_CLASS, "home-area");
-    //make_selector(CATEGORY_CLASS, "home-category");
+    make_selector(CATEGORY_CLASS, "home-category");
     make_selector(GROUP_CLASS, "home-group");
 }
 
@@ -34,63 +33,78 @@ function home_show() {
     home_hide();
 
     var grid_list = getShopItems();
+    if (grid_list !== null) {
+        for (var ii=0; ii<grid_list.length; ii++) {
+            var item = grid_list[ii];
+            var name = item["name"];
 
-    //var items = [];
-    for (var ii = 0; ii < grid_list.length; ii++) {
-        var item = grid_list[ii];
-        var name  = item["name"];
-        var genre_sel = item["genre_sel"];
-        var genre = get_genre_sel_name(genre_sel);
-        var image_thumbnail = '/static/brownbags/images/noimage.png';
-        var image_src = image_thumbnail;
+            var genre_sel    = item["genre_sel"];
+            var area_sel     = item["area_sel"];
+            var category_sel = item["category_sel"];
+            var group_sel    = item["group_sel"];
 
-        if (!isEmpty(item["middle"])) {
-            image_thumbnail = item["middle"];
+            var genre = get_sel_name(GENRE_CLASS, genre_sel);
+
+            var image_thumbnail = '/static/brownbags/images/noimage.png';
+            var image_src = image_thumbnail;
+
+            if (!isEmpty(item["middle"])) {
+                image_thumbnail = item["middle"];
+            }
+            if (!isEmpty(item["big"])) {
+                image_src = item["big"];
+            }
+
+            var elem = `<ons-card class="grid_item"
+                                data-genre="${genre_sel}" data-area="${area_sel}" data-category="${category_sel}" data-group="${group_sel}" 
+                                onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${name}', 'index':'${ii}'})">
+                                <img src="${image_src}" alt="${name}" style="width: 100%">
+                                <div class="content">
+                                  <ons-list>
+                                    <ons-list-item>${name}</ons-list-item>
+                                    <ons-list-item>${genre}</ons-list-item>
+                                  </ons-list>
+                                </div>
+                            </ons-card>`;
+
+            $('.home_grid').append(elem);
         }
-        if (!isEmpty(item["big"])) {
-            image_src = item["big"];
-        }
-
-        var elem = `<ons-card class="grid_item"
-                        data-name="${name}" data-genre="${genre_sel}" 
-                        onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${name}', 'index':'${ii}'})">
-                        <img src="${image_src}" alt="${name}" style="width: 100%">
-                        <div class="content">
-                          <ons-list>
-                            <ons-list-item>${name}</ons-list-item>
-                            <ons-list-item>${genre}</ons-list-item>
-                          </ons-list>
-                        </div>
-                    </ons-card>`;
-
-        $('.home_grid').append(elem);
     }
 
     home_grid = new Muuri('.home_grid');
-
-
-    /*
-    $('.list-btn li.filter-genre').click(function(){
-        home_grid.filter(function (item) {
-            var element = item.getElement();
-            var data_genre = element.getAttribute('data-genre');
-
-            var item_data = parseInt(data_genre, 10);
-            if (isNaN(item_data))
-                item_data = -1;
-            return item_data === -1;
-        });
-    });
-
-    $('.list-btn li.filter-clear').click(function(){
-        home_grid.filter('.grid_item');
-    });
-    */
 }
+
 function home_hide() {
     $("#home_grid").children().remove();
     home_grid = null;
+    resetHomeFilter();
 }
+
+function resetHomeFilter() {
+    if (home_grid !== null){
+        home_grid.filter('.grid_item');
+    }
+    /*
+    $("#home_grid").val("-1");
+    $("#home_area").val("-1");
+    $("#home_category").val("-1");
+    $("#home_group").val("-1");
+    */
+    $(".select-input").val("-1");
+}
+
+function setHomeFilter(filter, value) {
+    home_grid.filter(function (item) {
+        var element = item.getElement();
+        var data_area = element.getAttribute(filter);
+
+        var item_data = parseInt(data_area, 10);
+        if (isNaN(item_data))
+            item_data = -1;
+        return item_data === value;
+    });
+}
+
 // ページをreloadする方法
 // reloadの基本的な使い方
 function doReload() {
