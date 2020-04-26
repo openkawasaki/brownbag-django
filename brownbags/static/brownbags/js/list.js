@@ -62,7 +62,7 @@ function createItem(index) {
     //console.log("createItem: " + JSON.stringify(item));
     if (!isEmpty(item["phone"])) {
         return ons.createElement(`
-            <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${index}', 'param':''})" modifier="chevron">
+            <ons-list-item onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${item.name}', 'index':'${item.shop_id}', 'param':''})" modifier="chevron">
                 <div class="left">
                     <img class="list-item__thumbnail" src="${item.url}" style="border:1px #000 solid;">
                 </div>
