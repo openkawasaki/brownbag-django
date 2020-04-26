@@ -5,14 +5,25 @@ from django.utils.safestring import mark_safe
 
 from brownbags.models import Shop, ImageData
 
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 #----------------------------
-#admin.site.register(Shop)
-class ShopAdmin(admin.ModelAdmin):
+class ShopResource(resources.ModelResource):
+    # Modelに対するdjango-import-exportの設定
+    class Meta:
+        model = Shop
+
+@admin.register(Shop)
+class ShopAdmin(ImportExportModelAdmin):
     # 一覧画面に表示させる項目
     list_display = ('id', 'name', 'mail')  # 一覧に出したい項目
 
     # 詳細画面へのリンクを付ける項目
     list_display_links = ('id', 'name', 'mail')  # 修正リンクでクリックできる項目
+
+    # django-import-exportsの設定
+    resource_class = ShopResource
 
     # ソート順を指定する
     #ordering = ['id', 'facility_id', 'facility_name']
@@ -29,10 +40,16 @@ class ShopAdmin(admin.ModelAdmin):
     # 変更リストをページ分割(paginate) - ページあたりの項目数(default:100)
     list_per_page = 15
 
-admin.site.register(Shop, ShopAdmin)
+#admin.site.register(Shop, ShopAdmin)
 
 #----------------------------
-class ImageDataAdmin(admin.ModelAdmin):
+class ImageDataResource(resources.ModelResource):
+    # Modelに対するdjango-import-exportの設定
+    class Meta:
+        model = ImageData
+
+@admin.register(ImageData)
+class ImageDataAdmin(ImportExportModelAdmin):
     # 一覧画面に表示させる項目
     list_display = ('id', 'get_shop_name', 'image_data_class', 'image_tag')  # 一覧に出したい項目
 
@@ -49,6 +66,9 @@ class ImageDataAdmin(admin.ModelAdmin):
     get_shop_name.admin_order_field = 'name' # Allows column order sorting
     get_shop_name.short_description = '店舗'   #   Renames column head
 
+    # django-import-exportsの設定
+    resource_class = ImageDataResource
+
     # ソート順を指定する
     #ordering = ['id', 'facility_id', 'facility_name']
 
@@ -64,4 +84,4 @@ class ImageDataAdmin(admin.ModelAdmin):
     # 変更リストをページ分割(paginate) - ページあたりの項目数(default:100)
     list_per_page = 15
 
-admin.site.register(ImageData, ImageDataAdmin)
+#admin.site.register(ImageData, ImageDataAdmin)

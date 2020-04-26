@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'imagekit',
     'storages',
     'compressor',
+    'import_export',
 ]
 
 MIDDLEWARE = [
