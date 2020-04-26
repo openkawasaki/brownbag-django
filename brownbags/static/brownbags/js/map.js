@@ -7,7 +7,7 @@ var markers = [];
 var markers_shop = [];
 
 function map_init() {
-    map = L.map('map').setView([LAT, LON], 10);
+    map = L.map('map').setView([LAT, LON], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);

@@ -70,9 +70,9 @@ window.fn.loadLink = function (url) {
 
 window.fn.pushPage = function (page, anim) {
     if (anim) {
-        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title, index: page.index }, animation: anim });
+        document.getElementById('appNavigator').pushPage(page.id, { data: { id: page.id, title: page.title, index: page.index, 'param':page.param }, animation: anim });
     } else {
-        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title, index: page.index } });
+        document.getElementById('appNavigator').pushPage(page.id, { data: { id: page.id, title: page.title, index: page.index, 'param':page.param } });
     }
 };
 

@@ -1,35 +1,8 @@
-/*
-function carousel_init() {
-    var data_list = [
-        {image: "/static/brownbags/images/lunchbox.jpg"},
-        {image: "/static/brownbags/images/home0.png"},
-        {image: "/static/brownbags/images/home1.png"},
-        {image: "/static/brownbags/images/home2.png"},
-    ];
-
-    for (var ii=0; ii<data_list.length; ii++) {
-        var item = data_list[ii];
-
-        var elem = `<ons-carousel-item>
-                        <div class="home_carousel_item">
-                            <img src='${item.image}'>
-                        </div>
-                    </ons-carousel-item>`;
-
-        $('.home_carousel').append(elem);
-    }
-}
-*/
+var home_grid = null;
 
 function home_init() {
-    /*carousel_init();*/
-    make_selector(GENRE_CLASS,"home-genre");
-    make_selector(AREA_CLASS, "home-area");
-    make_selector(CATEGORY_CLASS, "home-category");
-    make_selector(GROUP_CLASS, "home-group");
 }
 
-var home_grid = null;
 function home_show() {
     home_hide();
 
@@ -58,7 +31,7 @@ function home_show() {
 
             var elem = `<div class="grid_item"
                            data-genre="${genre_sel}" data-area="${area_sel}" data-category="${category_sel}" data-group="${group_sel}" 
-                           onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${name}', 'index':'${ii}'})">
+                           onclick="fn.pushPage({'id':'/static/brownbags/html/info.html', 'title':'${name}', 'index':'${ii}', 'param':''})">
                            <div class="grid_item_content">                        
                                <img src="${image_src}" alt="${name}" style="width: 100%">
                                <ul style="list-style-type: none">
@@ -73,23 +46,14 @@ function home_show() {
     }
 
     home_grid = new Muuri('.home_grid');
+    updateGrid();0
 }
 
 function home_hide() {
-    $("#home_grid").children().remove();
-    home_grid = null;
-    resetHomeFilter();
-}
-
-function resetHomeFilter() {
-    if (home_grid !== null){
-        home_grid.filter('.grid_item');
+    if (home_grid !== null) {
+        $("#home_grid").children().remove();
+        home_grid = null;
     }
-    $("#home-genre").val("-1");
-    $("#home-area").val("-1");
-    $("#home-category").val("-1");
-    $("#home-group").val("-1");
-    //$(".select-input").val("-1");
 }
 
 function checkGridFilter(element, attribute, value) {
@@ -107,39 +71,44 @@ function checkGridFilter(element, attribute, value) {
     return true;
 }
 
-function setGridFilter() {
-    if (home_grid!== null) {
-        debuglog("選択変更しました。");
+function updateGrid() {
 
+    if (home_grid !== null) {
         home_grid.filter(function (item) {
-            var genre_sel    = parseInt($("#home-genre").val());
-            var area_sel     = parseInt($("#home-area").val());
-            var category_sel = parseInt($("#home-category").val());
-            var group_sel    = parseInt($("#home-group").val());
+            var genre_sel    = g_genre_sel;
+            var area_sel     = g_area_sel;
+            var category_sel = g_category_sel;
+            var group_sel    = g_group_sel;
 
             var element = item.getElement();
 
-            if (!checkGridFilter(element, 'data-genre', genre_sel)){
-                return false;
+            if (genre_sel !== null) {
+                if (!checkGridFilter(element, 'data-genre', genre_sel)) {
+                    return false;
+                }
             }
-            if (!checkGridFilter(element, 'data-area', area_sel)){
-                return false;
+            if (area_sel !== null) {
+                if (!checkGridFilter(element, 'data-area', area_sel)) {
+                    return false;
+                }
             }
-            if (!checkGridFilter(element, 'data-category', category_sel)){
-                return false;
+            if (category_sel !== null) {
+                if (!checkGridFilter(element, 'data-category', category_sel)) {
+                    return false;
+                }
             }
-            if (!checkGridFilter(element, 'data-group', group_sel)){
-                return false;
+            if (group_sel !== null) {
+                if (!checkGridFilter(element, 'data-group', group_sel)) {
+                    return false;
+                }
             }
             return true;
         });
     }
-}
 
-function debuglog(text) {
-    ons.notification.toast(text, { timeout: 1000, animation: 'fall' });
+    // 検索条件
+    $('#filter_home_name').text(getListItemNames());
 }
-
 
 // ページをreloadする方法
 function doReload() {
