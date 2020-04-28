@@ -54,7 +54,10 @@ INSTALLED_APPS = [
     'brownbags.apps.BrownbagsConfig',
     'accounts.apps.AccountsConfig',
     'gunicorn',
+    'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+    # 'djoser',
     'django_cleanup.apps.CleanupConfig',
     'imagekit',
     'storages',
@@ -63,6 +66,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -86,12 +90,30 @@ if DEBUG:
         'debug_toolbar.middleware.DebugToolbarMiddleware',
     ]
 
-    def show_toolbar(request):
-            return True
-
     DEBUG_TOOLBAR_CONFIG = {
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
     }
+
+    INTERNAL_IPS = ['127.0.0.1']
+
+# 許可するオリジン
+if settings.DEBUG:
+    CORS_ORIGIN_WHITELIST = [
+        'http://127.0.0.1:3000',
+        'http://localhost:3000',
+    ]
+
+## rest framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        #'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ]
+}
 
 ROOT_URLCONF = 'config.urls'
 

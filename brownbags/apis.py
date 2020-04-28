@@ -28,6 +28,28 @@ from brownbags.models import CATEGORY_CLASS
 from brownbags.models import TAKEAWAY_CLASS
 from brownbags.models import GROUP_CLASS
 
+
+#----------------------------
+
+import django_filters
+from rest_framework import viewsets, filters
+from rest_framework import routers
+from .models import Shop, ImageData
+from .serializer import ShopSerializer, ImageDataSerializer
+
+
+#----------------------------
+class ShopViewSet(viewsets.ModelViewSet):
+    queryset = Shop.objects.all()
+    serializer_class = ShopSerializer
+
+
+#----------------------------
+class ImageDataViewSet(viewsets.ModelViewSet):
+    queryset = ImageData.objects.all()
+    serializer_class = ImageDataSerializer
+
+
 #---------------------------------------------
 class shop_list(APIView):
     """

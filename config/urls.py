@@ -39,8 +39,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # accounts
+    path('rest-auth/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-
     path('i18n/', include('django.conf.urls.i18n')),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     #path('favicon\.ico', RedirectView.as_view(url='/static/images/favicon.ico')),
@@ -51,6 +51,7 @@ urlpatterns = [
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
+        path('api-auth/', include('rest_framework.urls', namespace='rest_framework')), # for REST API Authentication
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
 
