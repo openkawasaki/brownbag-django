@@ -37,6 +37,9 @@ from rest_framework import routers
 from .models import Shop, ImageData
 from .serializer import ShopSerializer, ImageDataSerializer
 
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
+
 
 #----------------------------
 class ShopViewSet(viewsets.ModelViewSet):
@@ -51,6 +54,7 @@ class ImageDataViewSet(viewsets.ModelViewSet):
 
 
 #---------------------------------------------
+@permission_classes([IsAuthenticatedOrReadOnly])
 class shop_list(APIView):
     """
     店舗リストデータ
@@ -87,6 +91,7 @@ class shop_list(APIView):
         return response
 
 #---------------------------------------------
+@permission_classes([AllowAny])
 class shop(APIView):
     """
     店舗データ
