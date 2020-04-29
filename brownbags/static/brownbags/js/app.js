@@ -4,6 +4,11 @@
 ons.ready(function() {
     //console.log("ons.ready");
     //readShopList(readShopListDone);
+    /*
+    Cookies.set('Authorization', 'Token', { expires: 7}); // 7 days
+    var cookie = Cookies.get('Authorization');
+    console.log("cookie = " + cookie);
+    */
 });
 
 //--------------------

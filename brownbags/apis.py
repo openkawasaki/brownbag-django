@@ -28,7 +28,33 @@ from brownbags.models import CATEGORY_CLASS
 from brownbags.models import TAKEAWAY_CLASS
 from brownbags.models import GROUP_CLASS
 
+
+#----------------------------
+
+import django_filters
+from rest_framework import viewsets, filters
+from rest_framework import routers
+from .models import Shop, ImageData
+from .serializer import ShopSerializer, ImageDataSerializer
+
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
+
+
+#----------------------------
+class ShopViewSet(viewsets.ModelViewSet):
+    queryset = Shop.objects.all()
+    serializer_class = ShopSerializer
+
+
+#----------------------------
+class ImageDataViewSet(viewsets.ModelViewSet):
+    queryset = ImageData.objects.all()
+    serializer_class = ImageDataSerializer
+
+
 #---------------------------------------------
+@permission_classes([IsAuthenticatedOrReadOnly])
 class shop_list(APIView):
     """
     店舗リストデータ
@@ -65,6 +91,7 @@ class shop_list(APIView):
         return response
 
 #---------------------------------------------
+@permission_classes([AllowAny])
 class shop(APIView):
     """
     店舗データ
@@ -163,6 +190,11 @@ def shop_get_list(area_sel=None, genre_sel=None, category_sel=None, group_sel=No
         for row in shops:
             shop_id = row[0]
             image_data = ImageData.objects.filter(shop_id=shop_id, image_data_class=IMAGE_DATA_CLASS[1][0]).order_by('image_data_order').first()
+            #query_set = Q(image_data_class=IMAGE_DATA_CLASS[1][0]) | Q(image_data_class=IMAGE_DATA_CLASS[3][0])
+            #image_data = ImageData.objects.filter(query_set, shop_id=shop_id).order_by('image_data_order').first()
+            if image_data is None:
+                image_data = ImageData.objects.filter(shop_id=shop_id, image_data_class=IMAGE_DATA_CLASS[3][0]).order_by('image_data_order').first()
+
             if image_data is None:
                 url = '/static/brownbags/images/noimage.png'
                 small  = url
