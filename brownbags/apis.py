@@ -261,7 +261,9 @@ def shop_get_data(obj_shop):
         #    logger.debug("shop_get_data(): name = {}".format(dict_shop["name"]))
 
         # ImageData:name
-        image_list = ImageData.objects.filter(shop=obj_shop, image_data_class=IMAGE_DATA_CLASS[1][0]).order_by('image_data_order')
+        #image_list = ImageData.objects.filter(shop=obj_shop, image_data_class=IMAGE_DATA_CLASS[1][0]).order_by('image_data_order')
+        query_set = Q(image_data_class=IMAGE_DATA_CLASS[1][0]) | Q(image_data_class=IMAGE_DATA_CLASS[3][0])
+        image_list = ImageData.objects.filter(query_set, shop=obj_shop).order_by('image_data_order')
         image_data_name_list = []
         for row in image_list:
             if row.expired_date is not None:
@@ -280,7 +282,9 @@ def shop_get_data(obj_shop):
         dict_shop["images"]["name"] = image_data_name_list
 
         # ImageData:takeaway
-        image_list = ImageData.objects.filter(shop=obj_shop, image_data_class=IMAGE_DATA_CLASS[2][0]).order_by('image_data_order')
+        #image_list = ImageData.objects.filter(shop=obj_shop, image_data_class=IMAGE_DATA_CLASS[2][0]).order_by('image_data_order')
+        query_set = Q(image_data_class=IMAGE_DATA_CLASS[2][0]) | Q(image_data_class=IMAGE_DATA_CLASS[3][0])
+        image_list = ImageData.objects.filter(query_set, shop=obj_shop).order_by('image_data_order')
         image_data_takeaway_list = []
         for row in image_list:
             if row.expired_date is not None:
