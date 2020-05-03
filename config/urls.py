@@ -46,6 +46,8 @@ urlpatterns = [
     #path('favicon\.ico', RedirectView.as_view(url='/static/images/favicon.ico')),
 
     path('', include('brownbags.urls'), name='brownbags'),
+
+    path('callback/', include('bot.urls')),
 ]
 
 if settings.DEBUG:

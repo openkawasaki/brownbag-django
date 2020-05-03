@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'brownbags.apps.BrownbagsConfig',
     'accounts.apps.AccountsConfig',
+    'bot.apps.BotConfig',
     'gunicorn',
     'corsheaders',
     'rest_framework',
