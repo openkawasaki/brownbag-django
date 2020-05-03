@@ -286,6 +286,10 @@ if os.name == 'nt':
                 'handlers': ['console'],
                 'level': 'DEBUG',
             },
+            'bot': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+            },
             'api': {
                 'handlers': ['console'],
                 'level': 'DEBUG',
@@ -323,6 +327,10 @@ else:
         },
         'loggers': {
             'common': {
+                'handlers': ['file_time_rotation', 'console' ],
+                'level': 'DEBUG',
+            },
+            'bot': {
                 'handlers': ['file_time_rotation', 'console' ],
                 'level': 'DEBUG',
             },
