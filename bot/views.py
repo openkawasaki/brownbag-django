@@ -12,15 +12,44 @@ from linebot.models import (
 import os, json
 
 #--------------------------------------------------
+import logging
+logger = logging.getLogger('bot')
+
+#--------------------------------------------------
+import requests
+
+REPLY_ENDPOINT = 'https://api.line.me/v2/bot/message/reply'
 CHANNEL_ACCESS_TOKEN = os.environ["CHANNEL_ACCESS_TOKEN"]
 CHANNEL_SECRET = os.environ["CHANNEL_SECRET"]
+
+LINE_APP_URL = os.environ["LINE_APP_URL"]
 
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler      = WebhookHandler(CHANNEL_SECRET)
 
+HEADER = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + CHANNEL_ACCESS_TOKEN
+}
+
 #--------------------------------------------------
-import logging
-logger = logging.getLogger('bot')
+def reply_text(reply_token, text):
+
+    # see also: https://qiita.com/q_masa/items/c9db3e8396fb62cc64ed
+    if reply_token == "00000000000000000000000000000000":
+        return
+
+    payload = {
+          "replyToken":reply_token,
+          "messages":[
+                {
+                    "type":"text",
+                    "text": text
+                }
+            ]
+    }
+
+    requests.post(REPLY_ENDPOINT, headers=HEADER, data=json.dumps(payload)) # LINEにデータを送信
 
 #--------------------------------------------------
 @csrf_exempt
@@ -39,15 +68,16 @@ def callback(request):
         body = request.body.decode('utf-8')
         logger.debug("Request body: " + body)
 
-        """
         body_json = json.loads(body)
         events = body_json['events']
         for event in events:
-            message     = event['message']
+            message = event['message']
+            #text    = message["text"]
             reply_token = event['replyToken']
-        """
 
-        handler.handle(body, signature)
+            reply_text(reply_token, LINE_APP_URL)
+
+        #handler.handle(body, signature)
 
     except InvalidSignatureError:
         logger.error("Invalid signature. Please check your channel access token/channel secret.")
@@ -72,8 +102,10 @@ def handle_text_message(event):
     # see also: https://qiita.com/q_masa/items/c9db3e8396fb62cc64ed
     if event.reply_token == "00000000000000000000000000000000":
         return
+    #text = event.message.text
+    text = LINE_APP_URL
 
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text)
+        TextSendMessage(text=text)
     )
