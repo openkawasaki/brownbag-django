@@ -62,7 +62,6 @@ def callback(request):
 
     try:
         # get X-Line-Signature header value
-        # signature = request.META['HTTP_X_LINE_SIGNATURE']
         signature = request.headers['X-Line-Signature']
 
         body = request.body.decode('utf-8')
@@ -72,10 +71,30 @@ def callback(request):
         events = body_json['events']
         for event in events:
             message = event['message']
-            #text    = message["text"]
             reply_token = event['replyToken']
 
-            reply_text(reply_token, LINE_APP_URL)
+            if message["type"] == "image":
+                id = message["id"]
+                text = "画像データ：ID={}".format(id)
+
+            elif message["type"] == "location":
+                id = message["id"]
+                #address   = message["address"]
+                latitude  = message["latitude"]
+                longitude = message["longitude"]
+                text = "位置情報データ：ID={}: 緯度={}: 経度={}".format(id, latitude, longitude)
+
+            elif message["type"] == "text":
+                id = message["id"]
+                textdata =  message["text"]
+                text = "テキストデータ：ID={}: text={}".format(id, textdata)
+
+            else:
+                id = message["id"]
+                text = "受信しました：ID={}:".format(id)
+
+            send_text = "チャット機能は、現在開発中です。もう少しお待ちください。\n\n開発用ログ：\n" + text
+            reply_text(reply_token, send_text)
 
         #handler.handle(body, signature)
 
