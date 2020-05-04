@@ -14,7 +14,7 @@ from linebot.models import (
 """
 import os, json
 
-from .Dialogflow.detect_intent_texts import post_intent_texts
+from .dialogflow.detect_intent_texts import post_intent_texts
 import uuid
 
 #--------------------------------------------------
