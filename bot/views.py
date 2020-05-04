@@ -4,12 +4,18 @@ from django.views.decorators.csrf import csrf_exempt
 
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
+
+"""
 from linebot.models import (
     MessageEvent,
     TextMessage,
     TextSendMessage,
 )
+"""
 import os, json
+
+from .Dialogflow.detect_intent_texts import post_intent_texts
+import uuid
 
 #--------------------------------------------------
 import logging
@@ -62,7 +68,7 @@ def callback(request):
 
     try:
         # get X-Line-Signature header value
-        signature = request.headers['X-Line-Signature']
+        #signature = request.headers['X-Line-Signature']
 
         body = request.body.decode('utf-8')
         logger.debug("Request body: " + body)
@@ -76,6 +82,7 @@ def callback(request):
             if message["type"] == "image":
                 id = message["id"]
                 text = "画像データ：ID={}".format(id)
+                send_text = "現在開発中です。もう少しお待ちください。\n\n開発用ログ：\n" + text
 
             elif message["type"] == "location":
                 id = message["id"]
@@ -83,17 +90,28 @@ def callback(request):
                 latitude  = message["latitude"]
                 longitude = message["longitude"]
                 text = "位置情報データ：ID={}: 緯度={}: 経度={}".format(id, latitude, longitude)
+                send_text = "現在開発中です。もう少しお待ちください。\n\n開発用ログ：\n" + text
 
             elif message["type"] == "text":
-                id = message["id"]
+                #id = message["id"]
                 textdata =  message["text"]
-                text = "テキストデータ：ID={}: text={}".format(id, textdata)
+                texts    = [ textdata ]
+
+                project_id    = os.environ.get('DIALOGFLOW_PROJECT_ID', None)
+                language_code = "ja-JP"
+                session_id    = str(uuid.uuid4())
+
+                try:
+                    results   = post_intent_texts(project_id, session_id, texts, language_code)
+                    send_text = results[0]["fulfillment"]
+                except:
+                    send_text = "わかりませんでした。"
 
             else:
                 id = message["id"]
                 text = "受信しました：ID={}:".format(id)
+                send_text = "現在開発中です。もう少しお待ちください。\n\n開発用ログ：\n" + text
 
-            send_text = "チャット機能は、現在開発中です。もう少しお待ちください。\n\n開発用ログ：\n" + text
             reply_text(reply_token, send_text)
 
         #handler.handle(body, signature)
@@ -109,6 +127,7 @@ def callback(request):
     return HttpResponse('OK', status=200)
 
 #--------------------------------------------------
+"""
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     '''
@@ -128,3 +147,4 @@ def handle_text_message(event):
         event.reply_token,
         TextSendMessage(text=text)
     )
+"""
