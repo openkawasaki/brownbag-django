@@ -2,10 +2,12 @@ asgiref==3.2.7
 awscli==1.18.39
 boto3==1.12.39
 botocore==1.15.39
+cachetools==4.1.0
 certifi==2020.4.5.1
 chardet==3.0.4
 colorama==0.4.3
 defusedxml==0.6.0
+dialogflow==0.8.0
 diff-match-patch==20181111
 dj-database-url==0.5.0
 Django==3.0.5
@@ -25,6 +27,10 @@ djangorestframework==3.11.0
 docutils==0.15.2
 et-xmlfile==1.0.1
 future==0.18.2
+google-api-core==1.17.0
+google-auth==1.14.1
+googleapis-common-protos==1.51.0
+grpcio==1.28.1
 gunicorn==20.0.4
 idna==2.9
 jdcal==1.4.1
@@ -35,8 +41,10 @@ odfpy==1.4.1
 openpyxl==3.0.3
 pilkit==2.0
 Pillow==7.1.1
+protobuf==3.11.3
 psycopg2-binary==2.8.5
 pyasn1==0.4.8
+pyasn1-modules==0.2.8
 python-dateutil==2.8.1
 pytz==2019.3
 PyYAML==5.3.1

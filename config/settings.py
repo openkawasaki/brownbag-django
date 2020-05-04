@@ -142,6 +142,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Google Analytics
 GOOGLE_ANALYTICS_KEY = os.environ.get('GOOGLE_ANALYTICS_KEY', False)
 
+# for Dialogflow
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS', None)
+DIALOGFLOW_PROJECT_ID = os.environ.get('DIALOGFLOW_PROJECT_ID', None)
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 

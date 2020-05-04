@@ -149,3 +149,5 @@ media/
 node_modules/
 package-lock.json
 memo/
+
+private_key.json
