@@ -13,8 +13,8 @@ ons.ready(function() {
 
 //--------------------
 var g_shop_list = null;
-var g_index_array = null;
 
+/*
 function shuffle(length) {
     var xx = Array(length);
     for (var kk=0; kk<length; kk++) {
@@ -29,19 +29,13 @@ function shuffle(length) {
     }
     return xx;
 }
-function getIndexArray() {
-    return g_index_array;
-}
+*/
 
 function getShopItem(index) {
     if (g_shop_list == null) {
         return null;
     } else if (index < 0 || g_shop_list.length <= index) {
         return null;
-    }
-    if (g_index_array != null) {
-        var ii = g_index_array[index];
-        return g_shop_list[ii];
     } else {
         return g_shop_list[index];
     }
@@ -72,7 +66,6 @@ function readShopList(done) {
 function readShopListDone(data) {
     //console.log("readShopListDone()");
     g_shop_list = data["shop"];
-    g_index_array = shuffle(g_shop_list.length);
     home_show();
 }
 
