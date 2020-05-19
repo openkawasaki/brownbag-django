@@ -39,7 +39,7 @@ function getItem(index) {
     if (!isEmpty(item["src"])) {
         imageurl = item["src"];
     } else {
-        imageurl = "/static/brownbags/images/noimage.png";
+        imageurl = "/static/brownbags/images/noimage_small.png";
     }
 
     var data = {

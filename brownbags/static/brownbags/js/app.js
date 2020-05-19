@@ -13,13 +13,38 @@ ons.ready(function() {
 
 //--------------------
 var g_shop_list = null;
+var g_index_array = null;
+
+function shuffle(length) {
+    var xx = Array(length);
+    for (var kk=0; kk<length; kk++) {
+        xx[kk] = kk
+    }
+    var ii = length;
+    while (ii) {
+        var jj = Math.floor(Math.random() * ii);
+        var tt = xx[--ii];
+        xx[ii] = xx[jj];
+        xx[jj] = tt;
+    }
+    return xx;
+}
+function getIndexArray() {
+    return g_index_array;
+}
+
 function getShopItem(index) {
     if (g_shop_list == null) {
         return null;
-    } else if (index　<　0 ||　g_shop_list.length <= index) {
+    } else if (index < 0 || g_shop_list.length <= index) {
         return null;
     }
-    return g_shop_list[index];
+    if (g_index_array != null) {
+        var ii = g_index_array[index];
+        return g_shop_list[ii];
+    } else {
+        return g_shop_list[index];
+    }
 }
 function getShopItems() {
     return g_shop_list;
@@ -47,6 +72,7 @@ function readShopList(done) {
 function readShopListDone(data) {
     //console.log("readShopListDone()");
     g_shop_list = data["shop"];
+    g_index_array = shuffle(g_shop_list.length);
     home_show();
 }
 

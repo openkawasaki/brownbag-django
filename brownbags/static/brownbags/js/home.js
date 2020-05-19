@@ -5,11 +5,12 @@ function home_init() {
 
 function home_show() {
     home_hide();
-
     var grid_list = getItemList();
     if (grid_list !== null) {
+        var index_array = getIndexArray();
         for (var ii=0; ii<grid_list.length; ii++) {
-            var item = grid_list[ii];
+            var index = index_array[ii];
+            var item = grid_list[index];
             var name = item["name"];
 
             var shop_id      = item["shop_id"];
