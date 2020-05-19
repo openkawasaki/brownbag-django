@@ -8,6 +8,7 @@ from django.http import JsonResponse
 import logging
 logger = logging.getLogger('api')
 import traceback
+import random
 
 import os
 
@@ -227,6 +228,8 @@ def shop_get_list(area_sel=None, genre_sel=None, category_sel=None, group_sel=No
 
             shop_list.append(data)
 
+        # お店のリストをランダムにシャッフルする
+        random.shuffle(shop_list)
         return shop_list
 
     except Exception as e:
