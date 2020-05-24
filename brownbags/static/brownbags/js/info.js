@@ -127,11 +127,7 @@ function info_show_done(data) {
     if (!isEmpty(item["note"]))
         $('#shop_note').html(conv_br(item["note"]));
 
-    // マップ
-    var lat = item["latitude"];
-    var lon = item["longitude"];
-
-    map_info_show(lat, lon, name);
+    map_info_show(item);
 }
 
 function conv_br(str) {
