@@ -1,0 +1,31 @@
+{% load static %}
+{% load i18n %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+        <title>お店にチェックイン</title>
+    </head>
+    <body>
+        <div id="app" line_app_liffId="{{line_app_liffId}}" >
+            {% comment %}
+            <button @click=logout>ログアウトする</button>
+            {% endcomment %}
+            <button @click=QR>QRスキャン</button>
+
+            <h1>{{displayName}}</h1>
+            <p>{{userId}}</p>
+            <p>{{statusMessage}}</p>
+            <img :src=pictureUrl alt="profile" width="200px" />
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+        <script type="text/javascript" src="{% static 'app/js/app.js' %}"></script>
+    </body>
+</html>
+

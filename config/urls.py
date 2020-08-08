@@ -48,6 +48,7 @@ urlpatterns = [
     path('', include('brownbags.urls'), name='brownbags'),
 
     path('callback/', include('bot.urls')),
+    path('app/', include('app.urls')),
 ]
 
 if settings.DEBUG:
