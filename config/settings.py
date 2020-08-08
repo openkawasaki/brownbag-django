@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'brownbags.apps.BrownbagsConfig',
     'accounts.apps.AccountsConfig',
     'bot.apps.BotConfig',
+    'app.apps.AppConfig',
     'gunicorn',
     'corsheaders',
     'rest_framework',
