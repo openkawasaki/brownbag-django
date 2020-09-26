@@ -65,7 +65,7 @@ pyOpenSSL==17.5.0
 pyRFC3339==1.0
 python-dateutil==2.8.1
 pytz==2019.3
-pyxdg==0.25
+pyxdg==0.26
 PyYAML==5.3.1
 rcssmin==1.0.6
 requests==2.23.0
