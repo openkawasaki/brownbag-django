@@ -45,8 +45,7 @@ Compiles and hot-reloads for development
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />飲食店情報データは <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">クリエイティブ・コモンズ 表示 4.0 国際 ライセンス</a>の下に提供されています。
 
-* 飲食店情報 データ
- - https://github.com/openkawasaki/brownbag-django/blob/master/data/
+- https://github.com/openkawasaki/brownbag-django/blob/master/data/
 
 
 
